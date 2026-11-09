@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEGIÓN DE DIAMANTES - Top Up Free Fire</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00f2fe;
+      --secondary: #4facfe;
+      --accent: #ff0055;
+      --bg: #090a0f;
+      --card-bg: #12151e;
+      --text: #ffffff;
+      --text-gray: #a0a5b5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding-bottom: 50px; }
+    header {
+      background: linear-gradient(135deg, #090a0f 0%, #1a1f2c 100%);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid var(--primary);
+    }
+    h1 { font-family: 'Orbitron', sans-serif; color: var(--primary); font-size: 24px; text-transform: uppercase; letter-spacing: 2px; }
+    .container { max-width: 600px; margin: 0 auto; padding: 15px; }
+    .card { background: var(--card-bg); border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid #1e2433; }
+    h2 { font-family: 'Orbitron', sans-serif; font-size: 16px; margin-bottom: 12px; color: var(--secondary); display: flex; align-items: center; gap: 8px; }
+    input, select {
+      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #2a3245; background: #0c0e14; color: #fff; font-size: 14px; margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .option-btn {
+      background: #181c28; border: 1px solid #2a3245; border-radius: 8px; padding: 12px; text-align: center; cursor: pointer; transition: 0.2s;
+    }
+    .option-btn.active { border-color: var(--primary); background: rgba(0, 242, 254, 0.1); }
+    .option-btn .title { font-weight: bold; font-size: 14px; display: block; }
+    .option-btn .price { color: var(--primary); font-size: 12px; font-weight: bold; }
+    .btn-main {
+      width: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border: none; padding: 15px; border-radius: 8px; color: #000; font-weight: bold; font-family: 'Orbitron', sans-serif; font-size: 16px; cursor: pointer; text-transform: uppercase; margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>DIAMONS LEGION</h1>
+    <p style="font-size: 12px; color: var(--text-gray);">Recargas Oficiales Free Fire</p>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2><i class="fa-solid fa-user"></i> ID de Jugador</h2>
+      <input type="number" id="playerId" placeholder="Ingresa tu ID de Free Fire aquí...">
+    </div>
+
+    <div class="card">
+      <h2><i class="fa-solid fa-gem"></i> Selecciona Paquete</h2>
+      <div class="grid">
+        <div class="option-btn" onclick="selectItem(this, '100 Diamantes', '$1.00')">
+          <span class="title">💎 100 Diamantes</span>
+          <span class="price">$1.00 USD</span>
+        </div>
+        <div class="option-btn" onclick="selectItem(this, '310 Diamantes', '$3.00')">
+          <span class="title">💎 310 Diamantes</span>
+          <span class="price">$3.00 USD</span>
+        </div>
+        <div class="option-btn" onclick="selectItem(this, '520 Diamantes', '$5.00')">
+          <span class="title">💎 520 Diamantes</span>
+          <span class="price">$5.00 USD</span>
+        </div>
+        <div class="option-btn" onclick="selectItem(this, 'Pase Semanal', '$2.50')">
+          <span class="title">🎟️ Pase Semanal</span>
+          <span class="price">$2.50 USD</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-main" onclick="sendOrder()">Confirmar Pedido por WhatsApp</button>
+  </div>
+
+  <script>
+    let selectedPackage = '';
+    let selectedPrice = '';
+
+    function selectItem(element, name, price) {
+      document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
+      element.classList.add('active');
+      selectedPackage = name;
+      selectedPrice = price;
+    }
+
+    function sendOrder() {
+      const id = document.getElementById('playerId').value;
+      if (!id) {
+        alert('Por favor ingresa tu ID de jugador.');
+        return;
+      }
+      if (!selectedPackage) {
+        alert('Por favor selecciona un paquete de diamantes.');
+        return;
+      }
+
+      const phone = "5210000000000"; // Reemplaza con tu número de WhatsApp
+      const text = `¡Hola! Quiero hacer un pedido en DIAMONS LEGION:%0A- ID: ${id}%0A- Paquete: ${selectedPackage}%0A- Total: ${selectedPrice}`;
+      window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+    }
+  </script>
+</body>
+</html>
