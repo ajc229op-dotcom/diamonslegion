@@ -119,7 +119,6 @@
             box-shadow: var(--neon-glow);
         }
 
-        /* BANNER CON LA IMAGEN DE LA CAJA DE DIAMANTES Y FREE FIRE */
         .store-banner-img {
             width: 100%; height: 160px; border-radius: 20px; margin-bottom: 1.2rem;
             background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop');
@@ -132,8 +131,7 @@
             background: linear-gradient(180deg, rgba(6,9,19,0.2) 0%, rgba(6,9,19,0.8) 100%);
         }
         .store-banner-text {
-            position: absolute; bottom: 12px; left: 16px; right: 16px; z-index: 2;
-            text-align: left;
+            position: absolute; bottom: 12px; left: 16px; right: 16px; z-index: 2; text-align: left;
         }
         .store-banner-text h3 {
             font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: #fff;
@@ -150,9 +148,7 @@
         }
         .diamond-card:hover, .diamond-card.selected { border-color: var(--primary-neon); background: #112240; box-shadow: var(--neon-glow); }
         
-        .diamond-card-content {
-            display: flex; align-items: center; gap: 8px; width: 100%; justify-content: center;
-        }
+        .diamond-card-content { display: flex; align-items: center; gap: 8px; width: 100%; justify-content: center; }
         .diamond-text-group { text-align: left; }
         .diamond-text-group h4 { font-size: 0.85rem; font-weight: 900; color: var(--text-main); font-family: 'Orbitron', sans-serif; }
         .diamond-text-group p { font-size: 0.65rem; color: var(--text-muted); }
@@ -212,6 +208,10 @@
             display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem;
             border: 1px solid var(--border-color);
         }
+        .user-data-card {
+            background: #060913; border-radius: 10px; padding: 0.75rem; margin-top: 6px;
+            border: 1px solid var(--border-color); font-size: 0.75rem; color: #fff;
+        }
 
         .app-bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card);
@@ -246,7 +246,7 @@
 
             <form id="form-login" onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label>Usuario (Usa "admin" para el panel de control)</label>
+                    <label>Usuario o Correo</label>
                     <input type="text" id="login-user" class="form-control" placeholder="Introduce tu usuario" required>
                 </div>
                 <div class="form-group">
@@ -263,11 +263,11 @@
                 </div>
                 <div class="form-group">
                     <label>Correo Electrónico</label>
-                    <input type="text" id="reg-email" class="form-control" placeholder="correo@dominio.com" required>
+                    <input type="email" id="reg-email" class="form-control" placeholder="correo@dominio.com" required>
                 </div>
                 <div class="form-group">
-                    <label>Contraseña</label>
-                    <input type="password" id="reg-pass" class="form-control" placeholder="••••••••" required>
+                    <label>Contraseña (Más de 6 dígitos)</label>
+                    <input type="password" id="reg-pass" class="form-control" placeholder="Mínimo 7 caracteres" required>
                 </div>
                 <button type="submit" class="btn-main">REGISTRARSE</button>
             </form>
@@ -285,12 +285,12 @@
                     <svg width="14" height="14" viewBox="0 0 32 32"><path d="M17.5 14.5v-3.2h4.5V8.5h-4.5V5.8h-3v2.7H10v2.8h4.5v3.2c-3.1.2-5.7 1-5.7 2 0 1.1 2.8 1.9 6.2 2v4.7h3v-4.7c3.4-.1 6.2-.9 6.2-2 0-1-2.6-1.8-5.7-2zm-1.5 3.8c-2.8 0-5.1-.6-5.1-1.4 0-.8 2.3-1.4 5.1-1.4s5.1.6 5.1 1.4c0 .8-2.3 1.4-5.1 1.4z" fill="#26A17B"/></svg>
                     <span id="usdt-balance-display">0.00</span> USDT
                 </div>
-                <div class="wallet-pill-top" onclick="switchMainTab('orders')"><i class="fa-solid fa-receipt"></i></div>
+                <div class="wallet-pill-top" onclick="logoutUser()"><i class="fa-solid fa-right-from-bracket"></i> Salir</div>
             </div>
         </nav>
 
         <div class="container">
-            <!-- VISTA INICIO CON BANNER PROFESIONAL -->
+            <!-- VISTA INICIO -->
             <div id="sec-home" class="vista-sec">
                 <div class="store-banner-img">
                     <div class="store-banner-text">
@@ -309,7 +309,7 @@
                 </div>
             </div>
 
-            <!-- VISTA WALLET / BILLETERA -->
+            <!-- VISTA WALLET -->
             <div id="sec-wallet" class="vista-sec hidden">
                 <div class="section-title">MÉTODOS DE BILLETERA</div>
                 <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem;">Selecciona tu método de recarga o gestión de fondos.</p>
@@ -350,7 +350,7 @@
                 </div>
             </div>
 
-            <!-- VISTA DETALLE DEPÓSITO USDT -->
+            <!-- VISTA DEPÓSITO USDT -->
             <div id="sec-usdt-detail" class="vista-sec hidden">
                 <button onclick="switchMainTab('wallet')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-arrow-left"></i> Volver a Billeteras
@@ -478,16 +478,19 @@
                 <button onclick="submitOrder()" class="btn-main">COMPLETAR RECARGA</button>
             </div>
 
-            <!-- VISTA PEDIDOS Y PANEL DE ADMIN (SOLO ADMIN) -->
+            <!-- VISTA PEDIDOS Y PANEL ADMIN EXCLUSIVO -->
             <div id="sec-orders" class="vista-sec hidden">
                 <div class="section-title">MIS DEPÓSITOS Y PEDIDOS</div>
                 <div id="orders-list-container"></div>
                 
                 <!-- PANEL ADMIN EXCLUSIVO -->
                 <div id="admin-panel-container" class="admin-panel-box hidden">
-                    <div class="section-title" style="margin-top:0; color:var(--primary-neon);">PANEL DE ADMINISTRADOR (EXCLUSIVO)</div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom: 10px;">Aprueba depósitos para sumar saldo, o aprueba compras de ofertas:</p>
+                    <div class="section-title" style="margin-top:0; color:var(--primary-neon);">PANEL DE ADMINISTRADOR (SOLO PARA TI)</div>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom: 10px;">Aprobación manual de depósitos y compras:</p>
                     <div id="admin-orders-list"></div>
+
+                    <div class="section-title" style="margin-top:1.5rem; color:var(--primary-neon);">DATOS PERSONALES DE USUARIOS REGISTRADOS</div>
+                    <div id="admin-users-list"></div>
                 </div>
             </div>
         </div>
@@ -505,6 +508,19 @@
         let selectedPrice = 0;
         let currentUser = null;
 
+        window.onload = function() {
+            // Verificar si hay una sesión guardada previamente
+            const savedUser = localStorage.getItem('dl_logged_user');
+            if(savedUser) {
+                currentUser = savedUser;
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                checkAdminRights();
+                updateUIBalance();
+                renderOrders();
+            }
+        };
+
         function showNotification(msg) {
             const toast = document.getElementById('notification-toast');
             toast.innerText = msg;
@@ -519,15 +535,93 @@
             document.getElementById('tab-btn-register').classList.toggle('active', tab === 'register');
         }
 
-        function getOrCreateUser(username) {
-            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
-            let user = users.find(u => u.username === username);
-            if (!user) {
-                user = { username: username, balance: 0.00 };
-                users.push(user);
-                localStorage.setItem('dl_users', JSON.stringify(users));
+        function checkAdminRights() {
+            if(currentUser && currentUser.toLowerCase() === 'admin') {
+                document.getElementById('admin-panel-container').classList.remove('hidden');
+            } else {
+                document.getElementById('admin-panel-container').classList.add('hidden');
             }
-            return user;
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('dl_logged_user');
+            currentUser = null;
+            document.getElementById('main-app').classList.add('hidden');
+            document.getElementById('auth-screen').classList.remove('hidden');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const userInput = document.getElementById('login-user').value.trim();
+            const passInput = document.getElementById('login-pass').value.trim();
+
+            if(!userInput || !passInput) return;
+
+            // Acceso exclusivo de administrador
+            if(userInput.toLowerCase() === 'admin') {
+                if(passInput === 'admin123') {
+                    currentUser = 'admin';
+                    localStorage.setItem('dl_logged_user', 'admin');
+                    document.getElementById('auth-screen').classList.add('hidden');
+                    document.getElementById('main-app').classList.remove('hidden');
+                    checkAdminRights();
+                    updateUIBalance();
+                    renderOrders();
+                    return;
+                } else {
+                    showNotification("Contraseña de administrador incorrecta.");
+                    return;
+                }
+            }
+
+            // Inicio de sesión usuarios normales
+            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
+            let user = users.find(u => (u.username === userInput || u.email === userInput) && u.password === passInput);
+
+            if(user) {
+                currentUser = user.username;
+                localStorage.setItem('dl_logged_user', currentUser);
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                checkAdminRights();
+                updateUIBalance();
+                renderOrders();
+            } else {
+                showNotification("Usuario o contraseña incorrectos.");
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const u = document.getElementById('reg-user').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const pass = document.getElementById('reg-pass').value.trim();
+
+            if(!u || !email || !pass) return;
+
+            if(pass.length <= 6) {
+                showNotification("La contraseña debe tener más de 6 dígitos.");
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
+            if(users.some(existing => existing.username === u)) {
+                showNotification("El nombre de usuario ya está registrado.");
+                return;
+            }
+
+            const newUser = { username: u, email: email, password: pass, balance: 0.00 };
+            users.push(newUser);
+            localStorage.setItem('dl_users', JSON.stringify(users));
+
+            currentUser = u;
+            localStorage.setItem('dl_logged_user', currentUser);
+            showNotification("¡Registro exitoso! Bienvenido a Diamons Legion.");
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+            checkAdminRights();
+            updateUIBalance();
+            renderOrders();
         }
 
         function getUserBalance(username) {
@@ -552,39 +646,6 @@
             if(!currentUser) return;
             let bal = getUserBalance(currentUser);
             document.getElementById('usdt-balance-display').innerText = bal.toFixed(2);
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const u = document.getElementById('login-user').value.trim();
-            if(!u) return;
-            currentUser = u;
-            getOrCreateUser(u);
-            document.getElementById('auth-screen').classList.add('hidden');
-            document.getElementById('main-app').classList.remove('hidden');
-            
-            if(currentUser.toLowerCase() === 'admin') {
-                document.getElementById('admin-panel-container').classList.remove('hidden');
-            } else {
-                document.getElementById('admin-panel-container').classList.add('hidden');
-            }
-
-            updateUIBalance();
-            renderOrders();
-        }
-
-        function handleRegister(e) {
-            e.preventDefault();
-            const u = document.getElementById('reg-user').value.trim();
-            if(!u) return;
-            currentUser = u;
-            getOrCreateUser(u);
-            showNotification("¡Registro exitoso! Bienvenido a Diamons Legion.");
-            document.getElementById('auth-screen').classList.add('hidden');
-            document.getElementById('main-app').classList.remove('hidden');
-            document.getElementById('admin-panel-container').classList.add('hidden');
-            updateUIBalance();
-            renderOrders();
         }
 
         function switchMainTab(sec) {
@@ -677,9 +738,11 @@
             const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
             const userContainer = document.getElementById('orders-list-container');
             const adminContainer = document.getElementById('admin-orders-list');
+            const usersAdminContainer = document.getElementById('admin-users-list');
 
             userContainer.innerHTML = '';
             adminContainer.innerHTML = '';
+            usersAdminContainer.innerHTML = '';
 
             const myOrders = orders.filter(o => o.user === currentUser);
 
@@ -703,6 +766,7 @@
                 });
             }
 
+            // Exclusivo para usuario "admin"
             if(currentUser && currentUser.toLowerCase() === 'admin') {
                 const pendingOrders = orders.filter(o => o.status === 'Proceso');
                 if(pendingOrders.length === 0) {
@@ -721,6 +785,22 @@
                                     <button onclick="updateOrderStatus(${o.id}, 'Aprobado')" style="background:#10b981; border:none; color:#fff; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Aprobar</button>
                                     <button onclick="updateOrderStatus(${o.id}, 'Rechazado')" style="background:#ef4444; border:none; color:#fff; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Rechazar</button>
                                 </div>
+                            </div>
+                        `;
+                    });
+                }
+
+                // Renderizar lista de datos personales de usuarios registrados
+                let allUsers = JSON.parse(localStorage.getItem('dl_users') || '[]');
+                if(allUsers.length === 0) {
+                    usersAdminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay otros usuarios registrados aún.</p>';
+                } else {
+                    allUsers.forEach(u => {
+                        usersAdminContainer.innerHTML += `
+                            <div class="user-data-card">
+                                <div><strong>Usuario:</strong> ${u.username}</div>
+                                <div style="color:var(--primary-neon)"><strong>Correo:</strong> ${u.email}</div>
+                                <div><strong>Saldo actual:</strong> $${u.balance.toFixed(2)} USDT</div>
                             </div>
                         `;
                     });
