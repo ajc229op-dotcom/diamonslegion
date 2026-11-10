@@ -38,7 +38,6 @@
             flex-direction: column;
         }
 
-        /* NOTIFICACIÓN TOAST NEÓN */
         #notification-toast {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-200px);
             background: #0f172a; color: var(--primary-neon); border: 1.5px solid var(--primary-neon);
@@ -48,7 +47,6 @@
         }
         #notification-toast.show { transform: translateX(-50%) translateY(0); }
 
-        /* AUTENTICACIÓN */
         .auth-wrapper {
             min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; width: 100%;
         }
@@ -91,7 +89,6 @@
         }
         .btn-main:hover { filter: brightness(1.15); transform: translateY(-2px); box-shadow: var(--neon-glow-strong); }
 
-        /* NAVBAR SUPERIOR */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 0.85rem 1.2rem; background-color: var(--bg-card);
@@ -112,7 +109,6 @@
 
         .section-title { font-size: 0.82rem; color: var(--text-muted); margin: 1rem 0 0.6rem 0; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
 
-        /* TARJETAS DE BILLETERA (WALLET) */
         .wallet-card-option {
             background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 18px;
             padding: 1.2rem; margin-bottom: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.3s;
@@ -133,7 +129,6 @@
             font-size: 0.68rem; font-weight: 800; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-top: 4px;
         }
 
-        /* DETALLE RECARGA USDT BEP20 */
         .wallet-box-detail {
             background: var(--bg-card); border: 1.5px solid var(--primary-neon); border-radius: 20px; padding: 1.4rem; margin-bottom: 1rem;
             box-shadow: var(--neon-glow);
@@ -144,7 +139,6 @@
             text-align: center; letter-spacing: 0.5px;
         }
 
-        /* GRID DE PAQUETES */
         .diamonds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1rem; }
         .diamond-card {
             background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 18px;
@@ -156,7 +150,6 @@
         .diamond-card h4 { font-size: 0.88rem; font-weight: 900; color: var(--text-main); }
         .diamond-price { color: var(--primary-neon); font-weight: 900; font-size: 0.95rem; margin-top: 6px; text-shadow: 0 0 6px rgba(0,240,255,0.4); }
 
-        /* COMPROBANTE / PEDIDO */
         .pro-order-receipt {
             background: linear-gradient(145deg, #131c2e, #0a1120);
             border: 1.5px solid var(--border-color); border-radius: 18px; padding: 1.2rem; margin-bottom: 1rem;
@@ -167,7 +160,6 @@
         .receipt-row span:first-child { color: var(--text-muted); }
         .receipt-row span:last-child { font-weight: 700; color: #fff; }
 
-        /* PANEL ADMIN */
         .admin-panel-box {
             background: var(--bg-card); color: #fff; border-radius: 20px; padding: 1.4rem; margin-top: 1.5rem;
             border: 2px dashed var(--primary-neon); box-shadow: var(--neon-glow);
@@ -178,7 +170,6 @@
             border: 1px solid var(--border-color);
         }
 
-        /* NAVEGACIÓN INFERIOR NEÓN */
         .app-bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card);
             border-top: 1.5px solid var(--border-color); display: flex; justify-content: space-around;
@@ -199,7 +190,6 @@
 
     <div id="notification-toast">Notificación</div>
 
-    <!-- PANTALLA AUTENTICACIÓN -->
     <div class="auth-wrapper" id="auth-screen">
         <div class="auth-container">
             <div class="brand-header">
@@ -241,7 +231,6 @@
         </div>
     </div>
 
-    <!-- APLICACIÓN PRINCIPAL -->
     <div id="main-app" class="hidden" style="flex:1; display:flex; flex-direction:column;">
         <nav class="navbar">
             <div class="nav-brand-title">
@@ -250,12 +239,10 @@
             </div>
             <div class="nav-wallet-pills">
                 <div class="wallet-pill-top" onclick="switchMainTab('wallet')"><i class="fa-solid fa-coins"></i> <span id="usdt-balance-display">0.00</span> USDT</div>
-                <div class="wallet-pill-top" onclick="switchMainTab('wallet')"><i class="fa-solid fa-wallet"></i> <span id="saldo-balance-display">$0.00</span></div>
             </div>
         </nav>
 
         <div class="container">
-            <!-- VISTA INICIO -->
             <div id="sec-home" class="vista-sec">
                 <div style="width: 100%; height: 170px; border-radius: 20px; margin-bottom: 1.2rem; background: linear-gradient(135deg, #0f172a, #132247); display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--primary-neon); box-shadow: var(--neon-glow);">
                     <h2 style="font-family:'Orbitron', sans-serif; font-size: 1.35rem; color:#fff; text-shadow: 0 0 12px rgba(0,240,255,0.6); text-align:center; padding:0 1rem;">DIAMONS LEGION STORE</h2>
@@ -271,12 +258,10 @@
                 </div>
             </div>
 
-            <!-- VISTA WALLET (BILLETERAS Y MÉTODOS) -->
             <div id="sec-wallet" class="vista-sec hidden">
                 <div class="section-title">MÉTODOS DE BILLETERA</div>
                 <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem;">Selecciona tu método de recarga o gestión de fondos.</p>
 
-                <!-- Opción USDT BEP 20 -->
                 <div class="wallet-card-option" onclick="openUsdtDeposit()">
                     <div class="wallet-card-left">
                         <div class="wallet-icon-box"><i class="fa-solid fa-coins"></i></div>
@@ -288,7 +273,6 @@
                     <i class="fa-solid fa-chevron-right" style="color: var(--primary-neon);"></i>
                 </div>
 
-                <!-- Opción Saldo Móvil -->
                 <div class="wallet-card-option" style="opacity: 0.85;">
                     <div class="wallet-card-left">
                         <div class="wallet-icon-box" style="color: #f59e0b; border-color: #f59e0b;"><i class="fa-solid fa-mobile-screen"></i></div>
@@ -300,7 +284,6 @@
                     </div>
                 </div>
 
-                <!-- Opción Pago con Tarjeta -->
                 <div class="wallet-card-option" style="opacity: 0.85;">
                     <div class="wallet-card-left">
                         <div class="wallet-icon-box" style="color: #f59e0b; border-color: #f59e0b;"><i class="fa-solid fa-credit-card"></i></div>
@@ -313,7 +296,6 @@
                 </div>
             </div>
 
-            <!-- VISTA DETALLE RECARGA USDT -->
             <div id="sec-usdt-detail" class="vista-sec hidden">
                 <button onclick="switchMainTab('wallet')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-arrow-left"></i> Volver a Billeteras
@@ -348,7 +330,6 @@
                 </div>
             </div>
 
-            <!-- VISTA RECARGAS FREE FIRE -->
             <div id="sec-recargas" class="vista-sec hidden">
                 <button onclick="switchMainTab('home')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-arrow-left"></i> Volver a Inicio
@@ -363,22 +344,22 @@
 
                 <div class="section-title">SELECCIONA TU PAQUETE</div>
                 <div class="diamonds-grid">
-                    <div class="diamond-card" onclick="selectPackage(this, '100 Diamantes', '$1.00')">
+                    <div class="diamond-card" onclick="selectPackage(this, '100 Diamantes', 1.00)">
                         <h4 style="font-family:'Orbitron',sans-serif;">100</h4>
                         <p style="font-size:0.7rem; color:var(--text-muted)">Diamantes</p>
                         <div class="diamond-price">$1.00</div>
                     </div>
-                    <div class="diamond-card" onclick="selectPackage(this, '310 Diamantes', '$3.00')">
+                    <div class="diamond-card" onclick="selectPackage(this, '310 Diamantes', 3.00)">
                         <h4 style="font-family:'Orbitron',sans-serif;">310</h4>
                         <p style="font-size:0.7rem; color:var(--text-muted)">Diamantes</p>
                         <div class="diamond-price">$3.00</div>
                     </div>
-                    <div class="diamond-card" onclick="selectPackage(this, '520 Diamantes', '$5.00')">
+                    <div class="diamond-card" onclick="selectPackage(this, '520 Diamantes', 5.00)">
                         <h4 style="font-family:'Orbitron',sans-serif;">520</h4>
                         <p style="font-size:0.7rem; color:var(--text-muted)">Diamantes</p>
                         <div class="diamond-price">$5.00</div>
                     </div>
-                    <div class="diamond-card" onclick="selectPackage(this, '1060 Diamantes', '$10.00')">
+                    <div class="diamond-card" onclick="selectPackage(this, '1060 Diamantes', 10.00)">
                         <h4 style="font-family:'Orbitron',sans-serif;">1060</h4>
                         <p style="font-size:0.7rem; color:var(--text-muted)">Diamantes</p>
                         <div class="diamond-price">$10.00</div>
@@ -388,14 +369,13 @@
                 <button onclick="submitOrder()" class="btn-main">ENVIAR PEDIDO DE RECARGA</button>
             </div>
 
-            <!-- VISTA PEDIDOS Y ADMIN -->
             <div id="sec-orders" class="vista-sec hidden">
                 <div class="section-title">MIS DEPÓSITOS Y PEDIDOS</div>
                 <div id="orders-list-container"></div>
                 
                 <div class="admin-panel-box">
                     <div class="section-title" style="margin-top:0; color:var(--primary-neon);">PANEL DE ADMINISTRACIÓN (APROBACIÓN MANUAL)</div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom: 10px;">Revisa y aprueba o rechaza los depósitos y solicitudes de usuarios:</p>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom: 10px;">Revisa y aprueba o rechaza los depósitos para acreditar saldo:</p>
                     <div id="admin-orders-list"></div>
                 </div>
             </div>
@@ -411,7 +391,7 @@
 
     <script>
         let selectedPkg = null;
-        let selectedPrice = null;
+        let selectedPrice = 0;
         let currentUser = null;
 
         function showNotification(msg) {
@@ -428,13 +408,47 @@
             document.getElementById('tab-btn-register').classList.toggle('active', tab === 'register');
         }
 
+        function getOrCreateUser(username) {
+            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
+            let user = users.find(u => u.username === username);
+            if (!user) {
+                user = { username: username, balance: 0.00 };
+                users.push(user);
+                localStorage.setItem('dl_users', JSON.stringify(users));
+            }
+            return user;
+        }
+
+        function updateUserBalance(username, amount) {
+            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
+            users = users.map(u => {
+                if(u.username === username) {
+                    u.balance += amount;
+                }
+                return u;
+            });
+            localStorage.setItem('dl_users', JSON.stringify(users));
+            updateUIBalance();
+        }
+
+        function updateUIBalance() {
+            if(!currentUser) return;
+            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
+            let user = users.find(u => u.username === currentUser);
+            if(user) {
+                document.getElementById('usdt-balance-display').innerText = user.balance.toFixed(2);
+            }
+        }
+
         function handleLogin(e) {
             e.preventDefault();
             const u = document.getElementById('login-user').value.trim();
             if(!u) return;
             currentUser = u;
+            getOrCreateUser(u);
             document.getElementById('auth-screen').classList.add('hidden');
             document.getElementById('main-app').classList.remove('hidden');
+            updateUIBalance();
             renderOrders();
         }
 
@@ -443,9 +457,11 @@
             const u = document.getElementById('reg-user').value.trim();
             if(!u) return;
             currentUser = u;
+            getOrCreateUser(u);
             showNotification("¡Registro exitoso! Bienvenido a Diamons Legion.");
             document.getElementById('auth-screen').classList.add('hidden');
             document.getElementById('main-app').classList.remove('hidden');
+            updateUIBalance();
             renderOrders();
         }
 
@@ -453,6 +469,7 @@
             document.querySelectorAll('.vista-sec').forEach(el => el.classList.add('hidden'));
             document.getElementById('sec-' + sec).classList.remove('hidden');
             if(sec === 'orders') renderOrders();
+            if(sec === 'wallet') updateUIBalance();
         }
 
         function openUsdtDeposit() {
@@ -463,7 +480,7 @@
         function copyWalletAddress() {
             const addr = document.getElementById('wallet-addr-text').innerText;
             navigator.clipboard.writeText(addr).then(() => {
-                showNotification("¡Dirección de Wallet copiada al portapapeles!");
+                showNotification("¡Dirección de Wallet copiada!");
             });
         }
 
@@ -475,11 +492,12 @@
         }
 
         function submitDeposit() {
-            const monto = document.getElementById('usdt-monto-input').value;
+            const montoStr = document.getElementById('usdt-monto-input').value;
             const hash = document.getElementById('usdt-hash-input').value;
+            const monto = parseFloat(montoStr);
 
-            if(!monto || !hash) {
-                showNotification("Por favor ingresa el monto y el Hash de la transferencia.");
+            if(!monto || isNaN(monto) || !hash) {
+                showNotification("Por favor ingresa un monto válido y el Hash.");
                 return;
             }
 
@@ -488,7 +506,8 @@
                 id: Date.now(),
                 user: currentUser || 'Usuario',
                 type: 'Depósito USDT',
-                detail: `${monto} USDT (Hash: ${hash.substring(0,10)}...)`,
+                amount: monto,
+                detail: `${monto.toFixed(2)} USDT (Hash: ${hash.substring(0,10)}...)`,
                 ref: hash,
                 status: 'Proceso'
             };
@@ -496,7 +515,7 @@
             orders.unshift(newDeposit);
             localStorage.setItem('dl_orders', JSON.stringify(orders));
             
-            showNotification("DEPOSITO EN PROCESO - espera confirmación");
+            showNotification("DEPOSITO EN PROCESO\nespera confirmación");
             switchMainTab('orders');
         }
 
@@ -513,7 +532,8 @@
                 id: Date.now(),
                 user: currentUser || 'Usuario',
                 type: 'Recarga Free Fire',
-                detail: `ID: ${id} - ${selectedPkg} (${selectedPrice})`,
+                amount: selectedPrice,
+                detail: `ID: ${id} - ${selectedPkg} ($${selectedPrice.toFixed(2)})`,
                 ref: 'ID: ' + id,
                 status: 'Proceso'
             };
@@ -521,7 +541,7 @@
             orders.unshift(newOrder);
             localStorage.setItem('dl_orders', JSON.stringify(orders));
             
-            showNotification("DEPOSITO EN PROCESO - espera confirmación");
+            showNotification("DEPOSITO EN PROCESO\nespera confirmación");
             switchMainTab('orders');
         }
 
@@ -561,6 +581,7 @@
                             <div>
                                 <div><strong>Usuario:</strong> ${o.user}</div>
                                 <div><strong>Tipo:</strong> ${o.type}</div>
+                                <div style="color:var(--primary-neon); font-weight:bold;">Monto: $${o.amount.toFixed(2)}</div>
                                 <div style="color:var(--text-muted)">${o.detail}</div>
                             </div>
                             <div style="display:flex; gap:6px; flex-direction:column;">
@@ -579,10 +600,20 @@
 
         function updateOrderStatus(orderId, newStatus) {
             let orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
-            orders = orders.map(o => o.id === orderId ? {...o, status: newStatus} : o);
-            localStorage.setItem('dl_orders', JSON.stringify(orders));
-            showNotification(`Solicitud marcada como: ${newStatus}`);
-            renderOrders();
+            let targetOrder = orders.find(o => o.id === orderId);
+
+            if(targetOrder && targetOrder.status === 'Proceso') {
+                targetOrder.status = newStatus;
+                
+                // Si se aprueba, se le acreditan los fondos automáticamente al usuario en su saldo
+                if(newStatus === 'Aprobado') {
+                    updateUserBalance(targetOrder.user, targetOrder.amount);
+                }
+
+                localStorage.setItem('dl_orders', JSON.stringify(orders));
+                showNotification(`Solicitud marcada como: ${newStatus}`);
+                renderOrders();
+            }
         }
     </script>
 </body>
