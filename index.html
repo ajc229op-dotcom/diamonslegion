@@ -35,7 +35,6 @@
             flex-direction: column;
         }
 
-        /* NOTIFICACIÓN TOAST */
         #notification-toast {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-200px);
             background: #1e293b; color: #ffffff; border: 1px solid var(--primary-blue);
@@ -45,7 +44,6 @@
         }
         #notification-toast.show { transform: translateX(-50%) translateY(0); }
 
-        /* AUTENTICACIÓN */
         .auth-wrapper {
             min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; width: 100%;
         }
@@ -86,7 +84,6 @@
         }
         .btn-main:hover { filter: brightness(1.05); transform: translateY(-1px); }
 
-        /* DASHBOARD PRINCIPAL */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 0.75rem 1rem; background-color: var(--bg-card);
@@ -105,7 +102,6 @@
 
         .section-title { font-size: 0.78rem; color: var(--text-muted); margin: 0.8rem 0 0.5rem 0; font-weight: 700; letter-spacing: 0.5px; }
 
-        /* RECARGA ID */
         .top-recharge-showcase {
             background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
             border: 2px solid var(--primary-blue); border-radius: 20px;
@@ -121,7 +117,6 @@
             50% { transform: translateY(-6px); }
         }
 
-        /* GRID DE PAQUETES */
         .diamonds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
         .diamond-card {
             background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 16px;
@@ -132,7 +127,6 @@
         .diamond-card h4 { font-size: 0.82rem; font-weight: 900; color: var(--text-main); }
         .diamond-price { color: var(--primary-blue); font-weight: 900; font-size: 0.9rem; margin-top: 4px; }
 
-        /* ESTILO COMPROBANTE / PEDIDO */
         .pro-order-receipt {
             background: linear-gradient(145deg, #162032, #0d1424);
             border: 1px solid #334155; border-radius: 18px; padding: 1.2rem; margin-bottom: 1rem;
@@ -143,7 +137,6 @@
         .receipt-row span:first-child { color: var(--text-muted); }
         .receipt-row span:last-child { font-weight: 700; color: #fff; }
 
-        /* PANEL ADMIN */
         .admin-panel-box {
             background: #1e293b; color: #fff; border-radius: 16px; padding: 1.2rem; margin-top: 1.5rem;
             border: 2px dashed #38bdf8;
@@ -153,7 +146,6 @@
             display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem;
         }
 
-        /* NAVEGACIÓN INFERIOR */
         .app-bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card);
             border-top: 1px solid var(--border-color); display: flex; justify-content: space-around;
@@ -174,7 +166,6 @@
 
     <div id="notification-toast">Notificación</div>
 
-    <!-- PANTALLA AUTENTICACIÓN -->
     <div class="auth-wrapper" id="auth-screen">
         <div class="auth-container">
             <div class="brand-header">
@@ -186,7 +177,6 @@
                 <button class="auth-tab" id="tab-btn-register" onclick="switchAuthTab('register')">Registrarse</button>
             </div>
 
-            <!-- LOGIN -->
             <form id="form-login" onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label>Usuario o Correo</label>
@@ -199,7 +189,6 @@
                 <button type="submit" class="btn-main">Entrar</button>
             </form>
 
-            <!-- REGISTRO -->
             <form id="form-register" class="hidden" onsubmit="handleRegister(event)">
                 <div class="form-group">
                     <label>Nombre de Usuario</label>
@@ -218,7 +207,6 @@
         </div>
     </div>
 
-    <!-- APLICACIÓN PRINCIPAL -->
     <div id="main-app" class="hidden" style="flex:1; display:flex; flex-direction:column;">
         <nav class="navbar">
             <div class="nav-brand-title">
@@ -231,7 +219,6 @@
         </nav>
 
         <div class="container">
-            <!-- VISTA INICIO -->
             <div id="sec-home" class="vista-sec">
                 <div style="width: 100%; height: 160px; border-radius: 18px; margin-bottom: 1rem; background: linear-gradient(135deg, #0284c7, #0f172a); display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary-blue);">
                     <h2 style="font-family:'Orbitron', sans-serif; font-size: 1.4rem; color:#fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">DIAMONS LEGION STORE</h2>
@@ -247,7 +234,6 @@
                 </div>
             </div>
 
-            <!-- VISTA RECARGAS -->
             <div id="sec-recargas" class="vista-sec hidden">
                 <button onclick="switchMainTab('home')" style="background: none; border: none; color: var(--primary-blue); font-weight: 800; font-size: 0.8rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-arrow-left"></i> Volver a Inicio
@@ -293,7 +279,6 @@
                 <button onclick="submitOrder()" class="btn-main">Enviar Pedido para Aprobación</button>
             </div>
 
-            <!-- VISTA PEDIDOS Y ADMIN -->
             <div id="sec-orders" class="vista-sec hidden">
                 <div class="section-title">MIS PEDIDOS Y ESTADOS</div>
                 <div id="orders-list-container"></div>
