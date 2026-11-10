@@ -139,6 +139,24 @@
             letter-spacing: 1px; text-transform: uppercase;
         }
 
+        /* TARJETA DE JUEGO CON LA NUEVA IMAGEN DE FREE FIRE MAX */
+        .game-banner-card {
+            width: 100%; height: 170px; border-radius: 18px; margin-bottom: 1.2rem;
+            background-image: url('1005121973.jpg');
+            background-size: cover; background-position: center;
+            border: 2px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; padding: 14px;
+            transition: all 0.3s;
+        }
+        .game-banner-card:hover { border-color: var(--primary-neon); box-shadow: var(--neon-glow); transform: translateY(-2px); }
+        .game-banner-card::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(6,9,19,0.1) 30%, rgba(6,9,19,0.85) 100%);
+        }
+        .game-banner-content { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; }
+        .game-banner-content h4 { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 900; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,0.9); }
+        .game-banner-btn { background: var(--primary-neon); color: #060913; font-size: 0.75rem; font-weight: 900; padding: 6px 12px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,240,255,0.5); }
+
         .diamonds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1.2rem; }
         .diamond-card {
             background: linear-gradient(145deg, #0d1527, #090e1a); border: 1.5px solid var(--border-color); border-radius: 18px;
@@ -201,7 +219,6 @@
             text-align: center; letter-spacing: 0.5px;
         }
 
-        /* DISEÑO DE COMPROBANTE ESTILO "PASE SEMANAL" (IMAGEN REFERENCIA) */
         .ticket-receipt-card {
             background: linear-gradient(145deg, #10192d, #090e1a);
             border: 1.5px solid var(--border-color); border-radius: 20px; padding: 1.2rem; margin-bottom: 1.2rem;
@@ -328,11 +345,15 @@
                 </div>
 
                 <div class="section-title">JUEGOS DISPONIBLES</div>
-                <div class="diamonds-grid" style="grid-template-columns: 1fr;">
-                    <div class="diamond-card" onclick="switchMainTab('recargas')" style="padding: 1.5rem; background: linear-gradient(135deg, #0d1527, #112240); align-items: center;">
-                        <svg width="55" height="55" viewBox="0 0 500 500" style="margin-bottom: 6px;"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#00f0ff"/></svg>
-                        <h4 style="font-size: 1.05rem; font-family:'Orbitron',sans-serif; text-align:center;">FREE FIRE - RECARGAS VÍA ID</h4>
-                        <div class="diamond-price-badge" style="margin-top: 6px;">Toca para seleccionar paquete <i class="fa-solid fa-chevron-right"></i></div>
+                
+                <!-- TARJETA DE RECARGA VÍA ID CON LA NUEVA IMAGEN -->
+                <div class="game-banner-card" onclick="switchMainTab('recargas')">
+                    <div class="game-banner-content">
+                        <div>
+                            <h4>FREE FIRE MAX</h4>
+                            <p style="font-size:0.7rem; color:var(--primary-neon); font-weight:800; margin-top:2px;">RECARGAS VÍA ID</p>
+                        </div>
+                        <div class="game-banner-btn">Seleccionar <i class="fa-solid fa-chevron-right"></i></div>
                     </div>
                 </div>
             </div>
@@ -420,7 +441,7 @@
                 </div>
             </div>
 
-            <!-- VISTA RECARGAS FREE FIRE (CON NUEVOS PRECIOS) -->
+            <!-- VISTA RECARGAS FREE FIRE -->
             <div id="sec-recargas" class="vista-sec hidden">
                 <button onclick="switchMainTab('home')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-arrow-left"></i> Volver a Inicio
