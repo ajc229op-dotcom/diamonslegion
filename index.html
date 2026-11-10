@@ -120,10 +120,9 @@
             box-shadow: var(--neon-glow);
         }
 
-        /* BANNER ESTILO LOGO */
         .store-banner-img {
             width: 100%; height: 180px; border-radius: 20px; margin-bottom: 1.2rem;
-            background-image: url('logo_banner.jpg');
+            background-image: url('watermarked_img_17790170251480550970.jpg');
             background-size: cover; background-position: center;
             border: 2px solid var(--primary-neon); box-shadow: var(--neon-glow-strong);
             position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 15px;
@@ -202,15 +201,31 @@
             text-align: center; letter-spacing: 0.5px;
         }
 
-        .pro-order-receipt {
-            background: linear-gradient(145deg, #131c2e, #0a1120);
-            border: 1.5px solid var(--border-color); border-radius: 18px; padding: 1.2rem; margin-bottom: 1rem;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        /* DISEÑO DE COMPROBANTE ESTILO "PASE SEMANAL" (IMAGEN REFERENCIA) */
+        .ticket-receipt-card {
+            background: linear-gradient(145deg, #10192d, #090e1a);
+            border: 1.5px solid var(--border-color); border-radius: 20px; padding: 1.2rem; margin-bottom: 1.2rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5); position: relative; overflow: hidden;
         }
-        .receipt-details-grid { font-size: 0.78rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #1b3a6b; padding-top: 0.8rem; }
-        .receipt-row { display: flex; justify-content: space-between; align-items: center; }
-        .receipt-row span:first-child { color: var(--text-muted); }
-        .receipt-row span:last-child { font-weight: 700; color: #fff; }
+        .ticket-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #1b3a6b; padding-bottom: 10px; }
+        .ticket-title-group h4 { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 900; color: #fff; text-shadow: 0 0 8px rgba(0,240,255,0.4); }
+        .ticket-title-group p { font-size: 0.68rem; color: var(--text-muted); }
+        
+        .ticket-status-badge { font-size: 0.7rem; font-weight: 800; padding: 3px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
+        .status-proceso { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .status-aprobado { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .status-rechazado { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
+
+        .ticket-steps-bar { display: flex; justify-content: space-between; align-items: center; background: #060913; border-radius: 14px; padding: 10px 15px; margin: 12px 0; border: 1px solid #1b3a6b; }
+        .ticket-step-item { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; }
+        .ticket-step-circle { width: 24px; height: 24px; border-radius: 50%; background: #131c2e; border: 1.5px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--text-muted); }
+        .ticket-step-item.active .ticket-step-circle { background: #10b981; border-color: #10b981; color: #fff; box-shadow: 0 0 10px rgba(16,185,129,0.5); }
+        .ticket-step-item.active { color: #10b981; }
+
+        .ticket-details-body { font-size: 0.78rem; display: flex; flex-direction: column; gap: 6px; padding-top: 6px; }
+        .ticket-row-line { display: flex; justify-content: space-between; align-items: center; }
+        .ticket-row-line span:first-child { color: var(--text-muted); font-weight: 600; }
+        .ticket-row-line span:last-child { color: #fff; font-weight: 800; }
 
         .admin-panel-box {
             background: var(--bg-card); color: #fff; border-radius: 20px; padding: 1.4rem; margin-top: 1.5rem;
@@ -396,11 +411,16 @@
                         <input type="text" id="usdt-hash-input" class="form-control" placeholder="Ej. 0x1234abcd...">
                     </div>
 
+                    <div class="form-group">
+                        <label>SUBIR COMPROBANTE DE PAGO (IMAGEN)</label>
+                        <input type="file" id="usdt-receipt-file" class="form-control" accept="image/*" style="padding: 0.5rem;">
+                    </div>
+
                     <button onclick="submitDeposit()" class="btn-main">CONFIRMAR DEPÓSITO</button>
                 </div>
             </div>
 
-            <!-- VISTA RECARGAS FREE FIRE -->
+            <!-- VISTA RECARGAS FREE FIRE (CON NUEVOS PRECIOS) -->
             <div id="sec-recargas" class="vista-sec hidden">
                 <button onclick="switchMainTab('home')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-arrow-left"></i> Volver a Inicio
@@ -448,31 +468,40 @@
                         <div class="diamond-price-badge">$4.99</div>
                     </div>
 
-                    <div class="diamond-card" onclick="selectPackage(this, '1060 + Bonus', 9.99)">
+                    <div class="diamond-card" onclick="selectPackage(this, '1060 + Bonus', 4.66)">
                         <div class="offer-tag">offertas</div>
                         <div class="diamond-card-content">
                             <h4>1060 💎</h4>
                             <p>+ Bonus</p>
                         </div>
-                        <div class="diamond-price-badge">$9.99</div>
+                        <div class="diamond-price-badge">$4.66</div>
                     </div>
 
-                    <div class="diamond-card" onclick="selectPackage(this, '2180 + Bonus', 19.99)">
+                    <div class="diamond-card" onclick="selectPackage(this, '2180 + Bonus', 8.38)">
                         <div class="offer-tag">offertas</div>
                         <div class="diamond-card-content">
                             <h4>2180 💎</h4>
                             <p>+ Bonus</p>
                         </div>
-                        <div class="diamond-price-badge">$19.99</div>
+                        <div class="diamond-price-badge">$8.38</div>
                     </div>
 
-                    <div class="diamond-card" onclick="selectPackage(this, '5600 + Bonus', 49.99)">
+                    <div class="diamond-card" onclick="selectPackage(this, '5600 + Bonus', 15.86)">
                         <div class="offer-tag">offertas</div>
                         <div class="diamond-card-content">
                             <h4>5600 💎</h4>
                             <p>+ Bonus</p>
                         </div>
-                        <div class="diamond-price-badge">$49.99</div>
+                        <div class="diamond-price-badge">$15.86</div>
+                    </div>
+
+                    <div class="diamond-card" onclick="selectPackage(this, 'Último Paquete Elite', 38.40)" style="grid-column: span 2;">
+                        <div class="offer-tag">offertas VIP</div>
+                        <div class="diamond-card-content">
+                            <h4>MEGA PACK EXCLUSIVO 💎</h4>
+                            <p>Máximo Bonus Free Fire</p>
+                        </div>
+                        <div class="diamond-price-badge">$38.40</div>
                     </div>
                 </div>
 
@@ -681,14 +710,19 @@
                 return;
             }
 
+            const now = new Date();
+            const fechaStr = now.toLocaleDateString() + ", " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
             const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
             const newDeposit = {
                 id: Date.now(),
                 user: currentUser || 'Usuario',
                 type: 'Depósito USDT',
+                playerId: 'N/A',
                 amount: monto,
                 action: 'CREDIT',
-                detail: `Depósito: ${monto.toFixed(2)} USDT (Hash: ${hash.substring(0,8)}...)`,
+                detail: `Hash: ${hash.substring(0,8)}...`,
+                date: fechaStr,
                 status: 'Proceso'
             };
 
@@ -700,9 +734,9 @@
         }
 
         function submitOrder() {
-            const id = document.getElementById('player-id-input').value;
+            const playerId = document.getElementById('player-id-input').value;
 
-            if(!id || !selectedPkg) {
+            if(!playerId || !selectedPkg) {
                 showNotification("Ingresa tu ID de jugador y selecciona un paquete.");
                 return;
             }
@@ -713,14 +747,19 @@
                 return;
             }
 
+            const now = new Date();
+            const fechaStr = now.toLocaleDateString() + ", " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
             const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
             const newOrder = {
                 id: Date.now(),
                 user: currentUser || 'Usuario',
-                type: 'Recarga Free Fire',
+                type: selectedPkg,
+                playerId: playerId,
                 amount: selectedPrice,
                 action: 'DEBIT',
-                detail: `ID: ${id} - ${selectedPkg} ($${selectedPrice.toFixed(2)} USDT)`,
+                detail: `Recarga Free Fire Vía ID`,
+                date: fechaStr,
                 status: 'Proceso'
             };
 
@@ -747,16 +786,59 @@
                 userContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">No tienes depósitos ni pedidos registrados.</p>';
             } else {
                 myOrders.forEach(o => {
-                    let statusColor = '#f59e0b';
-                    let statusText = 'EN PROCESO (Espera confirmación)';
-                    if(o.status === 'Aprobado') { statusColor = '#10b981'; statusText = 'APROBADO'; }
-                    if(o.status === 'Rechazado') { statusColor = '#ef4444'; statusText = 'RECHAZADO'; }
+                    let statusClass = 'status-proceso';
+                    let statusText = 'En proceso';
+                    let step1Active = 'active';
+                    let step2Active = '';
+                    let step3Active = '';
+
+                    if(o.status === 'Aprobado') {
+                        statusClass = 'status-aprobado';
+                        statusText = 'Entregado';
+                        step1Active = 'active';
+                        step2Active = 'active';
+                        step3Active = 'active';
+                    } else if(o.status === 'Rechazado') {
+                        statusClass = 'status-rechazado';
+                        statusText = 'Rechazado';
+                        step1Active = '';
+                        step2Active = '';
+                        step3Active = '';
+                    }
 
                     userContainer.innerHTML += `
-                        <div class="pro-order-receipt">
-                            <div class="receipt-row" style="margin-bottom:6px;"><strong>${o.type}</strong> <span style="color:var(--primary-neon)">${o.detail}</span></div>
-                            <div class="receipt-details-grid">
-                                <div class="receipt-row"><span>Estado:</span> <strong style="color:${statusColor}">${statusText}</strong></div>
+                        <div class="ticket-receipt-card">
+                            <div class="ticket-header-flex">
+                                <div class="ticket-title-group">
+                                    <h4>${o.type}</h4>
+                                    <p>${o.detail}</p>
+                                </div>
+                                <div class="ticket-status-badge ${statusClass}">
+                                    <i class="fa-solid fa-circle-check"></i> ${statusText}
+                                </div>
+                            </div>
+
+                            <div class="ticket-steps-bar">
+                                <div class="ticket-step-item ${step1Active}">
+                                    <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
+                                    Pagado
+                                </div>
+                                <div class="ticket-step-item ${step2Active}">
+                                    <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
+                                    Enviando
+                                </div>
+                                <div class="ticket-step-item ${step3Active}">
+                                    <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
+                                    Entregado
+                                </div>
+                            </div>
+
+                            <div class="ticket-details-body">
+                                <div class="ticket-row-line"><span>ID de jugador</span> <strong>${o.playerId}</strong></div>
+                                <div class="ticket-row-line"><span>Cuenta</span> <strong>${o.user}</strong></div>
+                                <div class="ticket-row-line"><span>Solicitud</span> <strong>#${String(o.id).slice(-4)}</strong></div>
+                                <div class="ticket-row-line"><span>Fecha</span> <strong>${o.date}</strong></div>
+                                <div class="ticket-row-line" style="border-top:1px solid #1b3a6b; margin-top:4px; padding-top:6px;"><span>Total</span> <strong style="color:var(--primary-neon); font-size:0.95rem;">$${o.amount.toFixed(2)}</strong></div>
                             </div>
                         </div>
                     `;
@@ -773,9 +855,9 @@
                             <div class="admin-req-card">
                                 <div>
                                     <div><strong>Usuario:</strong> ${o.user}</div>
-                                    <div><strong>Tipo:</strong> ${o.type}</div>
+                                    <div><strong>Paquete/Tipo:</strong> ${o.type}</div>
+                                    <div><strong>ID Jugador:</strong> ${o.playerId}</div>
                                     <div style="color:var(--primary-neon); font-weight:bold;">Monto: $${o.amount.toFixed(2)} USDT</div>
-                                    <div style="color:var(--text-muted)">${o.detail}</div>
                                 </div>
                                 <div style="display:flex; gap:6px; flex-direction:column;">
                                     <button onclick="updateOrderStatus(${o.id}, 'Aprobado')" style="background:#10b981; border:none; color:#fff; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Aprobar</button>
