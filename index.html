@@ -10,14 +10,17 @@
     
     <style>
         :root {
-            --bg-main: #0b0f19;
-            --bg-card: #131c2e;
+            --bg-main: #060913;
+            --bg-card: #0f172a;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --primary-blue: #0ea5e9;
-            --border-color: #1e293b;
+            --primary-neon: #00f0ff;
+            --secondary-neon: #38bdf8;
+            --border-color: #1e3a8a;
             --success-color: #10b981;
             --error-color: #ef4444;
+            --neon-glow: 0 0 15px rgba(0, 240, 255, 0.3);
+            --neon-glow-strong: 0 0 25px rgba(0, 240, 255, 0.6);
         }
 
         * {
@@ -35,129 +38,159 @@
             flex-direction: column;
         }
 
+        /* NOTIFICACIÓN TOAST NEÓN */
         #notification-toast {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-200px);
-            background: #1e293b; color: #ffffff; border: 1px solid var(--primary-blue);
-            padding: 0.8rem 1.4rem; border-radius: 12px; font-weight: 700; font-size: 0.82rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #0f172a; color: var(--primary-neon); border: 1.5px solid var(--primary-neon);
+            padding: 0.9rem 1.5rem; border-radius: 14px; font-weight: 800; font-size: 0.85rem;
+            box-shadow: var(--neon-glow-strong); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 999999; width: 90%; max-width: 380px; text-align: center;
         }
         #notification-toast.show { transform: translateX(-50%) translateY(0); }
 
+        /* AUTENTICACIÓN */
         .auth-wrapper {
             min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; width: 100%;
         }
         .auth-container {
             max-width: 390px; width: 100%; background: var(--bg-card);
-            border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem 1.6rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1.5px solid var(--primary-neon); border-radius: 24px; padding: 2.2rem 1.8rem;
+            box-shadow: var(--neon-glow-strong);
         }
-        .brand-header { text-align: center; margin-bottom: 20px; }
+        .brand-header { text-align: center; margin-bottom: 24px; }
         .brand-header h1 {
-            font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 900; color: var(--text-main); letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif; font-size: 26px; font-weight: 900; color: var(--text-main); letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0,240,255,0.5);
         }
-        .brand-header h1 span { color: var(--primary-blue); }
+        .brand-header h1 span { color: var(--primary-neon); }
 
         .auth-tabs {
-            display: flex; gap: 6px; margin-bottom: 20px; background: #0b0f19;
-            border-radius: 10px; padding: 4px; border: 1px solid var(--border-color);
+            display: flex; gap: 6px; margin-bottom: 20px; background: #060913;
+            border-radius: 12px; padding: 4px; border: 1px solid var(--border-color);
         }
         .auth-tab {
-            flex: 1; text-align: center; padding: 0.6rem; font-weight: bold;
-            font-size: 0.82rem; cursor: pointer; border-radius: 8px; color: var(--text-muted); background: transparent; border: none; transition: all 0.3s;
+            flex: 1; text-align: center; padding: 0.7rem; font-weight: bold;
+            font-size: 0.82rem; cursor: pointer; border-radius: 10px; color: var(--text-muted); background: transparent; border: none; transition: all 0.3s;
         }
-        .auth-tab.active { background: var(--primary-blue); color: #fff; }
+        .auth-tab.active { background: var(--primary-neon); color: #060913; box-shadow: var(--neon-glow); font-weight: 900; }
 
-        .form-group { margin-bottom: 1.1rem; position: relative; }
-        .form-group label { display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.3rem; font-weight: 600; }
+        .form-group { margin-bottom: 1.2rem; position: relative; }
+        .form-group label { display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 700; letter-spacing: 0.5px; }
         .form-control {
-            width: 100%; background: #0b0f19; border: 1px solid var(--border-color);
-            padding: 0.75rem 1rem; border-radius: 10px; color: var(--text-main);
-            font-size: 0.88rem; outline: none; transition: border-color 0.2s;
+            width: 100%; background: #060913; border: 1.5px solid var(--border-color);
+            padding: 0.8rem 1rem; border-radius: 12px; color: var(--text-main);
+            font-size: 0.9rem; outline: none; transition: all 0.3s;
         }
-        .form-control:focus { border-color: var(--primary-blue); }
+        .form-control:focus { border-color: var(--primary-neon); box-shadow: var(--neon-glow); }
 
         .btn-main {
-            width: 100%; background: var(--primary-blue); color: #fff; border: none;
-            padding: 0.8rem; border-radius: 10px; font-weight: 900; font-size: 0.9rem;
-            cursor: pointer; transition: filter 0.2s, transform 0.2s; margin-top: 0.8rem;
+            width: 100%; background: linear-gradient(135deg, #0ea5e9, #00f0ff); color: #060913; border: none;
+            padding: 0.9rem; border-radius: 12px; font-weight: 900; font-size: 0.95rem;
+            cursor: pointer; transition: all 0.3s; margin-top: 0.8rem; box-shadow: var(--neon-glow);
+            letter-spacing: 0.5px;
         }
-        .btn-main:hover { filter: brightness(1.05); transform: translateY(-1px); }
+        .btn-main:hover { filter: brightness(1.15); transform: translateY(-2px); box-shadow: var(--neon-glow-strong); }
 
+        /* NAVBAR SUPERIOR */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0.75rem 1rem; background-color: var(--bg-card);
-            border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100;
+            padding: 0.85rem 1.2rem; background-color: var(--bg-card);
+            border-bottom: 1.5px solid var(--border-color); position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-        .nav-brand-title { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 900; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
-        .nav-brand-title span { color: var(--primary-blue); }
+        .nav-brand-title { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 900; color: var(--text-main); display: flex; align-items: center; gap: 8px; text-shadow: 0 0 8px rgba(0,240,255,0.4); }
+        .nav-brand-title span { color: var(--primary-neon); }
 
-        .nav-wallet-pills { display: flex; gap: 6px; align-items: center; }
+        .nav-wallet-pills { display: flex; gap: 8px; align-items: center; }
         .wallet-pill-top {
-            background: #0b0f19; border: 1px solid var(--border-color); padding: 4px 10px;
-            border-radius: 16px; font-size: 0.72rem; color: var(--primary-blue); font-weight: 800; display: flex; align-items: center; gap: 4px; cursor: pointer;
+            background: #060913; border: 1px solid var(--border-color); padding: 5px 12px;
+            border-radius: 20px; font-size: 0.75rem; color: var(--primary-neon); font-weight: 800; display: flex; align-items: center; gap: 6px; cursor: pointer;
+            box-shadow: 0 0 8px rgba(0,240,255,0.2);
         }
 
-        .container { max-width: 500px; width: 100%; margin: 0 auto; padding: 1rem; flex: 1; display: flex; flex-direction: column; padding-bottom: 95px; }
+        .container { max-width: 500px; width: 100%; margin: 0 auto; padding: 1.2rem; flex: 1; display: flex; flex-direction: column; padding-bottom: 100px; }
 
-        .section-title { font-size: 0.78rem; color: var(--text-muted); margin: 0.8rem 0 0.5rem 0; font-weight: 700; letter-spacing: 0.5px; }
+        .section-title { font-size: 0.82rem; color: var(--text-muted); margin: 1rem 0 0.6rem 0; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
 
-        .top-recharge-showcase {
-            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-            border: 2px solid var(--primary-blue); border-radius: 20px;
-            padding: 1.2rem; text-align: center; margin-bottom: 1rem;
-            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.25);
+        /* TARJETAS DE BILLETERA (WALLET) */
+        .wallet-card-option {
+            background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 18px;
+            padding: 1.2rem; margin-bottom: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        .top-recharge-showcase img {
-            width: 100px; height: auto; filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.6));
-            margin-bottom: 8px; animation: floatDiamond 3s ease-in-out infinite;
+        .wallet-card-option:hover { border-color: var(--primary-neon); box-shadow: var(--neon-glow); transform: translateY(-2px); }
+        .wallet-card-left { display: flex; align-items: center; gap: 14px; }
+        .wallet-icon-box {
+            width: 45px; height: 45px; background: #060913; border: 1.5px solid var(--primary-neon);
+            border-radius: 14px; display: flex; align-items: center; justify-content: center; color: var(--primary-neon); font-size: 1.2rem;
+            box-shadow: var(--neon-glow);
         }
-        @keyframes floatDiamond {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
+        .wallet-info h4 { font-size: 0.95rem; font-weight: 900; color: var(--text-main); margin-bottom: 3px; }
+        .wallet-info p { font-size: 0.72rem; color: var(--text-muted); }
+        
+        .badge-proximamente {
+            background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4);
+            font-size: 0.68rem; font-weight: 800; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-top: 4px;
         }
 
-        .diamonds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+        /* DETALLE RECARGA USDT BEP20 */
+        .wallet-box-detail {
+            background: var(--bg-card); border: 1.5px solid var(--primary-neon); border-radius: 20px; padding: 1.4rem; margin-bottom: 1rem;
+            box-shadow: var(--neon-glow);
+        }
+        .wallet-address-box {
+            background: #060913; border: 1px solid var(--border-color); padding: 0.9rem; border-radius: 12px;
+            font-size: 0.75rem; word-break: break-all; color: var(--primary-neon); font-weight: bold; margin: 0.6rem 0 1rem 0;
+            text-align: center; letter-spacing: 0.5px;
+        }
+
+        /* GRID DE PAQUETES */
+        .diamonds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1rem; }
         .diamond-card {
-            background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 16px;
-            padding: 1rem 0.8rem; text-align: center; cursor: pointer; transition: all 0.2s;
+            background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 18px;
+            padding: 1.2rem 0.9rem; text-align: center; cursor: pointer; transition: all 0.3s;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        .diamond-card:hover, .diamond-card.selected { border-color: var(--primary-blue); background: #172554; }
-        .diamond-card h4 { font-size: 0.82rem; font-weight: 900; color: var(--text-main); }
-        .diamond-price { color: var(--primary-blue); font-weight: 900; font-size: 0.9rem; margin-top: 4px; }
+        .diamond-card:hover, .diamond-card.selected { border-color: var(--primary-neon); background: #132247; box-shadow: var(--neon-glow); }
+        .diamond-card h4 { font-size: 0.88rem; font-weight: 900; color: var(--text-main); }
+        .diamond-price { color: var(--primary-neon); font-weight: 900; font-size: 0.95rem; margin-top: 6px; text-shadow: 0 0 6px rgba(0,240,255,0.4); }
 
+        /* COMPROBANTE / PEDIDO */
         .pro-order-receipt {
-            background: linear-gradient(145deg, #162032, #0d1424);
-            border: 1px solid #334155; border-radius: 18px; padding: 1.2rem; margin-bottom: 1rem;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4); position: relative;
+            background: linear-gradient(145deg, #131c2e, #0a1120);
+            border: 1.5px solid var(--border-color); border-radius: 18px; padding: 1.2rem; margin-bottom: 1rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
-        .receipt-details-grid { font-size: 0.75rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #1e293b; padding-top: 0.8rem; }
+        .receipt-details-grid { font-size: 0.78rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #1e3a8a; padding-top: 0.8rem; }
         .receipt-row { display: flex; justify-content: space-between; align-items: center; }
         .receipt-row span:first-child { color: var(--text-muted); }
         .receipt-row span:last-child { font-weight: 700; color: #fff; }
 
+        /* PANEL ADMIN */
         .admin-panel-box {
-            background: #1e293b; color: #fff; border-radius: 16px; padding: 1.2rem; margin-top: 1.5rem;
-            border: 2px dashed #38bdf8;
+            background: var(--bg-card); color: #fff; border-radius: 20px; padding: 1.4rem; margin-top: 1.5rem;
+            border: 2px dashed var(--primary-neon); box-shadow: var(--neon-glow);
         }
         .admin-req-card {
-            background: #0f172a; border-radius: 10px; padding: 0.8rem; margin-top: 8px;
-            display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem;
+            background: #060913; border-radius: 12px; padding: 1rem; margin-top: 10px;
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem;
+            border: 1px solid var(--border-color);
         }
 
+        /* NAVEGACIÓN INFERIOR NEÓN */
         .app-bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card);
-            border-top: 1px solid var(--border-color); display: flex; justify-content: space-around;
-            padding: 10px 0; z-index: 1000;
+            border-top: 1.5px solid var(--border-color); display: flex; justify-content: space-around;
+            padding: 12px 0; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.6);
         }
         .nav-item-btn {
             background: transparent; border: none; color: var(--text-muted);
-            display: flex; flex-direction: column; align-items: center; gap: 3px;
-            font-size: 9px; text-transform: uppercase; font-weight: 700; cursor: pointer; flex: 1; transition: color 0.3s;
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            font-size: 10px; text-transform: uppercase; font-weight: 800; cursor: pointer; flex: 1; transition: all 0.3s;
         }
-        .nav-item-btn i { font-size: 16px; }
-        .nav-item-btn.active, .nav-item-btn:hover { color: var(--primary-blue); }
+        .nav-item-btn i { font-size: 18px; }
+        .nav-item-btn.active, .nav-item-btn:hover { color: var(--primary-neon); text-shadow: 0 0 10px rgba(0,240,255,0.6); }
 
         .hidden { display: none !important; }
     </style>
@@ -166,6 +199,7 @@
 
     <div id="notification-toast">Notificación</div>
 
+    <!-- PANTALLA AUTENTICACIÓN -->
     <div class="auth-wrapper" id="auth-screen">
         <div class="auth-container">
             <div class="brand-header">
@@ -186,7 +220,7 @@
                     <label>Contraseña</label>
                     <input type="password" id="login-pass" class="form-control" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn-main">Entrar</button>
+                <button type="submit" class="btn-main">ENTRAR</button>
             </form>
 
             <form id="form-register" class="hidden" onsubmit="handleRegister(event)">
@@ -202,48 +236,128 @@
                     <label>Contraseña</label>
                     <input type="password" id="reg-pass" class="form-control" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn-main">Registrarse</button>
+                <button type="submit" class="btn-main">REGISTRARSE</button>
             </form>
         </div>
     </div>
 
+    <!-- APLICACIÓN PRINCIPAL -->
     <div id="main-app" class="hidden" style="flex:1; display:flex; flex-direction:column;">
         <nav class="navbar">
             <div class="nav-brand-title">
-                <svg width="22" height="22" viewBox="0 0 500 500"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#0ea5e9"/></svg>
+                <svg width="22" height="22" viewBox="0 0 500 500"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#00f0ff"/></svg>
                 DIAMONS <span>LEGION</span>
             </div>
             <div class="nav-wallet-pills">
-                <div class="wallet-pill-top" onclick="switchMainTab('orders')"><i class="fa-solid fa-clock-history"></i> Pedidos</div>
+                <div class="wallet-pill-top" onclick="switchMainTab('wallet')"><i class="fa-solid fa-coins"></i> <span id="usdt-balance-display">0.00</span> USDT</div>
+                <div class="wallet-pill-top" onclick="switchMainTab('wallet')"><i class="fa-solid fa-wallet"></i> <span id="saldo-balance-display">$0.00</span></div>
             </div>
         </nav>
 
         <div class="container">
+            <!-- VISTA INICIO -->
             <div id="sec-home" class="vista-sec">
-                <div style="width: 100%; height: 160px; border-radius: 18px; margin-bottom: 1rem; background: linear-gradient(135deg, #0284c7, #0f172a); display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary-blue);">
-                    <h2 style="font-family:'Orbitron', sans-serif; font-size: 1.4rem; color:#fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">DIAMONS LEGION STORE</h2>
+                <div style="width: 100%; height: 170px; border-radius: 20px; margin-bottom: 1.2rem; background: linear-gradient(135deg, #0f172a, #132247); display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--primary-neon); box-shadow: var(--neon-glow);">
+                    <h2 style="font-family:'Orbitron', sans-serif; font-size: 1.35rem; color:#fff; text-shadow: 0 0 12px rgba(0,240,255,0.6); text-align:center; padding:0 1rem;">DIAMONS LEGION STORE</h2>
                 </div>
 
                 <div class="section-title">JUEGOS DISPONIBLES</div>
                 <div class="diamonds-grid" style="grid-template-columns: 1fr;">
-                    <div class="diamond-card" onclick="switchMainTab('recargas')" style="padding: 1.5rem; background: linear-gradient(135deg, #1e293b, #0f172a);">
-                        <svg width="60" height="60" viewBox="0 0 500 500" style="margin-bottom: 8px;"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#38bdf8"/></svg>
-                        <h4 style="font-size: 1.1rem; font-family:'Orbitron',sans-serif;">FREE FIRE - RECARGAS VÍA ID</h4>
+                    <div class="diamond-card" onclick="switchMainTab('recargas')" style="padding: 1.6rem; background: linear-gradient(135deg, #0f172a, #132247);">
+                        <svg width="55" height="55" viewBox="0 0 500 500" style="margin-bottom: 8px;"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#00f0ff"/></svg>
+                        <h4 style="font-size: 1.05rem; font-family:'Orbitron',sans-serif;">FREE FIRE - RECARGAS VÍA ID</h4>
                         <div class="diamond-price" style="margin-top: 8px;">Toca para recargar <i class="fa-solid fa-chevron-right"></i></div>
                     </div>
                 </div>
             </div>
 
+            <!-- VISTA WALLET (BILLETERAS Y MÉTODOS) -->
+            <div id="sec-wallet" class="vista-sec hidden">
+                <div class="section-title">MÉTODOS DE BILLETERA</div>
+                <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem;">Selecciona tu método de recarga o gestión de fondos.</p>
+
+                <!-- Opción USDT BEP 20 -->
+                <div class="wallet-card-option" onclick="openUsdtDeposit()">
+                    <div class="wallet-card-left">
+                        <div class="wallet-icon-box"><i class="fa-solid fa-coins"></i></div>
+                        <div class="wallet-info">
+                            <h4>USDT BEP 20</h4>
+                            <p>Red Binance Smart Chain (BSC)</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="color: var(--primary-neon);"></i>
+                </div>
+
+                <!-- Opción Saldo Móvil -->
+                <div class="wallet-card-option" style="opacity: 0.85;">
+                    <div class="wallet-card-left">
+                        <div class="wallet-icon-box" style="color: #f59e0b; border-color: #f59e0b;"><i class="fa-solid fa-mobile-screen"></i></div>
+                        <div class="wallet-info">
+                            <h4>Saldo Móvil</h4>
+                            <p>Recarga rápida mediante operador</p>
+                            <span class="badge-proximamente">Próximamente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opción Pago con Tarjeta -->
+                <div class="wallet-card-option" style="opacity: 0.85;">
+                    <div class="wallet-card-left">
+                        <div class="wallet-icon-box" style="color: #f59e0b; border-color: #f59e0b;"><i class="fa-solid fa-credit-card"></i></div>
+                        <div class="wallet-info">
+                            <h4>Pago con Tarjeta</h4>
+                            <p>Crédito / Débito internacional</p>
+                            <span class="badge-proximamente">Próximamente</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA DETALLE RECARGA USDT -->
+            <div id="sec-usdt-detail" class="vista-sec hidden">
+                <button onclick="switchMainTab('wallet')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-arrow-left"></i> Volver a Billeteras
+                </button>
+
+                <div class="wallet-box-detail">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+                        <div class="wallet-icon-box" style="width:38px; height:38px; font-size:1rem;"><i class="fa-solid fa-coins"></i></div>
+                        <div>
+                            <h4 style="font-size:0.95rem; font-weight:900;">Recarga USDT BEP 20</h4>
+                            <p style="font-size:0.7rem; color:var(--text-muted)">Red Binance Smart Chain (BSC)</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>DIRECCIÓN OFICIAL BEP 20:</label>
+                        <div class="wallet-address-box" id="wallet-addr-text">0x01fFC04c400d0811DEc106E56Bfb5a95576AF18f</div>
+                        <button onclick="copyWalletAddress()" class="btn-main" style="padding: 0.7rem; font-size: 0.82rem;"><i class="fa-regular fa-copy"></i> Copiar Dirección</button>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label>MONTO (USDT)</label>
+                        <input type="number" id="usdt-monto-input" class="form-control" placeholder="Ej. 10.00" step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label>ID DE LA TRANSFERENCIA (HASH / ID)</label>
+                        <input type="text" id="usdt-hash-input" class="form-control" placeholder="Ej. 0x1234abcd...">
+                    </div>
+
+                    <button onclick="submitDeposit()" class="btn-main">CONFIRMAR DEPÓSITO</button>
+                </div>
+            </div>
+
+            <!-- VISTA RECARGAS FREE FIRE -->
             <div id="sec-recargas" class="vista-sec hidden">
-                <button onclick="switchMainTab('home')" style="background: none; border: none; color: var(--primary-blue); font-weight: 800; font-size: 0.8rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
+                <button onclick="switchMainTab('home')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-arrow-left"></i> Volver a Inicio
                 </button>
 
-                <div class="top-recharge-showcase">
-                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 450'><path d='M250,15 L480,150 L380,425 L120,425 L20,150 Z' fill='%2338bdf8' stroke='%237dd3fc' stroke-width='8'/><path d='M250,15 L120,150 L250,425 L380,150 Z' fill='%230ea5e9'/></svg>" alt="Diamante">
+                <div class="top-recharge-showcase" style="background: linear-gradient(180deg, #0f172a 0%, #060913 100%); border: 1.5px solid var(--primary-neon); border-radius: 20px; padding: 1.2rem; text-align: center; margin-bottom: 1rem; box-shadow: var(--neon-glow);">
                     <div class="form-group" style="margin-bottom: 0;">
                         <label>ID DEL JUGADOR (FREE FIRE)</label>
-                        <input type="number" id="player-id-input" class="form-control" placeholder="Introduce tu ID aquí">
+                        <input type="number" id="player-id-input" class="form-control" placeholder="Introduce tu ID aquí" style="text-align:center; font-weight:bold;">
                     </div>
                 </div>
 
@@ -271,21 +385,17 @@
                     </div>
                 </div>
 
-                <div class="form-group" style="margin-top: 1rem;">
-                    <label>REFERENCIA O COMPROBANTE DE PAGO</label>
-                    <input type="text" id="pay-ref-input" class="form-control" placeholder="Número de transferencia o transacción">
-                </div>
-
-                <button onclick="submitOrder()" class="btn-main">Enviar Pedido para Aprobación</button>
+                <button onclick="submitOrder()" class="btn-main">ENVIAR PEDIDO DE RECARGA</button>
             </div>
 
+            <!-- VISTA PEDIDOS Y ADMIN -->
             <div id="sec-orders" class="vista-sec hidden">
-                <div class="section-title">MIS PEDIDOS Y ESTADOS</div>
+                <div class="section-title">MIS DEPÓSITOS Y PEDIDOS</div>
                 <div id="orders-list-container"></div>
                 
                 <div class="admin-panel-box">
-                    <div class="section-title" style="margin-top:0; color:#38bdf8;">PANEL DE ADMINISTRACIÓN (CONFIRMACIÓN MANUAL)</div>
-                    <p style="font-size:0.7rem; color:var(--text-muted); margin-bottom: 8px;">Aprueba o rechaza los depósitos reportados para acreditar los diamantes:</p>
+                    <div class="section-title" style="margin-top:0; color:var(--primary-neon);">PANEL DE ADMINISTRACIÓN (APROBACIÓN MANUAL)</div>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom: 10px;">Revisa y aprueba o rechaza los depósitos y solicitudes de usuarios:</p>
                     <div id="admin-orders-list"></div>
                 </div>
             </div>
@@ -294,6 +404,7 @@
         <nav class="app-bottom-nav">
             <button class="nav-item-btn active" onclick="switchMainTab('home')"><i class="fa-solid fa-house"></i> Inicio</button>
             <button class="nav-item-btn" onclick="switchMainTab('recargas')"><i class="fa-solid fa-bolt"></i> Recargar</button>
+            <button class="nav-item-btn" onclick="switchMainTab('wallet')"><i class="fa-solid fa-wallet"></i> Wallet</button>
             <button class="nav-item-btn" onclick="switchMainTab('orders')"><i class="fa-solid fa-receipt"></i> Pedidos</button>
         </nav>
     </div>
@@ -301,12 +412,13 @@
     <script>
         let selectedPkg = null;
         let selectedPrice = null;
+        let currentUser = null;
 
         function showNotification(msg) {
             const toast = document.getElementById('notification-toast');
             toast.innerText = msg;
             toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+            setTimeout(() => toast.classList.remove('show'), 3500);
         }
 
         function switchAuthTab(tab) {
@@ -318,6 +430,9 @@
 
         function handleLogin(e) {
             e.preventDefault();
+            const u = document.getElementById('login-user').value.trim();
+            if(!u) return;
+            currentUser = u;
             document.getElementById('auth-screen').classList.add('hidden');
             document.getElementById('main-app').classList.remove('hidden');
             renderOrders();
@@ -325,14 +440,31 @@
 
         function handleRegister(e) {
             e.preventDefault();
-            showNotification("Registro exitoso. ¡Bienvenido!");
-            handleLogin(e);
+            const u = document.getElementById('reg-user').value.trim();
+            if(!u) return;
+            currentUser = u;
+            showNotification("¡Registro exitoso! Bienvenido a Diamons Legion.");
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+            renderOrders();
         }
 
         function switchMainTab(sec) {
             document.querySelectorAll('.vista-sec').forEach(el => el.classList.add('hidden'));
             document.getElementById('sec-' + sec).classList.remove('hidden');
             if(sec === 'orders') renderOrders();
+        }
+
+        function openUsdtDeposit() {
+            document.querySelectorAll('.vista-sec').forEach(el => el.classList.add('hidden'));
+            document.getElementById('sec-usdt-detail').classList.remove('hidden');
+        }
+
+        function copyWalletAddress() {
+            const addr = document.getElementById('wallet-addr-text').innerText;
+            navigator.clipboard.writeText(addr).then(() => {
+                showNotification("¡Dirección de Wallet copiada al portapapeles!");
+            });
         }
 
         function selectPackage(el, pkg, price) {
@@ -342,28 +474,54 @@
             selectedPrice = price;
         }
 
+        function submitDeposit() {
+            const monto = document.getElementById('usdt-monto-input').value;
+            const hash = document.getElementById('usdt-hash-input').value;
+
+            if(!monto || !hash) {
+                showNotification("Por favor ingresa el monto y el Hash de la transferencia.");
+                return;
+            }
+
+            const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
+            const newDeposit = {
+                id: Date.now(),
+                user: currentUser || 'Usuario',
+                type: 'Depósito USDT',
+                detail: `${monto} USDT (Hash: ${hash.substring(0,10)}...)`,
+                ref: hash,
+                status: 'Proceso'
+            };
+
+            orders.unshift(newDeposit);
+            localStorage.setItem('dl_orders', JSON.stringify(orders));
+            
+            showNotification("DEPOSITO EN PROCESO - espera confirmación");
+            switchMainTab('orders');
+        }
+
         function submitOrder() {
             const id = document.getElementById('player-id-input').value;
-            const ref = document.getElementById('pay-ref-input').value;
 
-            if(!id || !selectedPkg || !ref) {
-                showNotification("Por favor ingresa tu ID, selecciona un paquete y coloca tu comprobante.");
+            if(!id || !selectedPkg) {
+                showNotification("Ingresa tu ID de jugador y selecciona un paquete.");
                 return;
             }
 
             const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
             const newOrder = {
                 id: Date.now(),
-                playerId: id,
-                package: selectedPkg,
-                price: selectedPrice,
-                ref: ref,
-                status: 'Pendiente'
+                user: currentUser || 'Usuario',
+                type: 'Recarga Free Fire',
+                detail: `ID: ${id} - ${selectedPkg} (${selectedPrice})`,
+                ref: 'ID: ' + id,
+                status: 'Proceso'
             };
 
             orders.unshift(newOrder);
             localStorage.setItem('dl_orders', JSON.stringify(orders));
-            showNotification("¡Pedido enviado! Esperando confirmación del admin.");
+            
+            showNotification("DEPOSITO EN PROCESO - espera confirmación");
             switchMainTab('orders');
         }
 
@@ -376,36 +534,38 @@
             adminContainer.innerHTML = '';
 
             if(orders.length === 0) {
-                userContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay pedidos registrados todavía.</p>';
-                adminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay depósitos pendientes por aprobar.</p>';
+                userContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay depósitos ni pedidos registrados.</p>';
+                adminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay solicitudes pendientes.</p>';
                 return;
             }
 
             orders.forEach(o => {
                 let statusColor = '#f59e0b';
-                if(o.status === 'Aprobado') statusColor = '#10b981';
-                if(o.status === 'Rechazado') statusColor = '#ef4444';
+                let statusText = 'EN PROCESO (Espera confirmación)';
+                if(o.status === 'Aprobado') { statusColor = '#10b981'; statusText = 'APROBADO'; }
+                if(o.status === 'Rechazado') { statusColor = '#ef4444'; statusText = 'RECHAZADO'; }
 
                 userContainer.innerHTML += `
                     <div class="pro-order-receipt">
-                        <div class="receipt-row" style="margin-bottom:6px;"><strong>ID Free Fire: ${o.playerId}</strong> <span style="color:var(--primary-blue)">${o.package} (${o.price})</span></div>
+                        <div class="receipt-row" style="margin-bottom:6px;"><strong>${o.type}</strong> <span style="color:var(--primary-neon)">${o.detail}</span></div>
                         <div class="receipt-details-grid">
-                            <div class="receipt-row"><span>Comprobante:</span> <span>${o.ref}</span></div>
-                            <div class="receipt-row"><span>Estado actual:</span> <strong style="color:${statusColor}">${o.status}</strong></div>
+                            <div class="receipt-row"><span>Usuario:</span> <span>${o.user}</span></div>
+                            <div class="receipt-row"><span>Estado:</span> <strong style="color:${statusColor}">${statusText}</strong></div>
                         </div>
                     </div>
                 `;
 
-                if(o.status === 'Pendiente') {
+                if(o.status === 'Proceso') {
                     adminContainer.innerHTML += `
                         <div class="admin-req-card">
                             <div>
-                                <div><strong>ID:</strong> ${o.playerId} - <strong>${o.package}</strong></div>
-                                <div style="color:var(--text-muted)">Ref: ${o.ref}</div>
+                                <div><strong>Usuario:</strong> ${o.user}</div>
+                                <div><strong>Tipo:</strong> ${o.type}</div>
+                                <div style="color:var(--text-muted)">${o.detail}</div>
                             </div>
-                            <div style="display:flex; gap:6px;">
-                                <button onclick="updateOrderStatus(${o.id}, 'Aprobado')" style="background:#10b981; border:none; color:#fff; padding:6px 10px; border-radius:6px; font-weight:bold; cursor:pointer;">Aprobar</button>
-                                <button onclick="updateOrderStatus(${o.id}, 'Rechazado')" style="background:#ef4444; border:none; color:#fff; padding:6px 10px; border-radius:6px; font-weight:bold; cursor:pointer;">Rechazar</button>
+                            <div style="display:flex; gap:6px; flex-direction:column;">
+                                <button onclick="updateOrderStatus(${o.id}, 'Aprobado')" style="background:#10b981; border:none; color:#fff; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Aprobar</button>
+                                <button onclick="updateOrderStatus(${o.id}, 'Rechazado')" style="background:#ef4444; border:none; color:#fff; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Rechazar</button>
                             </div>
                         </div>
                     `;
@@ -421,9 +581,10 @@
             let orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
             orders = orders.map(o => o.id === orderId ? {...o, status: newStatus} : o);
             localStorage.setItem('dl_orders', JSON.stringify(orders));
-            showNotification(`Pedido marcado como: ${newStatus}`);
+            showNotification(`Solicitud marcada como: ${newStatus}`);
             renderOrders();
         }
     </script>
 </body>
 </html>
+
