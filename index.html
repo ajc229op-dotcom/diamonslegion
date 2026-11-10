@@ -1,112 +1,871 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LEGIÓN DE DIAMANTES - Top Up Free Fire</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #00f2fe;
-      --secondary: #4facfe;
-      --accent: #ff0055;
-      --bg: #090a0f;
-      --card-bg: #12151e;
-      --text: #ffffff;
-      --text-gray: #a0a5b5;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding-bottom: 50px; }
-    header {
-      background: linear-gradient(135deg, #090a0f 0%, #1a1f2c 100%);
-      padding: 20px;
-      text-align: center;
-      border-bottom: 2px solid var(--primary);
-    }
-    h1 { font-family: 'Orbitron', sans-serif; color: var(--primary); font-size: 24px; text-transform: uppercase; letter-spacing: 2px; }
-    .container { max-width: 600px; margin: 0 auto; padding: 15px; }
-    .card { background: var(--card-bg); border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid #1e2433; }
-    h2 { font-family: 'Orbitron', sans-serif; font-size: 16px; margin-bottom: 12px; color: var(--secondary); display: flex; align-items: center; gap: 8px; }
-    input, select {
-      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #2a3245; background: #0c0e14; color: #fff; font-size: 14px; margin-bottom: 10px;
-    }
-    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .option-btn {
-      background: #181c28; border: 1px solid #2a3245; border-radius: 8px; padding: 12px; text-align: center; cursor: pointer; transition: 0.2s;
-    }
-    .option-btn.active { border-color: var(--primary); background: rgba(0, 242, 254, 0.1); }
-    .option-btn .title { font-weight: bold; font-size: 14px; display: block; }
-    .option-btn .price { color: var(--primary); font-size: 12px; font-weight: bold; }
-    .btn-main {
-      width: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border: none; padding: 15px; border-radius: 8px; color: #000; font-weight: bold; font-family: 'Orbitron', sans-serif; font-size: 16px; cursor: pointer; text-transform: uppercase; margin-top: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DIAMONS LEGION</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: #131c2e;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --primary-blue: #0ea5e9;
+            --border-color: #1e293b;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html, body {
+            min-height: 100vh;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NOTIFICACIÓN TOAST */
+        #notification-toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-200px);
+            background: #1e293b; color: #ffffff; border: 1px solid var(--primary-blue);
+            padding: 0.8rem 1.4rem; border-radius: 12px; font-weight: 700; font-size: 0.82rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 999999; width: 90%; max-width: 380px; text-align: center;
+        }
+        #notification-toast.show { transform: translateX(-50%) translateY(0); }
+
+        /* AUTENTICACIÓN */
+        .auth-wrapper {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; width: 100%;
+        }
+        .auth-container {
+            max-width: 390px; width: 100%; background: var(--bg-card);
+            border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem 1.6rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .brand-header { text-align: center; margin-bottom: 20px; }
+        .brand-header h1 {
+            font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 900; color: var(--text-main); letter-spacing: 1px;
+        }
+        .brand-header h1 span { color: var(--primary-blue); }
+
+        .auth-tabs {
+            display: flex; gap: 6px; margin-bottom: 20px; background: #0b0f19;
+            border-radius: 10px; padding: 4px; border: 1px solid var(--border-color);
+        }
+        .auth-tab {
+            flex: 1; text-align: center; padding: 0.6rem; font-weight: bold;
+            font-size: 0.82rem; cursor: pointer; border-radius: 8px; color: var(--text-muted); background: transparent; border: none; transition: all 0.3s;
+        }
+        .auth-tab.active { background: var(--primary-blue); color: #fff; }
+
+        .form-group { margin-bottom: 1.1rem; position: relative; }
+        .form-group label { display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.3rem; font-weight: 600; }
+        .form-control {
+            width: 100%; background: #0b0f19; border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem; border-radius: 10px; color: var(--text-main);
+            font-size: 0.88rem; outline: none; transition: border-color 0.2s;
+        }
+        .form-control:focus { border-color: var(--primary-blue); }
+
+        .btn-main {
+            width: 100%; background: var(--primary-blue); color: #fff; border: none;
+            padding: 0.8rem; border-radius: 10px; font-weight: 900; font-size: 0.9rem;
+            cursor: pointer; transition: filter 0.2s, transform 0.2s; margin-top: 0.8rem;
+        }
+        .btn-main:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+        /* DASHBOARD PRINCIPAL */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.75rem 1rem; background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100;
+        }
+        .nav-brand-title { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 900; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
+        .nav-brand-title span { color: var(--primary-blue); }
+
+        .nav-wallet-pills { display: flex; gap: 6px; align-items: center; }
+        .wallet-pill-top {
+            background: #0b0f19; border: 1px solid var(--border-color); padding: 4px 10px;
+            border-radius: 16px; font-size: 0.72rem; color: var(--primary-blue); font-weight: 800; display: flex; align-items: center; gap: 4px; cursor: pointer;
+        }
+
+        .container { max-width: 500px; width: 100%; margin: 0 auto; padding: 1rem; flex: 1; display: flex; flex-direction: column; padding-bottom: 95px; }
+
+        .section-title { font-size: 0.78rem; color: var(--text-muted); margin: 0.8rem 0 0.5rem 0; font-weight: 700; letter-spacing: 0.5px; }
+
+        /* RECARGA ID */
+        .top-recharge-showcase {
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid var(--primary-blue); border-radius: 20px;
+            padding: 1.2rem; text-align: center; margin-bottom: 1rem;
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.25);
+        }
+        .top-recharge-showcase img {
+            width: 120px; height: auto; filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.6));
+            margin-bottom: 8px; animation: floatDiamond 3s ease-in-out infinite;
+        }
+        @keyframes floatDiamond {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .top-recharge-showcase input {
+            background: #0b0f19; border: 1px solid var(--primary-blue); color: #fff; text-align: center; font-weight: 800;
+        }
+
+        /* PESTAÑAS */
+        .tabs-selector-box {
+            display: flex; background: var(--bg-card); border-radius: 16px; padding: 4px; gap: 4px; margin-bottom: 1rem; border: 1px solid var(--border-color);
+        }
+        .tab-sel-btn {
+            flex: 1; text-align: center; padding: 0.75rem; font-weight: 800; font-size: 0.82rem;
+            border-radius: 12px; cursor: pointer; border: none; background: transparent; color: var(--text-muted); transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .tab-sel-btn.active {
+            background: var(--primary-blue); color: #fff; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+        }
+
+        /* GRID DE PAQUETES */
+        .diamonds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+        .diamond-card {
+            background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 16px;
+            padding: 1rem 0.8rem; text-align: center; cursor: pointer; transition: all 0.2s;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .diamond-card:hover, .diamond-card.selected { border-color: var(--primary-blue); background: #172554; }
+        .diamond-img-icon { width: 55px; height: auto; margin-bottom: 8px; filter: drop-shadow(0 4px 8px rgba(14, 165, 233, 0.4)); }
+        .diamond-card h4 { font-size: 0.82rem; font-weight: 900; color: var(--text-main); }
+        .diamond-price { color: var(--primary-blue); font-weight: 900; font-size: 0.9rem; margin-top: 4px; }
+
+        .payment-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 1.2rem; }
+        .pay-btn {
+            background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 12px;
+            padding: 0.75rem; text-align: center; font-size: 0.82rem; font-weight: 800; color: var(--text-main); cursor: pointer;
+        }
+        .pay-btn.active { border-color: var(--primary-blue); color: var(--primary-blue); background: #172554; }
+
+        /* ESTILO PROFESIONAL DE COMPROBANTE DE PEDIDO (IDÉNTICO A REFERENCIA) */
+        .pro-order-receipt {
+            background: linear-gradient(145deg, #162032, #0d1424);
+            border: 1px solid #334155; border-radius: 18px; padding: 1.2rem; margin-bottom: 1rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4); position: relative;
+        }
+        .pro-receipt-header {
+            display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 0.8rem; margin-bottom: 0.8rem;
+        }
+        .pro-receipt-title-box { display: flex; align-items: center; gap: 10px; }
+        .pro-receipt-title-box img { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--primary-blue); }
+        .pro-receipt-title-box h4 { font-size: 0.95rem; font-weight: 900; color: #fff; }
+        .pro-receipt-title-box span { font-size: 0.7rem; color: var(--text-muted); display: block; }
+        
+        .badge-status {
+            font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px;
+        }
+        .badge-status.proceso { background: rgba(217, 119, 6, 0.15); color: #f59e0b; border: 1px solid rgba(217, 119, 6, 0.3); }
+        .badge-status.entregado { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+        /* LÍNEA DE PROGRESO PASO A PASO */
+        .progress-steps {
+            display: flex; justify-content: space-between; align-items: center; margin: 1.2rem 0; position: relative; padding: 0 10px;
+        }
+        .progress-steps::before {
+            content: ''; position: absolute; top: 12px; left: 30px; right: 30px; height: 3px; background: #334155; z-index: 1;
+        }
+        .step-item { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2; }
+        .step-circle {
+            width: 26px; height: 26px; border-radius: 50%; background: #1e293b; border: 2px solid #475569;
+            display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #94a3b8; margin-bottom: 4px;
+        }
+        .step-item.active .step-circle { background: var(--success-color); border-color: #6ee7b7; color: #fff; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
+        .step-label { font-size: 0.65rem; color: var(--text-muted); font-weight: 700; text-align: center; }
+        .step-item.active .step-label { color: #fff; }
+
+        .receipt-details-grid { font-size: 0.75rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #1e293b; padding-top: 0.8rem; }
+        .receipt-row { display: flex; justify-content: space-between; align-items: center; }
+        .receipt-row span:first-child { color: var(--text-muted); }
+        .receipt-row span:last-child { font-weight: 700; color: #fff; }
+
+        /* PANEL ADMIN */
+        .admin-panel-box {
+            background: #1e293b; color: #fff; border-radius: 16px; padding: 1.2rem; margin-top: 1.5rem;
+            border: 2px dashed #38bdf8;
+        }
+        .admin-req-card {
+            background: #0f172a; border-radius: 10px; padding: 0.8rem; margin-top: 8px;
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem;
+        }
+        .admin-btns { display: flex; gap: 6px; }
+        .btn-approve { background: var(--success-color); color: #fff; border: none; padding: 5px 10px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .btn-reject { background: var(--error-color); color: #fff; border: none; padding: 5px 10px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+
+        /* WALLET STYLES */
+        .wallet-card-option {
+            background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 16px;
+            padding: 1.1rem; margin-bottom: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: 0.2s;
+        }
+        .wallet-card-option:hover { border-color: var(--primary-blue); }
+        .wallet-card-left { display: flex; align-items: center; gap: 12px; }
+        .wallet-icon-box {
+            width: 40px; height: 40px; background: #172554; border: 1px solid #1e3a8a;
+            border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary-blue); font-size: 1rem;
+        }
+        .wallet-info h4 { font-size: 0.9rem; font-weight: 900; color: var(--text-main); margin-bottom: 2px; }
+        .wallet-info p { font-size: 0.68rem; color: var(--text-muted); }
+        .wallet-box-detail {
+            background: var(--bg-card); border: 1px solid var(--primary-blue); border-radius: 16px; padding: 1.2rem; margin-bottom: 1rem;
+        }
+        .wallet-address-box {
+            background: #0b0f19; border: 1px solid var(--border-color); padding: 0.75rem; border-radius: 10px;
+            font-size: 0.72rem; word-break: break-all; color: var(--primary-blue); font-weight: bold; margin: 0.6rem 0 0.8rem 0;
+        }
+
+        /* NAVEGACIÓN INFERIOR */
+        .app-bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card);
+            border-top: 1px solid var(--border-color); display: flex; justify-content: space-around;
+            padding: 10px 0; z-index: 1000;
+        }
+        .nav-item-btn {
+            background: transparent; border: none; color: var(--text-muted);
+            display: flex; flex-direction: column; align-items: center; gap: 3px;
+            font-size: 9px; text-transform: uppercase; font-weight: 700; cursor: pointer; flex: 1; transition: color 0.3s;
+        }
+        .nav-item-btn i { font-size: 16px; }
+        .nav-item-btn.active, .nav-item-btn:hover { color: var(--primary-blue); }
+
+        .hidden { display: none !important; }
+    </style>
 </head>
 <body>
 
-  <header>
-    <h1>DIAMONS LEGION</h1>
-    <p style="font-size: 12px; color: var(--text-gray);">Recargas Oficiales Free Fire</p>
-  </header>
+    <div id="notification-toast">Notificación</div>
 
-  <div class="container">
-    <div class="card">
-      <h2><i class="fa-solid fa-user"></i> ID de Jugador</h2>
-      <input type="number" id="playerId" placeholder="Ingresa tu ID de Free Fire aquí...">
+    <!-- PANTALLA AUTENTICACIÓN -->
+    <div class="auth-wrapper" id="auth-screen">
+        <div class="auth-container">
+            <div class="brand-header">
+                <h1>DIAMONS <span>LEGION</span></h1>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tab-btn-login" onclick="switchAuthTab('login')">Iniciar Sesión</button>
+                <button class="auth-tab" id="tab-btn-register" onclick="switchAuthTab('register')">Registrarse</button>
+            </div>
+
+            <!-- LOGIN -->
+            <form id="form-login" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Usuario o Correo</label>
+                    <input type="text" id="login-user" class="form-control" placeholder="Introduce tu usuario" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="login-pass" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-main">Entrar</button>
+            </form>
+
+            <!-- REGISTRO -->
+            <form id="form-register" class="hidden" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Nombre de Usuario</label>
+                    <input type="text" id="reg-user" class="form-control" placeholder="Tu usuario" required>
+                </div>
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="text" id="reg-email" class="form-control" placeholder="correo@dominio.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña (Letra, número y símbolo)</label>
+                    <input type="password" id="reg-pass" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-main">Registrarse</button>
+            </form>
+        </div>
     </div>
 
-    <div class="card">
-      <h2><i class="fa-solid fa-gem"></i> Selecciona Paquete</h2>
-      <div class="grid">
-        <div class="option-btn" onclick="selectItem(this, '100 Diamantes', '$1.00')">
-          <span class="title">💎 100 Diamantes</span>
-          <span class="price">$1.00 USD</span>
+    <!-- APLICACIÓN PRINCIPAL -->
+    <div id="main-app" class="hidden" style="flex:1; display:flex; flex-direction:column;">
+        <nav class="navbar">
+            <div class="nav-brand-title">
+                <svg width="22" height="22" viewBox="0 0 500 500"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#0ea5e9"/></svg>
+                DIAMONS <span>LEGION</span>
+            </div>
+            <div class="nav-wallet-pills">
+                <div class="wallet-pill-top" onclick="switchMainTab('wallet')"><i class="fa-solid fa-coins"></i> <span id="usdt-balance-display">0.00</span> USDT</div>
+                <div class="wallet-pill-top" onclick="switchMainTab('wallet')"><i class="fa-solid fa-wallet"></i> <span id="saldo-balance-display">$0.00</span></div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- VISTA INICIO -->
+            <div id="sec-home" class="vista-sec">
+                <div style="width: 100%; height: 160px; border-radius: 18px; margin-bottom: 1rem; background: linear-gradient(135deg, #0284c7, #0f172a); display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary-blue);">
+                    <h2 style="font-family:'Orbitron', sans-serif; font-size: 1.4rem; color:#fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">DIAMONS LEGION STORE</h2>
+                </div>
+
+                <div class="section-title">JUEGOS DISPONIBLES</div>
+                <div class="diamonds-grid" style="grid-template-columns: 1fr;">
+                    <div class="diamond-card" onclick="switchMainTab('recargas')" style="padding: 1.5rem; background: linear-gradient(135deg, #1e293b, #0f172a);">
+                        <svg width="60" height="60" viewBox="0 0 500 500" style="margin-bottom: 8px;"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#38bdf8"/></svg>
+                        <h4 style="font-size: 1.1rem; font-family:'Orbitron',sans-serif;">FREE FIRE - RECARGAS VÍA ID</h4>
+                        <div class="diamond-price" style="margin-top: 8px;">Toca para recargar <i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </div>
+
+                <div class="card-panel" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.1rem; margin-bottom: 1rem;">
+                    <h3 style="font-size: 0.92rem; font-weight: 900; margin-bottom: 4px;">Invita y Gana</h3>
+                    <p style="font-size: 0.72rem; color: var(--text-muted);">Si invitas 10 socios le damos un regalo increíble en su cuenta.</p>
+                </div>
+            </div>
+
+            <!-- VISTA RECARGAS (FREE FIRE) -->
+            <div id="sec-recargas" class="vista-sec hidden">
+                <button onclick="switchMainTab('home')" style="background: none; border: none; color: var(--primary-blue); font-weight: 800; font-size: 0.8rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-arrow-left"></i> Volver a Inicio
+                </button>
+
+                <div class="top-recharge-showcase">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 450'><path d='M250,15 L480,150 L380,425 L120,425 L20,150 Z' fill='%2338bdf8' stroke='%237dd3fc' stroke-width='8'/><path d='M250,15 L120,150 L250,425 L380,150 Z' fill='%230ea5e9'/><path d='M20,150 L120,150 L250,15 Z' fill='%237dd3fc'/><path d='M480,150 L380,150 L250,15 Z' fill='%23bae6fd'/><path d='M120,150 L380,150 L250,425 Z' fill='%230284c7'/></svg>" alt="Diamante">
+                    <div style="font-family:'Orbitron',sans-serif; font-size:0.9rem; font-weight:900; margin-bottom: 6px;">RECARGAS VÍA ID</div>
+                    <input type="number" id="ff-player-id" class="form-control" placeholder="ID DEL JUGADOR (FREE FIRE)">
+                </div>
+
+                <div class="tabs-selector-box">
+                    <button class="tab-sel-btn active" id="btn-tab-diamantes" onclick="switchRecargaTab('diamantes')">
+                        <i class="fa-solid fa-gem"></i> Diamantes
+                    </button>
+                    <button class="tab-sel-btn" id="btn-tab-ofertas" onclick="switchRecargaTab('ofertas')">
+                        <i class="fa-solid fa-gift"></i> Ofertas extra
+                    </button>
+                </div>
+
+                <div id="tab-content-diamantes">
+                    <div class="section-title">SELECCIONA EL PAQUETE</div>
+                    <div class="diamonds-grid">
+                        <div class="diamond-card selected" onclick="selectDiamondCard(this, '100+10 Diamantes', 1.10)">
+                            <img class="diamond-img-icon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 450'><path d='M250,15 L480,150 L380,425 L120,425 L20,150 Z' fill='%2338bdf8'/><path d='M250,15 L120,150 L250,425 L380,150 Z' fill='%230ea5e9'/></svg>">
+                            <h4>100+10 Diamantes</h4>
+                            <div class="diamond-price">1.10 USDT</div>
+                        </div>
+                        <div class="diamond-card" onclick="selectDiamondCard(this, '310+51 Diamantes', 3.50)">
+                            <img class="diamond-img-icon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 450'><path d='M250,15 L480,150 L380,425 L120,425 L20,150 Z' fill='%2338bdf8'/><path d='M250,15 L120,150 L250,425 L380,150 Z' fill='%230ea5e9'/></svg>">
+                            <h4>310+51 Diamantes</h4>
+                            <div class="diamond-price">3.50 USDT</div>
+                        </div>
+                        <div class="diamond-card" onclick="selectDiamondCard(this, '520+52 Diamantes', 5.00)">
+                            <img class="diamond-img-icon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 450'><path d='M250,15 L480,150 L380,425 L120,425 L20,150 Z' fill='%2338bdf8'/><path d='M250,15 L120,150 L250,425 L380,150 Z' fill='%230ea5e9'/></svg>">
+                            <h4>520+52 Diamantes</h4>
+                            <div class="diamond-price">5.00 USDT</div>
+                        </div>
+                        <div class="diamond-card" onclick="selectDiamondCard(this, '1050+105 Diamantes', 8.50)">
+                            <img class="diamond-img-icon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 450'><path d='M250,15 L480,150 L380,425 L120,425 L20,150 Z' fill='%2338bdf8'/><path d='M250,15 L120,150 L250,425 L380,150 Z' fill='%230ea5e9'/></svg>">
+                            <h4>1050+105 Diamantes</h4>
+                            <div class="diamond-price">8.50 USDT</div>
+                        </div>
+                        <div class="diamond-card" onclick="selectDiamondCard(this, '2160+216 Diamantes', 17.40)">
+                            <img class="diamond-img-icon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 450'><path d='M250,15 L480,150 L380,425 L120,425 L20,150 Z' fill='%2338bdf8'/><path d='M250,15 L120,150 L250,425 L380,150 Z' fill='%230ea5e9'/></svg>">
+                            <h4>2160+216 Diamantes</h4>
+                            <div class="diamond-price">17.40 USDT</div>
+                        </div>
+                        <div class="diamond-card" onclick="selectDiamondCard(this, '5580+558 Diamantes', 38.70)">
+                            <img class="diamond-img-icon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 450'><path d='M250,15 L480,150 L380,425 L120,425 L20,150 Z' fill='%2338bdf8'/><path d='M250,15 L120,150 L250,425 L380,150 Z' fill='%230ea5e9'/></svg>">
+                            <h4>5580+558 Diamantes</h4>
+                            <div class="diamond-price">38.70 USDT</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-content-ofertas" class="hidden">
+                    <div class="section-title">OFERTAS Y PAQUETES VIP</div>
+                    <div class="diamonds-grid">
+                        <div class="diamond-card" onclick="selectDiamondCard(this, 'Membresía Semanal', 2.00)">
+                            <i class="fa-solid fa-calendar-check" style="color: #d97706; font-size: 2rem; margin-bottom: 12px;"></i>
+                            <h4>Membresía Semanal</h4>
+                            <div class="diamond-price">2.00 USDT</div>
+                        </div>
+                        <div class="diamond-card" onclick="selectDiamondCard(this, 'Pase Booyah', 3.10)">
+                            <i class="fa-solid fa-star" style="color: #d97706; font-size: 2rem; margin-bottom: 12px;"></i>
+                            <h4>Pase Booyah</h4>
+                            <div class="diamond-price">3.10 USDT</div>
+                        </div>
+                        <div class="diamond-card" onclick="selectDiamondCard(this, 'Membresía Mensual', 9.00)">
+                            <i class="fa-solid fa-crown" style="color: #ef4444; font-size: 2rem; margin-bottom: 12px;"></i>
+                            <h4>Membresía Mensual</h4>
+                            <div class="diamond-price">9.00 USDT</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">MÉTODO DE PAGO</div>
+                <div class="payment-grid">
+                    <div class="pay-btn active" onclick="selectPaymentMethod(this, 'Saldo Web')">Usar Saldo de la Web (Disponible: $<span id="current-saldo-val">0.00</span>)</div>
+                </div>
+
+                <button class="btn-main" onclick="procesarCompra()" style="background: var(--success-color); color: #fff; margin-top: 1rem;">Confirmar Recarga</button>
+            </div>
+
+            <!-- VISTA ÓRDENES (PEDIDOS CON COMPROBANTE PROFESIONAL) -->
+            <div id="sec-orders" class="vista-sec hidden">
+                <div style="margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.05rem; font-weight: 900;">Mis Pedidos</h3>
+                    <p style="font-size: 0.75rem; color: var(--text-muted);">Seguimiento de tus solicitudes en tiempo real.</p>
+                </div>
+                <div id="orders-list-container">
+                    <div class="card-panel" id="no-orders-msg" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.1rem;">
+                        <p style="color: var(--text-muted);">No tienes órdenes registradas todavía.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA REFERIDOS -->
+            <div id="sec-referrals" class="vista-sec hidden">
+                <div class="card-panel" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.1rem;">
+                    <h3>Programa de Referidos</h3>
+                    <p style="color: var(--text-muted);">Comparte tu enlace y gana bonificaciones exclusivas.</p>
+                </div>
+            </div>
+
+            <!-- VISTA WALLET -->
+            <div id="sec-wallet" class="vista-sec hidden">
+                <div id="wallet-menu-view">
+                    <div style="margin-bottom: 1rem;">
+                        <h3 style="font-size: 1.05rem; font-weight: 900; margin-bottom: 2px;">MÉTODOS DE BILLETERA</h3>
+                        <p style="font-size: 0.75rem; color: var(--text-muted);">Gestiona tus fondos y recarga saldo en la web.</p>
+                    </div>
+
+                    <div class="wallet-card-option" onclick="openWalletDetail('usdt')">
+                        <div class="wallet-card-left">
+                            <div class="wallet-icon-box"><i class="fa-solid fa-bolt"></i></div>
+                            <div class="wallet-info">
+                                <h4>USDT BEP 20</h4>
+                                <p>Red Binance Smart Chain (BSC)</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 0.8rem;"></i>
+                    </div>
+
+                    <div class="wallet-card-option" onclick="openWalletDetail('movil')">
+                        <div class="wallet-card-left">
+                            <div class="wallet-icon-box"><i class="fa-solid fa-mobile-screen"></i></div>
+                            <div class="wallet-info">
+                                <h4>Saldo Móvil</h4>
+                                <p>Recarga mediante transferencia local</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 0.8rem;"></i>
+                    </div>
+                </div>
+
+                <div id="wallet-detail-usdt" class="hidden">
+                    <button onclick="backToWalletMenu()" style="background: none; border: none; color: var(--primary-blue); font-weight: 800; font-size: 0.8rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
+                        <i class="fa-solid fa-arrow-left"></i> Volver a Billeteras
+                    </button>
+
+                    <div class="wallet-box-detail">
+                        <h4 style="font-size: 0.95rem; font-weight: 900; margin-bottom: 4px;">Recarga USDT BEP 20</h4>
+                        <p style="font-size: 0.7rem; color: var(--text-muted);">Red Binance Smart Chain (BSC)</p>
+                        
+                        <div style="margin-top: 0.8rem; font-size: 0.72rem; font-weight: 700; color: var(--text-muted);">Dirección Oficial BEP 20:</div>
+                        <div class="wallet-address-box" id="wallet-addr-text">0x01fFC04c400d0811DEc106E56Bfb5a95576AF18f</div>
+                        
+                        <button class="btn-main" onclick="copyWalletAddress()" style="margin-top: 0; background: var(--primary-blue); color: #ffffff;">Copiar Dirección</button>
+                    </div>
+
+                    <div class="card-panel" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.1rem;">
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            <label>Monto a Recargar (USDT)</label>
+                            <input type="number" id="deposit-amount-input" class="form-control" placeholder="Ej. 10.00">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 12px;">
+                            <label>ID de la transferencia (Hash / Referencia)</label>
+                            <input type="text" id="deposit-hash-input" class="form-control" placeholder="Ej. 0x1234abcd...">
+                        </div>
+                        <button class="btn-main" onclick="enviarConfirmacionDeposito()" style="background: var(--success-color); color: #fff;">CONFIRMAR DEPÓSITO</button>
+                    </div>
+                </div>
+
+                <div id="wallet-detail-movil" class="hidden">
+                    <button onclick="backToWalletMenu()" style="background: none; border: none; color: var(--primary-blue); font-weight: 800; font-size: 0.8rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
+                        <i class="fa-solid fa-arrow-left"></i> Volver a Billeteras
+                    </button>
+                    <div class="card-panel" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.1rem;">
+                        <h3>Recarga por Saldo Móvil</h3>
+                        <p style="margin-top: 6px; margin-bottom: 12px; color: var(--text-muted);">Si ves que se tarda mucho en cargarte el saldo, mandá comprobante de la transferencia a soporte.</p>
+                        <button class="btn-main" onclick="showToast('Comprobante enviado a soporte.')">Contactar Soporte</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA PERFIL Y ADMIN -->
+            <div id="sec-profile" class="vista-sec hidden">
+                <div class="card-panel" style="background: var(--bg-card); border: 1px solid var(--border-color); text-align: center; padding: 1.5rem; border-radius: 16px;">
+                    <h3>Mi Cuenta</h3>
+                    <p style="margin: 8px 0; color: var(--text-muted);" id="profile-user-display">Usuario Activo</p>
+                    <button class="btn-main" onclick="logoutSession()" style="background: var(--error-color); color: #fff; margin-top: 1rem;">Cerrar Sesión</button>
+                </div>
+
+                <!-- PANEL DE ADMINISTRADOR -->
+                <div class="admin-panel-box">
+                    <h4 style="font-size: 0.9rem; font-weight: 900; margin-bottom: 6px; color: #38bdf8;"><i class="fa-solid fa-shield-halved"></i> Panel Admin (Órdenes de Clientes)</h4>
+                    <p style="font-size: 0.7rem; color: #94a3b8; margin-bottom: 8px;">Aquí recibes las solicitudes de recarga de los usuarios para aprobarlas:</p>
+                    <div id="admin-requests-list">
+                        <p style="font-size: 0.72rem; color: #64748b; font-style: italic;">No hay solicitudes pendientes.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="option-btn" onclick="selectItem(this, '310 Diamantes', '$3.00')">
-          <span class="title">💎 310 Diamantes</span>
-          <span class="price">$3.00 USD</span>
-        </div>
-        <div class="option-btn" onclick="selectItem(this, '520 Diamantes', '$5.00')">
-          <span class="title">💎 520 Diamantes</span>
-          <span class="price">$5.00 USD</span>
-        </div>
-        <div class="option-btn" onclick="selectItem(this, 'Pase Semanal', '$2.50')">
-          <span class="title">🎟️ Pase Semanal</span>
-          <span class="price">$2.50 USD</span>
-        </div>
-      </div>
+
+        <!-- BARRA NAVEGACIÓN INFERIOR -->
+        <nav class="app-bottom-nav">
+            <button class="nav-item-btn active" id="nav-btn-home" onclick="switchMainTab('home')">
+                <i class="fa-solid fa-house"></i>
+                <span>Inicio</span>
+            </button>
+            <button class="nav-item-btn" id="nav-btn-orders" onclick="switchMainTab('orders')">
+                <i class="fa-solid fa-receipt"></i>
+                <span>Pedidos</span>
+            </button>
+            <button class="nav-item-btn" id="nav-btn-referrals" onclick="switchMainTab('referrals')">
+                <i class="fa-solid fa-users"></i>
+                <span>Referidos</span>
+            </button>
+            <button class="nav-item-btn" id="nav-btn-wallet" onclick="switchMainTab('wallet')">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Wallet</span>
+            </button>
+            <button class="nav-item-btn" id="nav-btn-profile" onclick="switchMainTab('profile')">
+                <i class="fa-solid fa-user"></i>
+                <span>Perfil</span>
+            </button>
+        </nav>
     </div>
 
-    <button class="btn-main" onclick="sendOrder()">Confirmar Pedido por WhatsApp</button>
-  </div>
+    <script>
+        let currentUser = "Socio";
+        let userSaldo = 5.00;
+        let paqueteSeleccionado = { name: "100+10 Diamantes", price: 1.10 };
+        let listaOrdenes = [];
+        let solicitudesDeposito = [];
 
-  <script>
-    let selectedPackage = '';
-    let selectedPrice = '';
+        function actualizarSaldosUI() {
+            document.getElementById('usdt-balance-display').innerText = userSaldo.toFixed(2);
+            document.getElementById('saldo-balance-display').innerText = `$${userSaldo.toFixed(2)}`;
+            const saldoValEl = document.getElementById('current-saldo-val');
+            if(saldoValEl) saldoValEl.innerText = userSaldo.toFixed(2);
+        }
 
-    function selectItem(element, name, price) {
-      document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
-      element.classList.add('active');
-      selectedPackage = name;
-      selectedPrice = price;
-    }
+        function showToast(msg) {
+            const toast = document.getElementById('notification-toast');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
 
-    function sendOrder() {
-      const id = document.getElementById('playerId').value;
-      if (!id) {
-        alert('Por favor ingresa tu ID de jugador.');
-        return;
-      }
-      if (!selectedPackage) {
-        alert('Por favor selecciona un paquete de diamantes.');
-        return;
-      }
+        function switchAuthTab(tab) {
+            const reg = document.getElementById('form-register');
+            const log = document.getElementById('form-login');
+            const btnR = document.getElementById('tab-btn-register');
+            const btnL = document.getElementById('tab-btn-login');
 
-      const phone = "5210000000000"; // Reemplaza con tu número de WhatsApp
-      const text = `¡Hola! Quiero hacer un pedido en DIAMONS LEGION:%0A- ID: ${id}%0A- Paquete: ${selectedPackage}%0A- Total: ${selectedPrice}`;
-      window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
-    }
-  </script>
+            if (tab === 'register') {
+                reg.classList.remove('hidden'); log.classList.add('hidden');
+                btnR.classList.add('active'); btnL.classList.remove('active');
+            } else {
+                reg.classList.add('hidden'); log.classList.remove('hidden');
+                btnL.classList.add('active'); btnR.classList.remove('active');
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const user = document.getElementById('reg-user').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const pass = document.getElementById('reg-pass').value;
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showToast("Introduce un correo válido (ej: usuario@mail.com)");
+                return;
+            }
+
+            const hasL = /[a-zA-Z]/.test(pass);
+            const hasN = /[0-9]/.test(pass);
+            const hasS = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(pass);
+
+            if (!hasL || !hasN || !hasS) {
+                showToast("La contraseña requiere 1 letra, 1 número y 1 símbolo.");
+                return;
+            }
+
+            showToast("¡Registro exitoso!");
+            enterApp(user);
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('login-user').value.trim();
+            showToast("¡Bienvenido de nuevo!");
+            enterApp(user || "Socio");
+        }
+
+        function enterApp(username) {
+            currentUser = username;
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+            document.getElementById('profile-user-display').innerText = `Usuario: ${username}`;
+            actualizarSaldosUI();
+        }
+
+        function logoutSession() {
+            document.getElementById('main-app').classList.add('hidden');
+            document.getElementById('auth-screen').classList.remove('hidden');
+            showToast("Sesión cerrada.");
+        }
+
+        function switchMainTab(tabName) {
+            const tabs = ['home', 'recargas', 'orders', 'referrals', 'wallet', 'profile'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`sec-${t}`);
+                if (el) el.classList.add('hidden');
+            });
+            
+            ['home', 'orders', 'referrals', 'wallet', 'profile'].forEach(bt => {
+                const bEl = document.getElementById(`nav-btn-${bt}`);
+                if (bEl) bEl.classList.remove('active');
+            });
+
+            const targetSec = document.getElementById(`sec-${tabName}`);
+            if (targetSec) targetSec.classList.remove('hidden');
+
+            if (['home', 'orders', 'referrals', 'wallet', 'profile'].includes(tabName)) {
+                const btnActive = document.getElementById(`nav-btn-${tabName}`);
+                if (btnActive) btnActive.classList.add('active');
+            }
+
+            if(tabName === 'wallet') {
+                backToWalletMenu();
+            }
+        }
+
+        function switchRecargaTab(tab) {
+            const btnDiamantes = document.getElementById('btn-tab-diamantes');
+            const btnOfertas = document.getElementById('btn-tab-ofertas');
+            const contentDiamantes = document.getElementById('tab-content-diamantes');
+            const contentOfertas = document.getElementById('tab-content-ofertas');
+
+            if (tab === 'diamantes') {
+                btnDiamantes.classList.add('active');
+                btnOfertas.classList.remove('active');
+                contentDiamantes.classList.remove('hidden');
+                contentOfertas.classList.add('hidden');
+            } else {
+                btnOfertas.classList.add('active');
+                btnDiamantes.classList.remove('active');
+                contentOfertas.classList.remove('hidden');
+                contentDiamantes.classList.add('hidden');
+            }
+        }
+
+        function selectDiamondCard(cardElement, packageName, price) {
+            const cards = document.querySelectorAll('.diamond-card');
+            cards.forEach(c => c.classList.remove('selected'));
+            cardElement.classList.add('selected');
+            paqueteSeleccionado = { name: packageName, price: price };
+            showToast(`Seleccionado: ${packageName} ($${price.toFixed(2)})`);
+        }
+
+        function selectPaymentMethod(btnElement, methodName) {
+            const methods = document.querySelectorAll('.pay-btn');
+            methods.forEach(m => m.classList.remove('active'));
+            btnElement.classList.add('active');
+        }
+
+        function procesarCompra() {
+            const ffId = document.getElementById('ff-player-id').value.trim();
+            if (!ffId) {
+                showToast("Por favor introduce tu ID de Free Fire.");
+                return;
+            }
+
+            if (userSaldo < paqueteSeleccionado.price) {
+                showToast("Saldo insuficiente. Redirigiendo a la Wallet para recargar...");
+                setTimeout(() => { switchMainTab('wallet'); }, 1500);
+                return;
+            }
+
+            userSaldo -= paqueteSeleccionado.price;
+            actualizarSaldosUI();
+
+            const nuevaOrden = {
+                id: Math.floor(1000 + Math.random() * 9000),
+                usuario: currentUser,
+                ffId: ffId,
+                paquete: paqueteSeleccionado.name,
+                precio: paqueteSeleccionado.price,
+                estado: 'En Proceso',
+                fecha: new Date().toLocaleDateString() + ", " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+
+            listaOrdenes.unshift(nuevaOrden);
+            renderizarOrdenes();
+            renderizarAdminPanel();
+
+            showToast("¡Recarga solicitada con éxito!");
+            setTimeout(() => {
+                switchMainTab('orders');
+            }, 1200);
+        }
+
+        function renderizarOrdenes() {
+            const container = document.getElementById('orders-list-container');
+            if (listaOrdenes.length === 0) {
+                container.innerHTML = `<div class="card-panel" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:16px;padding:1.1rem;"><p style="color:var(--text-muted);">No tienes órdenes registradas todavía.</p></div>`;
+                return;
+            }
+
+            let html = '';
+            listaOrdenes.forEach(ord => {
+                const esEntregado = ord.estado === 'Entregado';
+                html += `
+                    <div class="pro-order-receipt">
+                        <div class="pro-receipt-header">
+                            <div class="pro-receipt-title-box">
+                                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 450'><path d='M250,15 L480,150 L380,425 L120,425 L20,150 Z' fill='%2338bdf8'/><path d='M250,15 L120,150 L250,425 L380,150 Z' fill='%230ea5e9'/></svg>">
+                                <div>
+                                    <h4>Free Fire</h4>
+                                    <span>${ord.paquete}</span>
+                                </div>
+                            </div>
+                            <div class="badge-status ${esEntregado ? 'entregado' : 'proceso'}">
+                                <i class="fa-solid ${esEntregado ? 'fa-circle-check' : 'fa-clock'}"></i> ${ord.estado}
+                            </div>
+                        </div>
+
+                        <div class="progress-steps">
+                            <div class="step-item active">
+                                <div class="step-circle"><i class="fa-solid fa-check"></i></div>
+                                <span class="step-label">Pagado</span>
+                            </div>
+                            <div class="step-item ${esEntregado ? 'active' : ''}">
+                                <div class="step-circle"><i class="fa-solid ${esEntregado ? 'fa-check' : 'fa-spinner fa-spin'}"></i></div>
+                                <span class="step-label">Enviando</span>
+                            </div>
+                            <div class="step-item ${esEntregado ? 'active' : ''}">
+                                <div class="step-circle"><i class="fa-solid ${esEntregado ? 'fa-check' : 'fa-ellipsis'}"></i></div>
+                                <span class="step-label">Entregado</span>
+                            </div>
+                        </div>
+
+                        <div class="receipt-details-grid">
+                            <div class="receipt-row"><span>ID de jugador</span><span>${ord.ffId}</span></div>
+                            <div class="receipt-row"><span>Cuenta socio</span><span>${ord.usuario}</span></div>
+                            <div class="receipt-row"><span>Solicitud</span><span>#${ord.id}</span></div>
+                            <div class="receipt-row"><span>Fecha</span><span>${ord.fecha}</span></div>
+                            <div class="receipt-row" style="border-top:1px dashed #334155; padding-top:6px; margin-top:2px;">
+                                <span style="font-weight:900; color:#fff;">Total</span>
+                                <span style="font-size:0.95rem; color:var(--primary-blue);">$${ord.precio.toFixed(2)} USDT</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderizarAdminPanel() {
+            const container = document.getElementById('admin-requests-list');
+            const pendientes = listaOrdenes.filter(o => o.estado === 'En Proceso');
+            
+            if (pendientes.length === 0) {
+                container.innerHTML = `<p style="font-size: 0.72rem; color: #64748b; font-style: italic;">No hay solicitudes pendientes.</p>`;
+                return;
+            }
+
+            let html = '';
+            listaOrdenes.forEach((ord, index) => {
+                if(ord.estado === 'En Proceso') {
+                    html += `
+                        <div class="admin-req-card">
+                            <div>
+                                <strong>${ord.usuario}</strong> pidió <strong>${ord.paquete}</strong><br>
+                                <span style="font-size: 0.65rem; color: #38bdf8;">ID FF: ${ord.ffId} | Solicitud #${ord.id}</span>
+                            </div>
+                            <div class="admin-btns">
+                                <button class="btn-approve" onclick="aprobarOrden(${index})">Aceptar</button>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            container.innerHTML = html;
+        }
+
+        function aprobarOrden(index) {
+            listaOrdenes[index].estado = 'Entregado';
+            renderizarOrdenes();
+            renderizarAdminPanel();
+            showToast("¡Orden marcada como Entregada con éxito!");
+        }
+
+        function openWalletDetail(type) {
+            document.getElementById('wallet-menu-view').classList.add('hidden');
+            if(type === 'usdt') {
+                document.getElementById('wallet-detail-usdt').classList.remove('hidden');
+                document.getElementById('wallet-detail-movil').classList.add('hidden');
+            } else if(type === 'movil') {
+                document.getElementById('wallet-detail-movil').classList.remove('hidden');
+                document.getElementById('wallet-detail-usdt').classList.add('hidden');
+            }
+        }
+
+        function backToWalletMenu() {
+            document.getElementById('wallet-menu-view').classList.remove('hidden');
+            document.getElementById('wallet-detail-usdt').classList.add('hidden');
+            document.getElementById('wallet-detail-movil').classList.add('hidden');
+        }
+
+        function copyWalletAddress() {
+            const addr = document.getElementById('wallet-addr-text').innerText;
+            navigator.clipboard.writeText(addr).then(() => {
+                showToast("¡Dirección copiada al portapapeles!");
+            }).catch(() => {
+                showToast("No se pudo copiar automáticamente.");
+            });
+        }
+
+        function enviarConfirmacionDeposito() {
+            const monto = parseFloat(document.getElementById('deposit-amount-input').value);
+            const hash = document.getElementById('deposit-hash-input').value.trim();
+
+            if (!monto || monto <= 0) {
+                showToast("Introduce un monto válido.");
+                return;
+            }
+            if (!hash) {
+                showToast("Introduce el ID/Hash de la transferencia.");
+                return;
+            }
+
+            userSaldo += monto;
+            actualizarSaldosUI();
+            showToast(`¡Depósito de $${monto.toFixed(2)} acreditado exitosamente!`);
+            document.getElementById('deposit-amount-input').value = '';
+            document.getElementById('deposit-hash-input').value = '';
+            setTimeout(() => { switchMainTab('home'); }, 1200);
+        }
+    </script>
 </body>
 </html>
+
