@@ -663,6 +663,7 @@
         }
 
         function getUserBalance(username) {
+            if(username.toLowerCase() === 'admin') return 9999.00;
             let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
             let user = users.find(u => u.username === username);
             return user ? user.balance : 0.00;
@@ -741,7 +742,7 @@
             orders.unshift(newDeposit);
             localStorage.setItem('dl_orders', JSON.stringify(orders));
             
-            showNotification("DEPÓSITO EN PROCESO\nespera confirmación");
+            showNotification(`DEPÓSITO DE $${monto.toFixed(2)} ENVIADO AL ADMIN`);
             switchMainTab('orders');
         }
 
@@ -806,7 +807,7 @@
 
                     if(o.status === 'Aprobado') {
                         statusClass = 'status-aprobado';
-                        statusText = 'Entregado';
+                        statusText = 'Aprobado / Acreditado';
                         step1Active = 'active';
                         step2Active = 'active';
                         step3Active = 'active';
@@ -833,15 +834,15 @@
                             <div class="ticket-steps-bar">
                                 <div class="ticket-step-item ${step1Active}">
                                     <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
-                                    Pagado
+                                    Solicitado
                                 </div>
                                 <div class="ticket-step-item ${step2Active}">
                                     <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
-                                    Enviando
+                                    Revisión
                                 </div>
                                 <div class="ticket-step-item ${step3Active}">
                                     <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
-                                    Entregado
+                                    Acreditado
                                 </div>
                             </div>
 
@@ -867,9 +868,9 @@
                             <div class="admin-req-card">
                                 <div>
                                     <div><strong>Usuario:</strong> ${o.user}</div>
-                                    <div><strong>Paquete/Tipo:</strong> ${o.type}</div>
-                                    <div><strong>ID Jugador:</strong> ${o.playerId}</div>
-                                    <div style="color:var(--primary-neon); font-weight:bold;">Monto: $${o.amount.toFixed(2)} USDT</div>
+                                    <div><strong>Tipo:</strong> ${o.type}</div>
+                                    <div><strong>Detalle:</strong> ${o.detail}</div>
+                                    <div style="color:var(--primary-neon); font-weight:bold; font-size:0.9rem; margin-top:4px;">Monto recargado: $${o.amount.toFixed(2)} USDT</div>
                                 </div>
                                 <div style="display:flex; gap:6px; flex-direction:column;">
                                     <button onclick="updateOrderStatus(${o.id}, 'Aprobado')" style="background:#10b981; border:none; color:#fff; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Aprobar</button>
@@ -913,7 +914,7 @@
                 }
 
                 localStorage.setItem('dl_orders', JSON.stringify(orders));
-                showNotification(`Solicitud marcada como: ${newStatus}`);
+                showNotification(`¡Solicitud de ${targetOrder.user} ${newStatus.toLowerCase()}!`);
                 renderOrders();
                 updateUIBalance();
             }
