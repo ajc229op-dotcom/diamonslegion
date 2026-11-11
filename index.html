@@ -621,7 +621,6 @@
             document.getElementById('usdt-balance-display').innerText = (currentUser.usdtBalance || 0).toFixed(2);
             document.getElementById('saldo-balance-display').innerText = (currentUser.saldoBalance || 0).toFixed(2);
             
-            // Sincronizar en DB general
             let users = JSON.parse(localStorage.getItem('diamons_users') || '[]');
             users = users.map(u => u.username === currentUser.username ? currentUser : u);
             localStorage.setItem('diamons_users', JSON.stringify(users));
@@ -718,7 +717,6 @@
                 return;
             }
 
-            // Validar saldo si paga con Saldo Web
             if (currentPaymentMethod === 'saldo') {
                 if (currentUser.saldoBalance < selectedPackage.price) {
                     showToast("Saldo insuficiente. Recarga tu monedero.");
@@ -739,7 +737,7 @@
                 item: selectedPackage.name,
                 amount: selectedPackage.price,
                 playerId: playerId,
-                status: 'Proceso', // Proceso, Aprobado, Rechazado
+                status: 'Proceso',
                 date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
             };
 
@@ -951,7 +949,6 @@
                     u.transactions = u.transactions.map(t => {
                         if (t.id === txId) {
                             t.status = action === 'approve' ? 'Aprobado' : 'Rechazado';
-                            // Si es recarga aprobada, sumar al saldo del usuario
                             if (action === 'approve' && t.type.includes('Recarga')) {
                                 if (t.type.includes('USDT')) {
                                     u.usdtBalance = (u.usdtBalance || 0) + t.amount;
@@ -968,7 +965,6 @@
 
             localStorage.setItem('diamons_users', JSON.stringify(allUsers));
             
-            // Si el usuario actual es el afectado, actualizar su sesión
             if (currentUser && currentUser.username === targetUsername) {
                 currentUser = allUsers.find(u => u.username === targetUsername);
                 updateBalancesDisplay();
