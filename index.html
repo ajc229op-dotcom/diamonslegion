@@ -321,658 +321,781 @@
                 </div>
                 <div class="wallet-pill-top" onclick="switchMainTab('wallet')" title="Saldo Móvil">
                     <i class="fa-solid fa-mobile-screen" style="color:var(--primary-neon);"></i>
-                    $<span id="saldo-balance-display">0.00</span>
+                    <span id="saldo-balance-display">0</span>
                 </div>
+                <div class="wallet-pill-top" onclick="logoutUser()" title="Salir"><i class="fa-solid fa-right-from-bracket"></i></div>
             </div>
         </nav>
 
         <div class="container">
-            <!-- SECCIÓN TIENDA -->
-            <div id="tab-content-store" class="main-tab-pane">
+            <!-- VISTA INICIO -->
+            <div id="sec-home" class="vista-sec">
                 <div class="store-banner-img">
                     <div class="store-banner-text">
-                        <p>Recarga Rápida y Segura</p>
+                        <p>💎 DIAMONS LEGION — STORE 💎</p>
                     </div>
                 </div>
 
-                <div class="section-title">SELECCIONA TU JUEGO</div>
+                <div class="section-title">JUEGOS DISPONIBLES</div>
                 
-                <div class="game-banner-card" onclick="openGameModal('Free Fire')">
+                <div class="game-banner-card" onclick="switchMainTab('recargas')">
                     <div class="game-banner-content">
                         <div>
-                            <h4 style="font-size:1.1rem; margin-bottom:4px;">FREE FIRE</h4>
-                            <p style="font-size:0.72rem; color:var(--text-muted); font-weight:700;">Diamantes Directos ID</p>
+                            <h4>FREE FIRE MAX</h4>
+                            <p style="font-size:0.7rem; color:var(--primary-neon); font-weight:900; margin-top:2px;">RECARGAS VÍA ID</p>
                         </div>
-                        <div class="game-banner-btn">COMPRAR</div>
-                    </div>
-                </div>
-
-                <div class="game-banner-card" onclick="openGameModal('PUBG Mobile')" style="background-image: linear-gradient(180deg, rgba(3,6,20,0.2) 0%, rgba(3,6,20,0.95) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop');">
-                    <div class="game-banner-content">
-                        <div>
-                            <h4 style="font-size:1.1rem; margin-bottom:4px;">PUBG MOBILE</h4>
-                            <p style="font-size:0.72rem; color:var(--text-muted); font-weight:700;">UC / Pases Royale</p>
-                        </div>
-                        <div class="game-banner-btn">COMPRAR</div>
+                        <div class="game-banner-btn">Seleccionar <i class="fa-solid fa-chevron-right"></i></div>
                     </div>
                 </div>
             </div>
 
-            <!-- SECCIÓN MONEDERO -->
-            <div id="tab-content-wallet" class="main-tab-pane hidden">
-                <div class="section-title">RECARGAR SALDO</div>
-                
-                <div class="wallet-card-option" onclick="openRechargeModal('usdt')">
-                    <div class="wallet-card-left">
-                        <div class="usdt-real-icon">
-                            <i class="fa-solid fa-coins" style="font-size:20px; color:#fff;"></i>
-                        </div>
-                        <div class="wallet-info">
-                            <h4>USDT (BEP20)</h4>
-                            <p>Recarga instantánea con cripto</p>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-right" style="color:var(--text-muted);"></i>
-                </div>
+            <!-- VISTA WALLET / MÉTODOS DE PAGO -->
+            <div id="sec-wallet" class="vista-sec hidden">
+                <div class="section-title">MÉTODOS DE BILLETERA</div>
+                <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem; text-align: center;">Selecciona tu método para depositar fondos.</p>
 
-                <div class="wallet-card-option" onclick="openRechargeModal('saldo')">
+                <div class="wallet-card-option" onclick="openSaldoDeposit()">
                     <div class="wallet-card-left">
                         <div class="saldo-icon-box">
-                            <i class="fa-solid fa-wallet"></i>
+                            <i class="fa-solid fa-mobile-screen"></i>
                         </div>
                         <div class="wallet-info">
-                            <h4>Saldo Móvil / Pago Móvil</h4>
-                            <p>Moneda local y transferencias</p>
+                            <h4>Saldo Móvil</h4>
+                            <p>Depósito directo al # 58151457</p>
                         </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right" style="color:var(--text-muted);"></i>
+                    <i class="fa-solid fa-chevron-right" style="color: var(--primary-neon);"></i>
                 </div>
 
-                <div class="section-title" style="margin-top:2rem;">HISTORIAL DE TRANSACCIONES</div>
-                <div id="transactions-list-container">
-                    <p style="text-align:center; color:var(--text-muted); font-size:0.8rem; padding:1.5rem 0;">No tienes transacciones registradas.</p>
+                <div class="wallet-card-option" onclick="openUsdtDeposit()">
+                    <div class="wallet-card-left">
+                        <div class="usdt-real-icon">
+                            <svg width="24" height="24" viewBox="0 0 32 32"><path d="M17.5 14.5v-3.2h4.5V8.5h-4.5V5.8h-3v2.7H10v2.8h4.5v3.2c-3.1.2-5.7 1-5.7 2 0 1.1 2.8 1.9 6.2 2v4.7h3v-4.7c3.4-.1 6.2-.9 6.2-2 0-1-2.6-1.8-5.7-2zm-1.5 3.8c-2.8 0-5.1-.6-5.1-1.4 0-.8 2.3-1.4 5.1-1.4s5.1.6 5.1 1.4c0 .8-2.3 1.4-5.1 1.4z" fill="#ffffff"/></svg>
+                        </div>
+                        <div class="wallet-info">
+                            <h4>USDT BEP 20</h4>
+                            <p>Red Binance Smart Chain (BSC)</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="color: var(--primary-neon);"></i>
                 </div>
             </div>
 
-            <!-- SECCIÓN PERFIL -->
-            <div id="tab-content-profile" class="main-tab-pane hidden">
-                <div class="section-title">MI PERFIL</div>
-                
-                <div style="background:var(--bg-card); border:2px solid var(--border-color); border-radius:20px; padding:1.5rem; text-align:center; margin-bottom:1.5rem; box-shadow:0 6px 20px rgba(0,0,0,0.5);">
-                    <div style="width:70px; height:70px; background:linear-gradient(135deg, #00f7ff, #7209b7); border-radius:50%; margin:0 auto 12px auto; display:flex; align-items:center; justify-content:center; font-size:28px; color:#030614; font-weight:900; box-shadow:var(--neon-glow);">
-                        <span id="profile-initial">U</span>
-                    </div>
-                    <h3 id="profile-username-val" style="font-family:'Orbitron',sans-serif; font-size:1.1rem; margin-bottom:4px; color:#fff;">Usuario</h3>
-                    <p id="profile-email-val" style="font-size:0.75rem; color:var(--text-muted);">correo@dominio.com</p>
-                </div>
-
-                <button onclick="handleLogout()" class="btn-main" style="background:rgba(239, 68, 68, 0.2); border:1.5px solid #ef4444; color:#ef4444; box-shadow:none;">
-                    <i class="fa-solid fa-right-from-bracket"></i> CERRAR SESIÓN
+            <!-- VISTA DEPÓSITO SALDO MÓVIL (# 58151457) -->
+            <div id="sec-saldo-detail" class="vista-sec hidden">
+                <button onclick="switchMainTab('wallet')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-arrow-left"></i> Volver a Billeteras
                 </button>
 
-                <!-- Panel de Administrador Oculto / Visible condicional -->
-                <div id="admin-panel-section" class="hidden">
-                    <div class="admin-panel-box">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                            <h4 style="font-family:'Orbitron',sans-serif; font-size:0.9rem; color:var(--primary-neon);">PANEL DE ADMINISTRADOR</h4>
-                            <span style="font-size:0.65rem; background:rgba(0,247,255,0.2); border:1px solid var(--primary-neon); padding:2px 8px; border-radius:10px;">ADMIN</span>
+                <div class="wallet-box-detail">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+                        <div class="saldo-icon-box" style="width:38px; height:38px; font-size:1rem;">
+                            <i class="fa-solid fa-mobile-screen"></i>
                         </div>
-                        <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Solicitudes pendientes de revisión y usuarios registrados:</p>
-                        <div id="admin-requests-list">
-                            <p style="font-size:0.75rem; color:var(--text-muted);">No hay solicitudes pendientes.</p>
+                        <div>
+                            <h4 style="font-size:0.95rem; font-weight:900;">Recarga de Saldo Móvil</h4>
+                            <p style="font-size:0.7rem; color:var(--text-muted)">Transferir al número indicado</p>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label>NÚMERO PARA DEPOSITAR SALDO:</label>
+                        <div class="wallet-address-box" id="saldo-num-text">58151457</div>
+                        <button onclick="copySaldoNumber()" class="btn-main" style="padding: 0.7rem; font-size: 0.82rem;"><i class="fa-regular fa-copy"></i> Copiar Número</button>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label>MONTO DE SALDO A DEPOSITAR</label>
+                        <input type="number" id="saldo-monto-input" class="form-control" placeholder="Ej. 300" step="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>NÚMERO DE TRANSFERENCIA / CONFIRMACIÓN</label>
+                        <input type="text" id="saldo-hash-input" class="form-control" placeholder="Ej. 12345678">
+                    </div>
+
+                    <div class="form-group">
+                        <label>SUBIR COMPROBANTE DE PAGO (IMAGEN)</label>
+                        <input type="file" id="saldo-receipt-file" class="form-control" accept="image/*" style="padding: 0.5rem;">
+                    </div>
+
+                    <button onclick="submitSaldoDeposit()" class="btn-main">CONFIRMAR DEPÓSITO DE SALDO</button>
+                </div>
+            </div>
+
+            <!-- VISTA DEPÓSITO USDT -->
+            <div id="sec-usdt-detail" class="vista-sec hidden">
+                <button onclick="switchMainTab('wallet')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-arrow-left"></i> Volver a Billeteras
+                </button>
+
+                <div class="wallet-box-detail">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+                        <div class="usdt-real-icon" style="width:38px; height:38px;">
+                            <svg width="20" height="20" viewBox="0 0 32 32"><path d="M17.5 14.5v-3.2h4.5V8.5h-4.5V5.8h-3v2.7H10v2.8h4.5v3.2c-3.1.2-5.7 1-5.7 2 0 1.1 2.8 1.9 6.2 2v4.7h3v-4.7c3.4-.1 6.2-.9 6.2-2 0-1-2.6-1.8-5.7-2zm-1.5 3.8c-2.8 0-5.1-.6-5.1-1.4 0-.8 2.3-1.4 5.1-1.4s5.1.6 5.1 1.4c0 .8-2.3 1.4-5.1 1.4z" fill="#ffffff"/></svg>
+                        </div>
+                        <div>
+                            <h4 style="font-size:0.95rem; font-weight:900;">Recarga USDT BEP 20</h4>
+                            <p style="font-size:0.7rem; color:var(--text-muted)">Red Binance Smart Chain (BSC)</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>DIRECCIÓN OFICIAL BEP 20:</label>
+                        <div class="wallet-address-box" id="wallet-addr-text">0x01fFC04c400d0811DEc106E56Bfb5a95576AF18f</div>
+                        <button onclick="copyWalletAddress()" class="btn-main" style="padding: 0.7rem; font-size: 0.82rem;"><i class="fa-regular fa-copy"></i> Copiar Dirección</button>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label>MONTO (USDT)</label>
+                        <input type="number" id="usdt-monto-input" class="form-control" placeholder="Ej. 10.00" step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label>ID DE LA TRANSFERENCIA (HASH / ID)</label>
+                        <input type="text" id="usdt-hash-input" class="form-control" placeholder="Ej. 0x1234abcd...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>SUBIR COMPROBANTE DE PAGO (IMAGEN)</label>
+                        <input type="file" id="usdt-receipt-file" class="form-control" accept="image/*" style="padding: 0.5rem;">
+                    </div>
+
+                    <button onclick="submitDeposit()" class="btn-main">CONFIRMAR DEPÓSITO</button>
+                </div>
+            </div>
+
+            <!-- VISTA RECARGAS FREE FIRE -->
+            <div id="sec-recargas" class="vista-sec hidden">
+                <button onclick="switchMainTab('home')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-arrow-left"></i> Volver a Inicio
+                </button>
+
+                <div class="section-title">SELECCIONA EL MÉTODO DE PAGO</div>
+                <div class="payment-methods-tabs">
+                    <div id="btn-method-saldo" class="pay-tab-btn active" onclick="switchPaymentMethod('saldo')"><i class="fa-solid fa-mobile-screen"></i> Saldo Móvil</div>
+                    <div id="btn-method-usdt" class="pay-tab-btn" onclick="switchPaymentMethod('usdt')"><i class="fa-solid fa-coins"></i> USDT</div>
+                </div>
+
+                <div class="top-recharge-showcase" style="background: #091026; border: 2px solid var(--border-color); border-radius: 18px; padding: 1rem; margin-bottom: 1rem;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>PLAYER ID (Solo números de Free Fire)</label>
+                        <input type="number" id="player-id-input" class="form-control" placeholder="Ej. 123456789" style="text-align:center; font-weight:bold;">
+                    </div>
+                </div>
+
+                <!-- PAQUETES SALDO MÓVIL CON PRECIOS EXACTOS -->
+                <div id="packages-saldo-container">
+                    <div class="section-title">PAQUETES CON SALDO MÓVIL</div>
+                    <div class="diamonds-grid">
+                        <div class="diamond-card" onclick="selectPackage(this, '100+10 Diamantes (Saldo)', 300, 'saldo')">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>100+10 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">300 saldo</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '310+51 Diamantes (Saldo)', 810, 'saldo')">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>310+51 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">810 saldo</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '520+52 Diamantes (Saldo)', 1360, 'saldo')">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>520+52 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">1360 saldo</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '1050+105 Diamantes (Saldo)', 2412, 'saldo')">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>1050+105 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">2412 saldo</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '2160+216 Diamantes (Saldo)', 4890, 'saldo')">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>2160+216 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">4890 saldo</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '5580+558 Diamantes (Saldo)', 12489, 'saldo')">
+                            <div class="offer-tag">oferta VIP</div>
+                            <div class="diamond-card-content">
+                                <h4>5580+558 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">12489 saldo</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAQUETES USDT -->
+                <div id="packages-usdt-container" class="hidden">
+                    <div class="section-title">PAQUETES CON USDT</div>
+                    <div class="diamonds-grid">
+                        <div class="diamond-card" onclick="selectPackage(this, '100+10 Diamantes (USDT)', 0.99, 'usdt')">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>100+10 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">$0.99 USDT</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '310+31 Diamantes (USDT)', 2.99, 'usdt')">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>310+31 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">$2.99 USDT</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '520+52 Diamantes (USDT)', 4.60, 'usdt')">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>520+52 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">$4.60 USDT</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '1060+106 Diamantes (USDT)', 8.40, 'usdt')">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>1060+106 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">$8.40 USDT</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '2180+218 Diamantes (USDT)', 15.99, 'usdt')">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>2180+218 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">$15.99 USDT</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '5600+560 Diamantes (USDT)', 38.99, 'usdt')">
+                            <div class="offer-tag">oferta VIP</div>
+                            <div class="diamond-card-content">
+                                <h4>5600+560 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">$38.99 USDT</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="submitOrder()" class="btn-main">COMPLETAR RECARGA</button>
+            </div>
+
+            <!-- VISTA PEDIDOS Y PANEL ADMIN -->
+            <div id="sec-orders" class="vista-sec hidden">
+                <div class="section-title">MIS DEPÓSITOS Y PEDIDOS</div>
+                <div id="orders-list-container"></div>
+                
+                <div id="admin-panel-container" class="admin-panel-box hidden">
+                    <div class="section-title" style="margin-top:0; color:var(--primary-neon);">PANEL DE ADMINISTRADOR (SOLO PARA TI)</div>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom: 10px;">Comprobantes de compras y recargas pendientes:</p>
+                    <div id="admin-orders-list"></div>
+
+                    <div class="section-title" style="margin-top:1.5rem; color:var(--primary-neon);">DATOS PERSONALES DE USUARIOS REGISTRADOS</div>
+                    <div id="admin-users-list"></div>
                 </div>
             </div>
         </div>
 
-        <!-- BARRA DE NAVEGACIÓN INFERIOR -->
         <nav class="app-bottom-nav">
-            <button class="nav-item-btn active" id="nav-btn-store" onclick="switchMainTab('store')">
-                <i class="fa-solid fa-store"></i>
-                <span>Tienda</span>
-            </button>
-            <button class="nav-item-btn" id="nav-btn-wallet" onclick="switchMainTab('wallet')">
-                <i class="fa-solid fa-wallet"></i>
-                <span>Monedero</span>
-            </button>
-            <button class="nav-item-btn" id="nav-btn-profile" onclick="switchMainTab('profile')">
-                <i class="fa-solid fa-user"></i>
-                <span>Perfil</span>
-            </button>
+            <button class="nav-item-btn active" onclick="switchMainTab('home')"><i class="fa-solid fa-house"></i> Inicio</button>
+            <button class="nav-item-btn" onclick="switchMainTab('recargas')"><i class="fa-solid fa-bolt"></i> Recargar</button>
+            <button class="nav-item-btn" onclick="switchMainTab('wallet')"><i class="fa-solid fa-wallet"></i> Wallet</button>
+            <button class="nav-item-btn" onclick="switchMainTab('orders')"><i class="fa-solid fa-receipt"></i> Pedidos</button>
         </nav>
     </div>
 
-    <!-- MODAL DE COMPRA DE JUEGO -->
-    <div id="game-modal" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(3,6,20,0.85); z-index:9999; display:flex; align-items:center; justify-content:center; padding:15px; backdrop-filter:blur(5px);">
-        <div style="background:var(--bg-card); border:2px solid var(--primary-neon); border-radius:24px; width:100%; max-width:420px; padding:1.5rem; box-shadow:var(--neon-glow-strong); max-height:90vh; overflow-y:auto;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-                <h3 id="modal-game-title" style="font-family:'Orbitron',sans-serif; font-size:1rem; color:var(--primary-neon);">COMPRA</h3>
-                <i class="fa-solid fa-xmark" onclick="closeGameModal()" style="font-size:20px; cursor:pointer; color:var(--text-muted);"></i>
-            </div>
-
-            <div class="form-group">
-                <label id="modal-id-label">ID del Jugador</label>
-                <input type="text" id="game-player-id" class="form-control" placeholder="Introduce tu ID">
-            </div>
-
-            <div class="section-title" style="margin-top:0.8rem; text-align:left;">MÉTODO DE PAGO</div>
-            <div class="payment-methods-tabs">
-                <button class="pay-tab-btn active" id="pay-mode-saldo" onclick="switchPaymentMode('saldo')">
-                    <i class="fa-solid fa-wallet"></i> Saldo Web
-                </button>
-                <button class="pay-tab-btn" id="pay-mode-usdt" onclick="switchPaymentMode('usdt')">
-                    <i class="fa-solid fa-coins"></i> USDT Directo
-                </button>
-            </div>
-
-            <div class="section-title" style="text-align:left;">SELECCIONA PAQUETE</div>
-            <div class="diamonds-grid" id="packages-grid-container">
-                <!-- Se llena por JavaScript -->
-            </div>
-
-            <button onclick="submitGamePurchase()" class="btn-main">CONFIRMAR COMPRA</button>
-        </div>
-    </div>
-
-    <!-- MODAL DE RECARGA DE SALDO / USDT -->
-    <div id="recharge-modal" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(3,6,20,0.85); z-index:9999; display:flex; align-items:center; justify-content:center; padding:15px; backdrop-filter:blur(5px);">
-        <div style="background:var(--bg-card); border:2px solid var(--primary-neon); border-radius:24px; width:100%; max-width:420px; padding:1.5rem; box-shadow:var(--neon-glow-strong); max-height:90vh; overflow-y:auto;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-                <h3 id="recharge-modal-title" style="font-family:'Orbitron',sans-serif; font-size:1rem; color:var(--primary-neon);">RECARGAR</h3>
-                <i class="fa-solid fa-xmark" onclick="closeRechargeModal()" style="font-size:20px; cursor:pointer; color:var(--text-muted);"></i>
-            </div>
-
-            <div id="recharge-content-body">
-                <!-- Contenido dinámico según USDT o Saldo -->
-            </div>
-        </div>
-    </div>
-
     <script>
-        // --- BASE DE DATOS Y ESTADO LOCAL ---
+        let selectedPkg = null;
+        let selectedPrice = 0;
+        let selectedCurrency = 'saldo';
+        let currentPaymentType = 'saldo';
         let currentUser = null;
-        let selectedPackage = null;
-        let currentPaymentMethod = 'saldo';
-        let activeGameName = 'Free Fire';
 
-        const USDT_WALLET_ADDRESS = "0x01fFC04c400d0811DEc106E56Bfb5a95576AF18f";
-
-        const gamePackages = {
-            'Free Fire': [
-                { id: 'ff_1', name: '100 + 10 Diamantes', price: 1.00, tag: 'Popular' },
-                { id: 'ff_2', name: '310 + 31 Diamantes', price: 3.00, tag: 'Mejor Valor' },
-                { id: 'ff_3', name: '520 + 52 Diamantes', price: 5.00, tag: 'Oferta' },
-                { id: 'ff_4', name: '1060 + 106 Diamantes', price: 10.00, tag: 'Pro' }
-            ],
-            'PUBG Mobile': [
-                { id: 'pubg_1', name: '60 UC', price: 0.99, tag: 'Inicio' },
-                { id: 'pubg_2', name: '325 UC + 25 Bonus', price: 4.99, tag: 'Popular' },
-                { id: 'pubg_3', name: '660 UC + 60 Bonus', price: 9.99, tag: 'Oferta' },
-                { id: 'pubg_4', name: '1800 UC + 350 Bonus', price: 24.99, tag: 'Élite' }
-            ]
+        window.onload = function() {
+            const savedUser = localStorage.getItem('dl_logged_user');
+            if(savedUser) {
+                currentUser = savedUser;
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                checkAdminRights();
+                updateUIBalances();
+                renderOrders();
+            }
         };
 
-        function showToast(message) {
+        function showNotification(msg) {
             const toast = document.getElementById('notification-toast');
-            toast.innerText = message;
+            toast.innerText = msg;
             toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+            setTimeout(() => toast.classList.remove('show'), 3500);
         }
 
-        // --- AUTENTICACIÓN ---
         function switchAuthTab(tab) {
-            if (tab === 'login') {
-                document.getElementById('tab-btn-login').classList.add('active');
-                document.getElementById('tab-btn-register').classList.remove('active');
-                document.getElementById('form-login').classList.remove('hidden');
-                document.getElementById('form-register').classList.add('hidden');
+            document.getElementById('form-login').classList.toggle('hidden', tab !== 'login');
+            document.getElementById('form-register').classList.toggle('hidden', tab !== 'register');
+            document.getElementById('tab-btn-login').classList.toggle('active', tab === 'login');
+            document.getElementById('tab-btn-register').classList.toggle('active', tab === 'register');
+        }
+
+        function checkAdminRights() {
+            if(currentUser && currentUser.toLowerCase() === 'admin') {
+                document.getElementById('admin-panel-container').classList.remove('hidden');
             } else {
-                document.getElementById('tab-btn-register').classList.add('active');
-                document.getElementById('tab-btn-login').classList.remove('active');
-                document.getElementById('form-register').classList.remove('hidden');
-                document.getElementById('form-login').classList.add('hidden');
+                document.getElementById('admin-panel-container').classList.add('hidden');
+            }
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('dl_logged_user');
+            currentUser = null;
+            document.getElementById('main-app').classList.add('hidden');
+            document.getElementById('auth-screen').classList.remove('hidden');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const userInput = document.getElementById('login-user').value.trim();
+            const passInput = document.getElementById('login-pass').value.trim();
+
+            if(!userInput || !passInput) return;
+
+            if(userInput.toLowerCase() === 'admin') {
+                if(passInput === 'admin123') {
+                    currentUser = 'admin';
+                    localStorage.setItem('dl_logged_user', 'admin');
+                    document.getElementById('auth-screen').classList.add('hidden');
+                    document.getElementById('main-app').classList.remove('hidden');
+                    checkAdminRights();
+                    updateUIBalances();
+                    renderOrders();
+                    return;
+                } else {
+                    showNotification("Contraseña de administrador incorrecta.");
+                    return;
+                }
+            }
+
+            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
+            let user = users.find(u => (u.username === userInput || u.email === userInput) && u.password === passInput);
+
+            if(user) {
+                currentUser = user.username;
+                localStorage.setItem('dl_logged_user', currentUser);
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                checkAdminRights();
+                updateUIBalances();
+                renderOrders();
+            } else {
+                showNotification("Usuario o contraseña incorrectos.");
             }
         }
 
         function handleRegister(e) {
             e.preventDefault();
-            const username = document.getElementById('reg-user').value.trim();
+            const u = document.getElementById('reg-user').value.trim();
             const email = document.getElementById('reg-email').value.trim();
             const pass = document.getElementById('reg-pass').value.trim();
 
-            if (pass.length < 6) {
-                showToast("La contraseña debe tener al menos 6 dígitos.");
+            if(!u || !email || !pass) return;
+
+            if(pass.length <= 6) {
+                showNotification("La contraseña debe tener más de 6 dígitos.");
                 return;
             }
 
-            let users = JSON.parse(localStorage.getItem('diamons_users') || '[]');
-            if (users.some(u => u.username === username)) {
-                showToast("El usuario ya existe.");
+            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
+            if(users.some(existing => existing.username === u)) {
+                showNotification("El nombre de usuario ya está registrado.");
                 return;
             }
 
-            const newUser = {
-                username,
-                email,
-                pass,
-                usdtBalance: 0.00,
-                saldoBalance: 0.00,
-                transactions: []
-            };
-
+            const newUser = { username: u, email: email, password: pass, balance: 0.00, usdtBalance: 0.00 };
             users.push(newUser);
-            localStorage.setItem('diamons_users', JSON.stringify(users));
-            showToast("¡Registro exitoso! Ya puedes iniciar sesión.");
-            switchAuthTab('login');
-        }
+            localStorage.setItem('dl_users', JSON.stringify(users));
 
-        function handleLogin(e) {
-            e.preventDefault();
-            const identifier = document.getElementById('login-user').value.trim();
-            const pass = document.getElementById('login-pass').value.trim();
-
-            let users = JSON.parse(localStorage.getItem('diamons_users') || '[]');
-            const found = users.find(u => (u.username === identifier || u.email === identifier) && u.pass === pass);
-
-            if (found) {
-                currentUser = found;
-                localStorage.setItem('diamons_current_session', currentUser.username);
-                initApp();
-                showToast("¡Bienvenido de nuevo, " + currentUser.username + "!");
-            } else {
-                showToast("Usuario o contraseña incorrectos.");
-            }
-        }
-
-        function handleLogout() {
-            currentUser = null;
-            localStorage.removeItem('diamons_current_session');
-            document.getElementById('auth-screen').classList.remove('hidden');
-            document.getElementById('main-app').classList.add('hidden');
-            showToast("Sesión cerrada correctamente.");
-        }
-
-        // --- INICIALIZACIÓN DE LA APLICACIÓN ---
-        window.onload = function() {
-            const savedSession = localStorage.getItem('diamons_current_session');
-            if (savedSession) {
-                let users = JSON.parse(localStorage.getItem('diamons_users') || '[]');
-                const found = users.find(u => u.username === savedSession);
-                if (found) {
-                    currentUser = found;
-                    initApp();
-                }
-            }
-        }
-
-        function initApp() {
+            currentUser = u;
+            localStorage.setItem('dl_logged_user', currentUser);
+            showNotification("¡Registro exitoso! Bienvenido a Diamons Legion.");
             document.getElementById('auth-screen').classList.add('hidden');
             document.getElementById('main-app').classList.remove('hidden');
-            
-            updateBalancesDisplay();
-            renderProfileInfo();
-            renderTransactions();
-            checkAdminVisibility();
-            switchMainTab('store');
+            checkAdminRights();
+            updateUIBalances();
+            renderOrders();
         }
 
-        function updateBalancesDisplay() {
-            document.getElementById('usdt-balance-display').innerText = (currentUser.usdtBalance || 0).toFixed(2);
-            document.getElementById('saldo-balance-display').innerText = (currentUser.saldoBalance || 0).toFixed(2);
-            
-            let users = JSON.parse(localStorage.getItem('diamons_users') || '[]');
-            users = users.map(u => u.username === currentUser.username ? currentUser : u);
-            localStorage.setItem('diamons_users', JSON.stringify(users));
+        function getUserData(username) {
+            if(username.toLowerCase() === 'admin') return { balance: 99999, usdtBalance: 99999 };
+            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
+            let user = users.find(u => u.username === username);
+            return user ? { balance: user.balance || 0, usdtBalance: user.usdtBalance || 0 } : { balance: 0, usdtBalance: 0 };
         }
 
-        function renderProfileInfo() {
-            document.getElementById('profile-initial').innerText = currentUser.username.charAt(0).toUpperCase();
-            document.getElementById('profile-username-val').innerText = currentUser.username;
-            document.getElementById('profile-email-val').innerText = currentUser.email;
-        }
-
-        function checkAdminVisibility() {
-            const adminBox = document.getElementById('admin-panel-section');
-            if (currentUser.username.toLowerCase() === 'admin' || currentUser.isAdmin) {
-                adminBox.classList.remove('hidden');
-                renderAdminRequests();
-            } else {
-                adminBox.classList.add('hidden');
-            }
-        }
-
-        // --- NAVEGACIÓN PRINCIPAL ---
-        function switchMainTab(tabName) {
-            ['store', 'wallet', 'profile'].forEach(t => {
-                document.getElementById(`tab-content-${t}`).classList.add('hidden');
-                document.getElementById(`nav-btn-${t}`).classList.remove('active');
-            });
-            document.getElementById(`tab-content-${tabName}`).classList.remove('hidden');
-            document.getElementById(`nav-btn-${tabName}`).classList.add('active');
-            if(tabName === 'profile') checkAdminVisibility();
-            if(tabName === 'wallet') renderTransactions();
-        }
-
-        // --- MODAL DE JUEGO / COMPRAS ---
-        function openGameModal(gameName) {
-            activeGameName = gameName;
-            document.getElementById('modal-game-title').innerText = `COMPRAR - ${gameName.toUpperCase()}`;
-            document.getElementById('modal-id-label').innerText = gameName === 'Free Fire' ? 'ID de Jugador (Free Fire)' : 'ID de Jugador (PUBG Mobile)';
-            document.getElementById('game-player-id').value = '';
-            
-            renderPackages();
-            document.getElementById('game-modal').classList.remove('hidden');
-        }
-
-        function closeGameModal() {
-            document.getElementById('game-modal').classList.add('hidden');
-        }
-
-        function switchPaymentMode(mode) {
-            currentPaymentMethod = mode;
-            if (mode === 'saldo') {
-                document.getElementById('pay-mode-saldo').classList.add('active');
-                document.getElementById('pay-mode-usdt').classList.remove('active');
-            } else {
-                document.getElementById('pay-mode-usdt').classList.add('active');
-                document.getElementById('pay-mode-saldo').classList.remove('active');
-            }
-        }
-
-        function renderPackages() {
-            const container = document.getElementById('packages-grid-container');
-            container.innerHTML = '';
-            const pkgs = gamePackages[activeGameName];
-
-            pkgs.forEach((p, idx) => {
-                const isSel = selectedPackage && selectedPackage.id === p.id;
-                container.innerHTML += `
-                    <div class="diamond-card ${isSel ? 'selected' : ''}" onclick='selectPackage(${JSON.stringify(p)})'>
-                        <div class="offer-tag">${p.tag}</div>
-                        <div class="diamond-card-content">
-                            <h4>${p.name}</h4>
-                            <p>${activeGameName}</p>
-                        </div>
-                        <div class="diamond-price-badge">$${p.price.toFixed(2)} USD</div>
-                    </div>
-                `;
-            });
-            if(!selectedPackage && pkgs.length > 0) selectedPackage = pkgs[0];
-        }
-
-        function selectPackage(pkg) {
-            selectedPackage = pkg;
-            renderPackages();
-        }
-
-        function submitGamePurchase() {
-            const playerId = document.getElementById('game-player-id').value.trim();
-            if (!playerId) {
-                showToast("Por favor introduce tu ID de jugador.");
-                return;
-            }
-            if (!selectedPackage) {
-                showToast("Selecciona un paquete.");
-                return;
-            }
-
-            if (currentPaymentMethod === 'saldo') {
-                if (currentUser.saldoBalance < selectedPackage.price) {
-                    showToast("Saldo insuficiente. Recarga tu monedero.");
-                    return;
-                }
-                currentUser.saldoBalance -= selectedPackage.price;
-            } else {
-                if (currentUser.usdtBalance < selectedPackage.price) {
-                    showToast("Saldo USDT insuficiente.");
-                    return;
-                }
-                currentUser.usdtBalance -= selectedPackage.price;
-            }
-
-            const tx = {
-                id: 'TX-' + Math.floor(100000 + Math.random() * 900000),
-                type: 'Compra ' + activeGameName,
-                item: selectedPackage.name,
-                amount: selectedPackage.price,
-                playerId: playerId,
-                status: 'Proceso',
-                date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
-            };
-
-            if(!currentUser.transactions) currentUser.transactions = [];
-            currentUser.transactions.unshift(tx);
-            updateBalancesDisplay();
-            closeGameModal();
-            showToast("¡Compra solicitada con éxito! En revisión.");
-            renderTransactions();
-        }
-
-        // --- RECARGAS DE SALDO / USDT ---
-        function openRechargeModal(type) {
-            const title = document.getElementById('recharge-modal-title');
-            const body = document.getElementById('recharge-content-body');
-            
-            if (type === 'usdt') {
-                title.innerText = "RECARGAR USDT (BEP20)";
-                body.innerHTML = `
-                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:10px;">Transfiere la cantidad exacta de USDT a la siguiente dirección de red BNB Smart Chain (BEP20):</p>
-                    <div class="wallet-address-box" id="copy-addr" onclick="copyWalletAddress()">${USDT_WALLET_ADDRESS}</div>
-                    <button class="btn-main" style="margin-bottom:14px; background:#091026; border:1.5px solid var(--primary-neon);" onclick="copyWalletAddress()"><i class="fa-solid fa-copy"></i> COPIAR DIRECCIÓN</button>
-                    
-                    <div class="form-group">
-                        <label>Monto a Recargar (USD / USDT)</label>
-                        <input type="number" id="recharge-amount-input" class="form-control" placeholder="Ej. 10.00">
-                    </div>
-                    <div class="form-group">
-                        <label>Hash de Transacción / TXID</label>
-                        <input type="text" id="recharge-hash-input" class="form-control" placeholder="0x...">
-                    </div>
-                    <button onclick="submitRechargeRequest('USDT')" class="btn-main">NOTIFICAR PAGO</button>
-                `;
-            } else {
-                title.innerText = "RECARGAR SALDO MÓVIL";
-                body.innerHTML = `
-                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:10px;">Realiza tu pago móvil o transferencia bancaria local y reporta los datos para acreditación manual:</p>
-                    <div style="background:#030614; padding:12px; border-radius:12px; border:1.5px solid var(--border-color); font-size:0.78rem; margin-bottom:14px;">
-                        <p style="color:var(--primary-neon); font-weight:900; margin-bottom:4px;">Datos de Pago:</p>
-                        <p>Banco: <strong>Banco Nacional</strong></p>
-                        <p>Teléfono: <strong>0412-0000000</strong></p>
-                        <p>Cédula/RIF: <strong>V-00000000</strong></p>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Monto Pagado ($ USD equivalente)</label>
-                        <input type="number" id="recharge-amount-input" class="form-control" placeholder="Ej. 5.00">
-                    </div>
-                    <div class="form-group">
-                        <label>Número de Referencia Bancaria</label>
-                        <input type="text" id="recharge-hash-input" class="form-control" placeholder="Últimos 4 o 6 dígitos">
-                    </div>
-                    <button onclick="submitRechargeRequest('Saldo Móvil')" class="btn-main">NOTIFICAR PAGO</button>
-                `;
-            }
-            document.getElementById('recharge-modal').classList.remove('hidden');
-        }
-
-        function closeRechargeModal() {
-            document.getElementById('recharge-modal').classList.add('hidden');
-        }
-
-        function copyWalletAddress() {
-            navigator.clipboard.writeText(USDT_WALLET_ADDRESS);
-            showToast("¡Dirección copiada al portapapeles!");
-        }
-
-        function submitRechargeRequest(methodType) {
-            const amount = parseFloat(document.getElementById('recharge-amount-input').value);
-            const refId = document.getElementById('recharge-hash-input').value.trim();
-
-            if (!amount || amount <= 0 || !refId) {
-                showToast("Por favor introduce un monto válido y la referencia/hash.");
-                return;
-            }
-
-            const tx = {
-                id: 'REC-' + Math.floor(100000 + Math.random() * 900000),
-                type: 'Recarga ' + methodType,
-                item: 'Recarga de Saldo',
-                amount: amount,
-                refId: refId,
-                status: 'Proceso',
-                date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
-            };
-
-            if(!currentUser.transactions) currentUser.transactions = [];
-            currentUser.transactions.unshift(tx);
-            updateBalancesDisplay();
-            closeRechargeModal();
-            showToast("¡Recarga enviada a verificación del administrador!");
-            renderTransactions();
-        }
-
-        // --- RENDERIZADO DE HISTORIAL Y TICKETS ---
-        function renderTransactions() {
-            const container = document.getElementById('transactions-list-container');
-            if (!currentUser.transactions || currentUser.transactions.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); font-size:0.8rem; padding:1.5rem 0;">No tienes transacciones registradas.</p>`;
-                return;
-            }
-
-            container.innerHTML = '';
-            currentUser.transactions.forEach(tx => {
-                let badgeClass = 'status-proceso';
-                let badgeText = 'En Proceso';
-                let stepActive1 = 'active';
-                let stepActive2 = '';
-                let stepActive3 = '';
-
-                if (tx.status === 'Aprobado') {
-                    badgeClass = 'status-aprobado';
-                    badgeText = 'Aprobado';
-                    stepActive2 = 'active';
-                    stepActive3 = 'active';
-                } else if (tx.status === 'Rechazado') {
-                    badgeClass = 'status-rechazado';
-                    badgeText = 'Rechazado';
-                }
-
-                container.innerHTML += `
-                    <div class="ticket-receipt-card">
-                        <div class="ticket-header-flex">
-                            <div class="ticket-title-group">
-                                <h4>${tx.type}</h4>
-                                <p>${tx.id} • ${tx.date}</p>
-                            </div>
-                            <div class="ticket-status-badge ${badgeClass}">
-                                <i class="fa-solid fa-circle" style="font-size:6px;"></i> ${badgeText}
-                            </div>
-                        </div>
-
-                        <div class="ticket-steps-bar">
-                            <div class="ticket-step-item ${stepActive1}">
-                                <div class="ticket-step-circle">1</div>
-                                <span>Solicitado</span>
-                            </div>
-                            <div class="ticket-step-item ${stepActive2}">
-                                <div class="ticket-step-circle">2</div>
-                                <span>Revisión</span>
-                            </div>
-                            <div class="ticket-step-item ${stepActive3}">
-                                <div class="ticket-step-circle">3</div>
-                                <span>Completado</span>
-                            </div>
-                        </div>
-
-                        <div class="ticket-details-body">
-                            <div class="ticket-row-line">
-                                <span>Concepto:</span>
-                                <span>${tx.item}</span>
-                            </div>
-                            ${tx.playerId ? `<div class="ticket-row-line"><span>ID de Jugador:</span><span>${tx.playerId}</span></div>` : ''}
-                            ${tx.refId ? `<div class="ticket-row-line"><span>Referencia/Hash:</span><span>${tx.refId}</span></div>` : ''}
-                            <div class="ticket-row-line">
-                                <span>Monto:</span>
-                                <span style="color:var(--primary-neon);">$${tx.amount.toFixed(2)} USD</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        // --- PANEL DE ADMINISTRADOR ---
-        function renderAdminRequests() {
-            const listContainer = document.getElementById('admin-requests-list');
-            let allUsers = JSON.parse(localStorage.getItem('diamons_users') || '[]');
-            
-            let pendingItems = [];
-            allUsers.forEach(u => {
-                if (u.transactions) {
-                    u.transactions.forEach(t => {
-                        if (t.status === 'Proceso') {
-                            pendingItems.push({ username: u.username, tx: t });
-                        }
-                    });
-                }
-            });
-
-            if (pendingItems.length === 0) {
-                listContainer.innerHTML = `<p style="font-size:0.75rem; color:var(--text-muted); text-align:center; padding:10px 0;">No hay solicitudes pendientes.</p>`;
-                return;
-            }
-
-            listContainer.innerHTML = '';
-            pendingItems.forEach((item, index) => {
-                listContainer.innerHTML += `
-                    <div class="admin-req-card">
-                        <div>
-                            <p style="font-weight:900; color:var(--primary-neon); margin-bottom:2px;">User: ${item.username}</p>
-                            <p>${item.tx.type} - ${item.tx.item}</p>
-                            <p style="color:var(--text-muted);">$${item.tx.amount.toFixed(2)} | Ref: ${item.tx.refId || item.tx.playerId || 'N/A'}</p>
-                        </div>
-                        <div style="display:flex; flex-direction:column; gap:6px;">
-                            <button onclick="adminAction('${item.username}', '${item.tx.id}', 'approve')" style="background:#10b981; color:#fff; border:none; padding:5px 10px; border-radius:8px; font-weight:900; cursor:pointer; font-size:10px;">APROBAR</button>
-                            <button onclick="adminAction('${item.username}', '${item.tx.id}', 'reject')" style="background:#ef4444; color:#fff; border:none; padding:5px 10px; border-radius:8px; font-weight:900; cursor:pointer; font-size:10px;">RECHAZAR</button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function adminAction(targetUsername, txId, action) {
-            let allUsers = JSON.parse(localStorage.getItem('diamons_users') || '[]');
-            
-            allUsers = allUsers.map(u => {
-                if (u.username === targetUsername && u.transactions) {
-                    u.transactions = u.transactions.map(t => {
-                        if (t.id === txId) {
-                            t.status = action === 'approve' ? 'Aprobado' : 'Rechazado';
-                            if (action === 'approve' && t.type.includes('Recarga')) {
-                                if (t.type.includes('USDT')) {
-                                    u.usdtBalance = (u.usdtBalance || 0) + t.amount;
-                                } else {
-                                    u.saldoBalance = (u.saldoBalance || 0) + t.amount;
-                                }
-                            }
-                        }
-                        return t;
-                    });
+        function modifyUserBalance(username, amount, currency) {
+            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
+            users = users.map(u => {
+                if(u.username === username) {
+                    if(currency === 'usdt') {
+                        u.usdtBalance = (u.usdtBalance || 0) + amount;
+                    } else {
+                        u.balance = (u.balance || 0) + amount;
+                    }
                 }
                 return u;
             });
+            localStorage.setItem('dl_users', JSON.stringify(users));
+            updateUIBalances();
+        }
 
-            localStorage.setItem('diamons_users', JSON.stringify(allUsers));
-            
-            if (currentUser && currentUser.username === targetUsername) {
-                currentUser = allUsers.find(u => u.username === targetUsername);
-                updateBalancesDisplay();
-                renderTransactions();
+        function updateUIBalances() {
+            if(!currentUser) return;
+            let data = getUserData(currentUser);
+            document.getElementById('usdt-balance-display').innerText = data.usdtBalance.toFixed(2);
+            document.getElementById('saldo-balance-display').innerText = data.balance.toFixed(0);
+        }
+
+        function switchMainTab(sec) {
+            document.querySelectorAll('.vista-sec').forEach(el => el.classList.add('hidden'));
+            document.getElementById('sec-' + sec).classList.remove('hidden');
+            if(sec === 'orders') renderOrders();
+            if(sec === 'wallet') updateUIBalances();
+        }
+
+        function openSaldoDeposit() {
+            document.querySelectorAll('.vista-sec').forEach(el => el.classList.add('hidden'));
+            document.getElementById('sec-saldo-detail').classList.remove('hidden');
+        }
+
+        function openUsdtDeposit() {
+            document.querySelectorAll('.vista-sec').forEach(el => el.classList.add('hidden'));
+            document.getElementById('sec-usdt-detail').classList.remove('hidden');
+        }
+
+        function switchPaymentMethod(method) {
+            currentPaymentType = method;
+            document.getElementById('btn-method-saldo').classList.toggle('active', method === 'saldo');
+            document.getElementById('btn-method-usdt').classList.toggle('active', method === 'usdt');
+            document.getElementById('packages-saldo-container').classList.toggle('hidden', method !== 'saldo');
+            document.getElementById('packages-usdt-container').classList.toggle('hidden', method !== 'usdt');
+            selectedPkg = null;
+            selectedPrice = 0;
+            document.querySelectorAll('.diamond-card').forEach(c => c.classList.remove('selected'));
+        }
+
+        function copySaldoNumber() {
+            const num = document.getElementById('saldo-num-text').innerText;
+            navigator.clipboard.writeText(num).then(() => {
+                showNotification("¡Número 58151457 copiado!");
+            });
+        }
+
+        function copyWalletAddress() {
+            const addr = document.getElementById('wallet-addr-text').innerText;
+            navigator.clipboard.writeText(addr).then(() => {
+                showNotification("¡Dirección de Wallet copiada!");
+            });
+        }
+
+        function copyPlayerIdText(idText) {
+            navigator.clipboard.writeText(idText).then(() => {
+                showNotification(`¡ID copiado: ${idText}!`);
+            });
+        }
+
+        function selectPackage(el, pkg, price, currency) {
+            document.querySelectorAll('.diamond-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedPkg = pkg;
+            selectedPrice = price;
+            selectedCurrency = currency;
+        }
+
+        function submitSaldoDeposit() {
+            const montoStr = document.getElementById('saldo-monto-input').value;
+            const hash = document.getElementById('saldo-hash-input').value;
+            const monto = parseFloat(montoStr);
+
+            if(!monto || isNaN(monto) || !hash) {
+                showNotification("Por favor ingresa un monto de saldo válido y el número de confirmación.");
+                return;
             }
 
-            showToast(`Solicitud ${action === 'approve' ? 'aprobada' : 'rechazada'} con éxito.`);
-            renderAdminRequests();
+            const now = new Date();
+            const fechaStr = now.toLocaleDateString() + ", " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
+            const newDeposit = {
+                id: Date.now(),
+                user: currentUser || 'Usuario',
+                type: 'Depósito Saldo Móvil (58151457)',
+                playerId: 'N/A',
+                amount: monto,
+                currency: 'saldo',
+                action: 'CREDIT',
+                detail: `Conf: ${hash}`,
+                date: fechaStr,
+                status: 'Proceso'
+            };
+
+            orders.unshift(newDeposit);
+            localStorage.setItem('dl_orders', JSON.stringify(orders));
+            
+            showNotification(`DEPÓSITO DE ${monto} SALDO ENVIADO AL ADMIN`);
+            switchMainTab('orders');
+        }
+
+        function submitDeposit() {
+            const montoStr = document.getElementById('usdt-monto-input').value;
+            const hash = document.getElementById('usdt-hash-input').value;
+            const monto = parseFloat(montoStr);
+
+            if(!monto || isNaN(monto) || !hash) {
+                showNotification("Por favor ingresa un monto válido y el Hash.");
+                return;
+            }
+
+            const now = new Date();
+            const fechaStr = now.toLocaleDateString() + ", " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
+            const newDeposit = {
+                id: Date.now(),
+                user: currentUser || 'Usuario',
+                type: 'Depósito USDT',
+                playerId: 'N/A',
+                amount: monto,
+                currency: 'usdt',
+                action: 'CREDIT',
+                detail: `Hash: ${hash.substring(0,8)}...`,
+                date: fechaStr,
+                status: 'Proceso'
+            };
+
+            orders.unshift(newDeposit);
+            localStorage.setItem('dl_orders', JSON.stringify(orders));
+            
+            showNotification(`DEPÓSITO DE $${monto.toFixed(2)} USDT ENVIADO AL ADMIN`);
+            switchMainTab('orders');
+        }
+
+        function submitOrder() {
+            const playerId = document.getElementById('player-id-input').value;
+
+            if(!playerId || !selectedPkg) {
+                showNotification("Ingresa tu ID de jugador y selecciona un paquete.");
+                return;
+            }
+
+            let userData = getUserData(currentUser);
+            if(selectedCurrency === 'saldo' && userData.balance < selectedPrice) {
+                showNotification(`Saldo insuficiente. Tienes ${userData.balance.toFixed(0)} y necesitas ${selectedPrice} saldo.`);
+                return;
+            }
+            if(selectedCurrency === 'usdt' && userData.usdtBalance < selectedPrice) {
+                showNotification(`USDT insuficiente. Tienes $${userData.usdtBalance.toFixed(2)} y necesitas $${selectedPrice} USDT.`);
+                return;
+            }
+
+            const now = new Date();
+            const fechaStr = now.toLocaleDateString() + ", " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
+            const newOrder = {
+                id: Date.now(),
+                user: currentUser || 'Usuario',
+                type: selectedPkg,
+                playerId: playerId,
+                amount: selectedPrice,
+                currency: selectedCurrency,
+                action: 'DEBIT',
+                detail: `Compra de Paquete Free Fire`,
+                date: fechaStr,
+                status: 'Proceso'
+            };
+
+            orders.unshift(newOrder);
+            localStorage.setItem('dl_orders', JSON.stringify(orders));
+            
+            showNotification("COMPRA ENVIADA AL ADMIN para su validación");
+            switchMainTab('orders');
+        }
+
+        function renderOrders() {
+            const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
+            const userContainer = document.getElementById('orders-list-container');
+            const adminContainer = document.getElementById('admin-orders-list');
+            const usersAdminContainer = document.getElementById('admin-users-list');
+
+            userContainer.innerHTML = '';
+            adminContainer.innerHTML = '';
+            usersAdminContainer.innerHTML = '';
+
+            const myOrders = orders.filter(o => o.user === currentUser);
+
+            if(myOrders.length === 0) {
+                userContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">No tienes depósitos ni pedidos registrados.</p>';
+            } else {
+                myOrders.forEach(o => {
+                    let statusClass = 'status-proceso';
+                    let statusText = 'En proceso';
+                    let step1Active = 'active';
+                    let step2Active = '';
+                    let step3Active = '';
+
+                    if(o.status === 'Aprobado') {
+                        statusClass = 'status-aprobado';
+                        statusText = 'Aprobado / Entregado';
+                        step1Active = 'active';
+                        step2Active = 'active';
+                        step3Active = 'active';
+                    } else if(o.status === 'Rechazado') {
+                        statusClass = 'status-rechazado';
+                        statusText = 'Rechazado';
+                        step1Active = '';
+                        step2Active = '';
+                        step3Active = '';
+                    }
+
+                    let amountText = o.currency === 'usdt' ? `$${o.amount.toFixed(2)} USDT` : `${o.amount} saldo`;
+
+                    userContainer.innerHTML += `
+                        <div class="ticket-receipt-card">
+                            <div class="ticket-header-flex">
+                                <div class="ticket-title-group">
+                                    <h4>${o.type}</h4>
+                                    <p>${o.detail}</p>
+                                </div>
+                                <div class="ticket-status-badge ${statusClass}">
+                                    <i class="fa-solid fa-circle-check"></i> ${statusText}
+                                </div>
+                            </div>
+
+                            <div class="ticket-steps-bar">
+                                <div class="ticket-step-item ${step1Active}">
+                                    <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
+                                    Solicitado
+                                </div>
+                                <div class="ticket-step-item ${step2Active}">
+                                    <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
+                                    Validando
+                                </div>
+                                <div class="ticket-step-item ${step3Active}">
+                                    <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
+                                    Completado
+                                </div>
+                            </div>
+
+                            <div class="ticket-details-body">
+                                <div class="ticket-row-line"><span>ID de jugador</span> <strong>${o.playerId}</strong></div>
+                                <div class="ticket-row-line"><span>Cuenta</span> <strong>${o.user}</strong></div>
+                                <div class="ticket-row-line"><span>Solicitud</span> <strong>#${String(o.id).slice(-4)}</strong></div>
+                                <div class="ticket-row-line"><span>Fecha</span> <strong>${o.date}</strong></div>
+                                <div class="ticket-row-line" style="border-top:1.5px solid var(--border-color); margin-top:4px; padding-top:6px;"><span>Total</span> <strong style="color:var(--primary-neon); font-size:0.95rem;">${amountText}</strong></div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            if(currentUser && currentUser.toLowerCase() === 'admin') {
+                const pendingOrders = orders.filter(o => o.status === 'Proceso');
+                if(pendingOrders.length === 0) {
+                    adminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay comprobantes pendientes en este momento.</p>';
+                } else {
+                    pendingOrders.forEach(o => {
+                        let isDeposit = o.type.includes('Depósito');
+                        let amountText = o.currency === 'usdt' ? `$${o.amount.toFixed(2)} USDT` : `${o.amount} saldo`;
+                        adminContainer.innerHTML += `
+                            <div class="admin-req-card" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                                <div style="width: 100%; border-bottom: 1.5px solid var(--border-color); padding-bottom: 6px; display: flex; justify-content: space-between;">
+                                    <span style="color: var(--primary-neon); font-weight: 900;">${isDeposit ? '💰 DEPÓSITO DE FONDOS' : '🛒 COMPRA DE PAQUETE'}</span>
+                                    <span style="color: var(--text-muted); font-size: 0.7rem;">${o.date}</span>
+                                </div>
+                                <div style="width: 100%; display: flex; flex-direction: column; gap: 4px;">
+                                    <div><strong>Usuario cliente:</strong> ${o.user}</div>
+                                    <div><strong>Tipo / Paquete:</strong> <span style="color: var(--primary-neon); font-weight: 900;">${o.type}</span></div>
+                                    <div><strong>Detalle / Comprobante:</strong> ${o.detail}</div>
+                                    ${!isDeposit ? `
+                                    <div style="display: flex; align-items: center; justify-content: space-between; background: #030614; padding: 6px 10px; border-radius: 8px; border: 1.5px solid var(--primary-neon); margin-top: 4px;">
+                                        <span><strong>ID Jugador:</strong> ${o.playerId}</span>
+                                        <button onclick="copyPlayerIdText('${o.playerId}')" style="background: var(--primary-neon); border: none; color: #030614; padding: 4px 10px; border-radius: 6px; font-weight: 900; font-size: 0.7rem; cursor: pointer;"><i class="fa-regular fa-copy"></i> Copiar ID</button>
+                                    </div>
+                                    ` : ''}
+                                    <div style="font-weight: bold; margin-top: 2px; color: #ffb703;">Monto: ${amountText}</div>
+                                </div>
+                                <div style="display: flex; gap: 10px; width: 100%; margin-top: 6px;">
+                                    <button onclick="updateOrderStatus(${o.id}, 'Aprobado')" style="flex: 1; background:#10b981; border:none; color:#fff; padding:8px; border-radius:8px; font-weight:900; cursor:pointer;"><i class="fa-solid fa-check"></i> Aceptar</button>
+                                    <button onclick="updateOrderStatus(${o.id}, 'Rechazado')" style="flex: 1; background:#ef4444; border:none; color:#fff; padding:8px; border-radius:8px; font-weight:900; cursor:pointer;"><i class="fa-solid fa-xmark"></i> Rechazar</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+
+                let allUsers = JSON.parse(localStorage.getItem('dl_users') || '[]');
+                if(allUsers.length === 0) {
+                    usersAdminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay otros usuarios registrados aún.</p>';
+                } else {
+                    allUsers.forEach(u => {
+                        usersAdminContainer.innerHTML += `
+                            <div class="user-data-card">
+                                <div><strong>Usuario:</strong> ${u.username}</div>
+                                <div style="color:var(--primary-neon)"><strong>Correo:</strong> ${u.email}</div>
+                                <div><strong>USDT:</strong> $${(u.usdtBalance || 0).toFixed(2)} | <strong>Saldo:</strong> ${(u.balance || 0).toFixed(0)}</div>
+                            </div>
+                        `;
+                    });
+                }
+            }
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            let orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
+            let targetOrder = orders.find(o => o.id === orderId);
+
+            if(targetOrder && targetOrder.status === 'Proceso') {
+                targetOrder.status = newStatus;
+                
+                if(newStatus === 'Aprobado') {
+                    if(targetOrder.action === 'CREDIT') {
+                        modifyUserBalance(targetOrder.user, targetOrder.amount, targetOrder.currency);
+                    } else if(targetOrder.action === 'DEBIT') {
+                        modifyUserBalance(targetOrder.user, -targetOrder.amount, targetOrder.currency);
+                    }
+                }
+
+                localStorage.setItem('dl_orders', JSON.stringify(orders));
+                showNotification(`¡Solicitud ${newStatus.toLowerCase()} correctamente!`);
+                renderOrders();
+                updateUIBalances();
+            }
         }
     </script>
 </body>
