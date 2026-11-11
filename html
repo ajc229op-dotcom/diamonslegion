@@ -1,0 +1,925 @@
+cat << 'EOF' > index.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DIAMONS LEGION STORE</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #060913;
+            --bg-card: #0d1527;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --primary-neon: #00f0ff;
+            --border-color: #1b3a6b;
+            --neon-glow: 0 0 15px rgba(0, 240, 255, 0.25);
+            --neon-glow-strong: 0 0 25px rgba(0, 240, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html, body {
+            min-height: 100vh;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            background-image: radial-gradient(circle at 50% 20%, rgba(0, 240, 255, 0.08) 0%, transparent 60%);
+        }
+
+        #notification-toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-200px);
+            background: #0d1527; color: var(--primary-neon); border: 1.5px solid var(--primary-neon);
+            padding: 0.9rem 1.5rem; border-radius: 14px; font-weight: 800; font-size: 0.85rem;
+            box-shadow: var(--neon-glow-strong); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 999999; width: 90%; max-width: 380px; text-align: center;
+        }
+        #notification-toast.show { transform: translateX(-50%) translateY(0); }
+
+        .auth-wrapper {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; width: 100%;
+        }
+        .auth-container {
+            max-width: 390px; width: 100%; background: var(--bg-card);
+            border: 1.5px solid var(--primary-neon); border-radius: 24px; padding: 2.2rem 1.8rem;
+            box-shadow: var(--neon-glow-strong);
+        }
+        .brand-header { text-align: center; margin-bottom: 24px; }
+        .brand-header h1 {
+            font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 900; color: var(--text-main); letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0,240,255,0.5);
+        }
+        .brand-header h1 span { color: var(--primary-neon); }
+
+        .auth-tabs {
+            display: flex; gap: 6px; margin-bottom: 20px; background: #060913;
+            border-radius: 12px; padding: 4px; border: 1px solid var(--border-color);
+        }
+        .auth-tab {
+            flex: 1; text-align: center; padding: 0.7rem; font-weight: bold;
+            font-size: 0.82rem; cursor: pointer; border-radius: 10px; color: var(--text-muted); background: transparent; border: none; transition: all 0.3s;
+        }
+        .auth-tab.active { background: var(--primary-neon); color: #060913; box-shadow: var(--neon-glow); font-weight: 900; }
+
+        .form-group { margin-bottom: 1.2rem; position: relative; }
+        .form-group label { display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 700; letter-spacing: 0.5px; }
+        .form-control {
+            width: 100%; background: #060913; border: 1.5px solid var(--border-color);
+            padding: 0.8rem 1rem; border-radius: 12px; color: var(--text-main);
+            font-size: 0.9rem; outline: none; transition: all 0.3s;
+        }
+        .form-control:focus { border-color: var(--primary-neon); box-shadow: var(--neon-glow); }
+
+        .btn-main {
+            width: 100%; background: linear-gradient(135deg, #0ea5e9, #00f0ff); color: #060913; border: none;
+            padding: 0.95rem; border-radius: 14px; font-weight: 900; font-size: 0.95rem;
+            cursor: pointer; transition: all 0.3s; margin-top: 0.8rem; box-shadow: var(--neon-glow);
+            letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        .btn-main:hover { filter: brightness(1.15); transform: translateY(-2px); box-shadow: var(--neon-glow-strong); }
+
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.85rem 1.2rem; background-color: var(--bg-card);
+            border-bottom: 1.5px solid var(--border-color); position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .nav-brand-title { font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 900; color: var(--text-main); display: flex; align-items: center; gap: 8px; text-shadow: 0 0 8px rgba(0,240,255,0.4); }
+        .nav-brand-title span { color: var(--primary-neon); }
+
+        .nav-wallet-pills { display: flex; gap: 6px; align-items: center; }
+        .wallet-pill-top {
+            background: #060913; border: 1.5px solid var(--border-color); padding: 5px 10px;
+            border-radius: 20px; font-size: 0.72rem; color: var(--primary-neon); font-weight: 800; display: flex; align-items: center; gap: 6px; cursor: pointer;
+            box-shadow: 0 0 8px rgba(0,240,255,0.2);
+        }
+
+        .container { max-width: 500px; width: 100%; margin: 0 auto; padding: 1.2rem; flex: 1; display: flex; flex-direction: column; padding-bottom: 100px; }
+
+        .section-title { font-size: 0.82rem; color: var(--text-muted); margin: 0.8rem 0 0.6rem 0; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+
+        .payment-methods-tabs {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.2rem;
+        }
+        .pay-tab-btn {
+            background: #0d1527; border: 1.5px solid var(--border-color); border-radius: 14px;
+            padding: 0.8rem; text-align: center; color: var(--text-muted); font-weight: 800; font-size: 0.82rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s;
+        }
+        .pay-tab-btn.active {
+            background: linear-gradient(135deg, #0ea5e9, #00f0ff); color: #060913; border-color: var(--primary-neon);
+            box-shadow: var(--neon-glow);
+        }
+
+        .store-banner-img {
+            width: 100%; height: 180px; border-radius: 20px; margin-bottom: 1.2rem;
+            background-image: url('watermarked_img_17790170251480550970.jpg');
+            background-size: cover; background-position: center;
+            border: 2px solid var(--primary-neon); box-shadow: var(--neon-glow-strong);
+            position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 15px;
+        }
+        .store-banner-img::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(6,9,19,0) 0%, rgba(6,9,19,0.7) 100%);
+        }
+        .store-banner-text {
+            position: relative; z-index: 2; text-align: center;
+        }
+        .store-banner-text p {
+            font-size: 0.75rem; color: #fff; font-weight: 800; text-shadow: 0 0 10px rgba(0,240,255,0.9);
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        /* TARJETA DE RECARGA VÍA ID CON LA FOTO EXACTA DE FREE FIRE MAX */
+        .game-banner-card {
+            width: 100%; height: 180px; border-radius: 18px; margin-bottom: 1.2rem;
+            background-image: url('1005121973.jpg');
+            background-size: cover; background-position: center;
+            border: 2px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; padding: 14px;
+            transition: all 0.3s;
+        }
+        .game-banner-card:hover { border-color: var(--primary-neon); box-shadow: var(--neon-glow); transform: translateY(-2px); }
+        .game-banner-card::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(6,9,19,0.1) 30%, rgba(6,9,19,0.85) 100%);
+        }
+        .game-banner-content { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; }
+        .game-banner-content h4 { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 900; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,0.9); }
+        .game-banner-btn { background: var(--primary-neon); color: #060913; font-size: 0.75rem; font-weight: 900; padding: 6px 14px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,240,255,0.5); }
+
+        .diamonds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1.2rem; }
+        .diamond-card {
+            background: linear-gradient(145deg, #0d1527, #090e1a); border: 1.5px solid var(--border-color); border-radius: 18px;
+            padding: 0.9rem 0.6rem; text-align: center; cursor: pointer; transition: all 0.3s;
+            display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); min-height: 150px; position: relative; overflow: hidden;
+        }
+        .diamond-card:hover, .diamond-card.selected { border-color: var(--primary-neon); background: #112240; box-shadow: var(--neon-glow); transform: translateY(-2px); }
+        
+        .offer-tag {
+            background: linear-gradient(90deg, #f59e0b, #eab308); color: #000; font-size: 0.6rem; font-weight: 900;
+            padding: 2px 14px; border-radius: 0 0 10px 10px; text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 4px; box-shadow: 0 2px 6px rgba(245,158,11,0.4);
+        }
+
+        .diamond-card-content {
+            display: flex; flex-direction: column; align-items: center; gap: 2px; width: 100%;
+        }
+        .diamond-card-content h4 { font-size: 1.05rem; font-weight: 900; color: var(--text-main); font-family: 'Orbitron', sans-serif; text-shadow: 0 0 8px rgba(0,240,255,0.4); }
+        .diamond-card-content p { font-size: 0.72rem; color: var(--primary-neon); font-weight: 800; }
+        
+        .diamond-price-badge {
+            background: #060913; border: 1px solid var(--primary-neon); color: var(--primary-neon);
+            font-weight: 900; font-size: 0.85rem; padding: 5px 12px; border-radius: 20px; margin-top: 6px;
+            width: 90%; text-align: center; box-shadow: 0 0 8px rgba(0,240,255,0.2);
+        }
+
+        .wallet-card-option {
+            background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 18px;
+            padding: 1.2rem; margin-bottom: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .wallet-card-option:hover { border-color: var(--primary-neon); box-shadow: var(--neon-glow); transform: translateY(-2px); }
+        .wallet-card-left { display: flex; align-items: center; gap: 14px; }
+        
+        .usdt-real-icon {
+            width: 45px; height: 45px; background: #26A17B; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(38,161,123,0.5);
+        }
+        .wallet-icon-box {
+            width: 45px; height: 45px; background: #060913; border: 1.5px solid var(--primary-neon);
+            border-radius: 14px; display: flex; align-items: center; justify-content: center; color: var(--primary-neon); font-size: 1.2rem;
+            box-shadow: var(--neon-glow);
+        }
+        .wallet-info h4 { font-size: 0.95rem; font-weight: 900; color: var(--text-main); margin-bottom: 3px; }
+        .wallet-info p { font-size: 0.72rem; color: var(--text-muted); }
+        
+        .badge-proximamente {
+            background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4);
+            font-size: 0.68rem; font-weight: 800; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-top: 4px;
+        }
+
+        .wallet-box-detail {
+            background: var(--bg-card); border: 1.5px solid var(--primary-neon); border-radius: 20px; padding: 1.4rem; margin-bottom: 1rem;
+            box-shadow: var(--neon-glow);
+        }
+        .wallet-address-box {
+            background: #060913; border: 1px solid var(--border-color); padding: 0.9rem; border-radius: 12px;
+            font-size: 0.75rem; word-break: break-all; color: var(--primary-neon); font-weight: bold; margin: 0.6rem 0 1rem 0;
+            text-align: center; letter-spacing: 0.5px;
+        }
+
+        .ticket-receipt-card {
+            background: linear-gradient(145deg, #10192d, #090e1a);
+            border: 1.5px solid var(--border-color); border-radius: 20px; padding: 1.2rem; margin-bottom: 1.2rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5); position: relative; overflow: hidden;
+        }
+        .ticket-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #1b3a6b; padding-bottom: 10px; }
+        .ticket-title-group h4 { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 900; color: #fff; text-shadow: 0 0 8px rgba(0,240,255,0.4); }
+        .ticket-title-group p { font-size: 0.68rem; color: var(--text-muted); }
+        
+        .ticket-status-badge { font-size: 0.7rem; font-weight: 800; padding: 3px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
+        .status-proceso { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .status-aprobado { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .status-rechazado { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
+
+        .ticket-steps-bar { display: flex; justify-content: space-between; align-items: center; background: #060913; border-radius: 14px; padding: 10px 15px; margin: 12px 0; border: 1px solid #1b3a6b; }
+        .ticket-step-item { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; }
+        .ticket-step-circle { width: 24px; height: 24px; border-radius: 50%; background: #131c2e; border: 1.5px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--text-muted); }
+        .ticket-step-item.active .ticket-step-circle { background: #10b981; border-color: #10b981; color: #fff; box-shadow: 0 0 10px rgba(16,185,129,0.5); }
+        .ticket-step-item.active { color: #10b981; }
+
+        .ticket-details-body { font-size: 0.78rem; display: flex; flex-direction: column; gap: 6px; padding-top: 6px; }
+        .ticket-row-line { display: flex; justify-content: space-between; align-items: center; }
+        .ticket-row-line span:first-child { color: var(--text-muted); font-weight: 600; }
+        .ticket-row-line span:last-child { color: #fff; font-weight: 800; }
+
+        .admin-panel-box {
+            background: var(--bg-card); color: #fff; border-radius: 20px; padding: 1.4rem; margin-top: 1.5rem;
+            border: 2px dashed var(--primary-neon); box-shadow: var(--neon-glow);
+        }
+        .admin-req-card {
+            background: #060913; border-radius: 12px; padding: 1rem; margin-top: 10px;
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem;
+            border: 1px solid var(--border-color);
+        }
+        .user-data-card {
+            background: #060913; border-radius: 10px; padding: 0.75rem; margin-top: 6px;
+            border: 1px solid var(--border-color); font-size: 0.75rem; color: #fff;
+        }
+
+        .app-bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card);
+            border-top: 1.5px solid var(--border-color); display: flex; justify-content: space-around;
+            padding: 12px 0; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.6);
+        }
+        .nav-item-btn {
+            background: transparent; border: none; color: var(--text-muted);
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            font-size: 10px; text-transform: uppercase; font-weight: 800; cursor: pointer; flex: 1; transition: all 0.3s;
+        }
+        .nav-item-btn i { font-size: 18px; }
+        .nav-item-btn.active, .nav-item-btn:hover { color: var(--primary-neon); text-shadow: 0 0 10px rgba(0,240,255,0.6); }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <div id="notification-toast">Notificación</div>
+
+    <div class="auth-wrapper" id="auth-screen">
+        <div class="auth-container">
+            <div class="brand-header">
+                <svg width="40" height="40" viewBox="0 0 500 500" style="margin-bottom:8px;"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#00f0ff"/></svg>
+                <h1>DIAMONS LEGION <span>STORE</span></h1>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tab-btn-login" onclick="switchAuthTab('login')">Iniciar Sesión</button>
+                <button class="auth-tab" id="tab-btn-register" onclick="switchAuthTab('register')">Registrarse</button>
+            </div>
+
+            <form id="form-login" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Usuario o Correo</label>
+                    <input type="text" id="login-user" class="form-control" placeholder="Introduce tu usuario" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="login-pass" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-main">ENTRAR</button>
+            </form>
+
+            <form id="form-register" class="hidden" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Nombre de Usuario</label>
+                    <input type="text" id="reg-user" class="form-control" placeholder="Tu usuario" required>
+                </div>
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="reg-email" class="form-control" placeholder="correo@dominio.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña (Más de 6 dígitos)</label>
+                    <input type="password" id="reg-pass" class="form-control" placeholder="Mínimo 7 caracteres" required>
+                </div>
+                <button type="submit" class="btn-main">REGISTRARSE</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="main-app" class="hidden" style="flex:1; display:flex; flex-direction:column;">
+        <nav class="navbar">
+            <div class="nav-brand-title">
+                <svg width="22" height="22" viewBox="0 0 500 500"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#00f0ff"/></svg>
+                DIAMONS LEGION <span>STORE</span>
+            </div>
+            <div class="nav-wallet-pills">
+                <div class="wallet-pill-top" onclick="switchMainTab('wallet')">
+                    <svg width="14" height="14" viewBox="0 0 32 32"><path d="M17.5 14.5v-3.2h4.5V8.5h-4.5V5.8h-3v2.7H10v2.8h4.5v3.2c-3.1.2-5.7 1-5.7 2 0 1.1 2.8 1.9 6.2 2v4.7h3v-4.7c3.4-.1 6.2-.9 6.2-2 0-1-2.6-1.8-5.7-2zm-1.5 3.8c-2.8 0-5.1-.6-5.1-1.4 0-.8 2.3-1.4 5.1-1.4s5.1.6 5.1 1.4c0 .8-2.3 1.4-5.1 1.4z" fill="#26A17B"/></svg>
+                    <span id="usdt-balance-display">0.00</span> USDT
+                </div>
+                <div class="wallet-pill-top" onclick="logoutUser()"><i class="fa-solid fa-right-from-bracket"></i> Salir</div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- VISTA INICIO -->
+            <div id="sec-home" class="vista-sec">
+                <div class="store-banner-img">
+                    <div class="store-banner-text">
+                        <p>Recargas oficiales al instante</p>
+                    </div>
+                </div>
+
+                <div class="section-title">JUEGOS DISPONIBLES</div>
+                
+                <!-- TARJETA DE RECARGA VÍA ID CON LA FOTO EXACTA DE FREE FIRE MAX -->
+                <div class="game-banner-card" onclick="switchMainTab('recargas')">
+                    <div class="game-banner-content">
+                        <div>
+                            <h4>FREE FIRE MAX</h4>
+                            <p style="font-size:0.7rem; color:var(--primary-neon); font-weight:800; margin-top:2px;">RECARGAS VÍA ID</p>
+                        </div>
+                        <div class="game-banner-btn">Seleccionar <i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA WALLET -->
+            <div id="sec-wallet" class="vista-sec hidden">
+                <div class="section-title">MÉTODOS DE BILLETERA</div>
+                <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem; text-align: center;">Selecciona tu método de recarga o gestión de fondos.</p>
+
+                <div class="wallet-card-option" onclick="openUsdtDeposit()">
+                    <div class="wallet-card-left">
+                        <div class="usdt-real-icon">
+                            <svg width="24" height="24" viewBox="0 0 32 32"><path d="M17.5 14.5v-3.2h4.5V8.5h-4.5V5.8h-3v2.7H10v2.8h4.5v3.2c-3.1.2-5.7 1-5.7 2 0 1.1 2.8 1.9 6.2 2v4.7h3v-4.7c3.4-.1 6.2-.9 6.2-2 0-1-2.6-1.8-5.7-2zm-1.5 3.8c-2.8 0-5.1-.6-5.1-1.4 0-.8 2.3-1.4 5.1-1.4s5.1.6 5.1 1.4c0 .8-2.3 1.4-5.1 1.4z" fill="#ffffff"/></svg>
+                        </div>
+                        <div class="wallet-info">
+                            <h4>USDT BEP 20</h4>
+                            <p>Red Binance Smart Chain (BSC)</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="color: var(--primary-neon);"></i>
+                </div>
+
+                <div class="wallet-card-option" style="opacity: 0.85;">
+                    <div class="wallet-card-left">
+                        <div class="wallet-icon-box" style="color: #f59e0b; border-color: #f59e0b;"><i class="fa-solid fa-mobile-screen"></i></div>
+                        <div class="wallet-info">
+                            <h4>Saldo Móvil</h4>
+                            <p>Recarga rápida mediante operador</p>
+                            <span class="badge-proximamente">Próximamente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wallet-card-option" style="opacity: 0.85;">
+                    <div class="wallet-card-left">
+                        <div class="wallet-icon-box" style="color: #f59e0b; border-color: #f59e0b;"><i class="fa-solid fa-credit-card"></i></div>
+                        <div class="wallet-info">
+                            <h4>Pago con Tarjeta</h4>
+                            <p>Crédito / Débito internacional</p>
+                            <span class="badge-proximamente">Próximamente</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA DEPÓSITO USDT -->
+            <div id="sec-usdt-detail" class="vista-sec hidden">
+                <button onclick="switchMainTab('wallet')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-arrow-left"></i> Volver a Billeteras
+                </button>
+
+                <div class="wallet-box-detail">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+                        <div class="usdt-real-icon" style="width:38px; height:38px;">
+                            <svg width="20" height="20" viewBox="0 0 32 32"><path d="M17.5 14.5v-3.2h4.5V8.5h-4.5V5.8h-3v2.7H10v2.8h4.5v3.2c-3.1.2-5.7 1-5.7 2 0 1.1 2.8 1.9 6.2 2v4.7h3v-4.7c3.4-.1 6.2-.9 6.2-2 0-1-2.6-1.8-5.7-2zm-1.5 3.8c-2.8 0-5.1-.6-5.1-1.4 0-.8 2.3-1.4 5.1-1.4s5.1.6 5.1 1.4c0 .8-2.3 1.4-5.1 1.4z" fill="#ffffff"/></svg>
+                        </div>
+                        <div>
+                            <h4 style="font-size:0.95rem; font-weight:900;">Recarga USDT BEP 20</h4>
+                            <p style="font-size:0.7rem; color:var(--text-muted)">Red Binance Smart Chain (BSC)</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>DIRECCIÓN OFICIAL BEP 20:</label>
+                        <div class="wallet-address-box" id="wallet-addr-text">0x01fFC04c400d0811DEc106E56Bfb5a95576AF18f</div>
+                        <button onclick="copyWalletAddress()" class="btn-main" style="padding: 0.7rem; font-size: 0.82rem;"><i class="fa-regular fa-copy"></i> Copiar Dirección</button>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label>MONTO (USDT)</label>
+                        <input type="number" id="usdt-monto-input" class="form-control" placeholder="Ej. 10.00" step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label>ID DE LA TRANSFERENCIA (HASH / ID)</label>
+                        <input type="text" id="usdt-hash-input" class="form-control" placeholder="Ej. 0x1234abcd...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>SUBIR COMPROBANTE DE PAGO (IMAGEN)</label>
+                        <input type="file" id="usdt-receipt-file" class="form-control" accept="image/*" style="padding: 0.5rem;">
+                    </div>
+
+                    <button onclick="submitDeposit()" class="btn-main">CONFIRMAR DEPÓSITO</button>
+                </div>
+            </div>
+
+            <!-- VISTA RECARGAS FREE FIRE -->
+            <div id="sec-recargas" class="vista-sec hidden">
+                <button onclick="switchMainTab('home')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-arrow-left"></i> Volver a Inicio
+                </button>
+
+                <div class="section-title">SELECCIONA EL MÉTODO DE PAGO</div>
+                <div class="payment-methods-tabs">
+                    <div class="pay-tab-btn active"><i class="fa-solid fa-coins"></i> USDT (Wallet)</div>
+                    <div class="pay-tab-btn" style="opacity: 0.6;"><i class="fa-solid fa-mobile-screen"></i> Saldo Móvil</div>
+                </div>
+
+                <div class="top-recharge-showcase" style="background: #0d1527; border: 1.5px solid var(--border-color); border-radius: 18px; padding: 1rem; margin-bottom: 1rem;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>ID DEL JUGADOR (FREE FIRE)</label>
+                        <input type="number" id="player-id-input" class="form-control" placeholder="Introduce tu ID aquí" style="text-align:center; font-weight:bold;">
+                    </div>
+                </div>
+
+                <div class="section-title">SELECCIONA EL PAQUETE</div>
+                <div class="diamonds-grid">
+                    <div class="diamond-card" onclick="selectPackage(this, '100 + Bonus', 0.99)">
+                        <div class="offer-tag">offertas</div>
+                        <div class="diamond-card-content">
+                            <h4>100 💎</h4>
+                            <p>+ Bonus</p>
+                        </div>
+                        <div class="diamond-price-badge">$0.99</div>
+                    </div>
+
+                    <div class="diamond-card" onclick="selectPackage(this, '310 + Bonus', 2.99)">
+                        <div class="offer-tag">offertas</div>
+                        <div class="diamond-card-content">
+                            <h4>310 💎</h4>
+                            <p>+ Bonus</p>
+                        </div>
+                        <div class="diamond-price-badge">$2.99</div>
+                    </div>
+
+                    <div class="diamond-card" onclick="selectPackage(this, '520 + Bonus', 4.99)">
+                        <div class="offer-tag">offertas</div>
+                        <div class="diamond-card-content">
+                            <h4>520 💎</h4>
+                            <p>+ Bonus</p>
+                        </div>
+                        <div class="diamond-price-badge">$4.99</div>
+                    </div>
+
+                    <div class="diamond-card" onclick="selectPackage(this, '1060 + Bonus', 8.38)">
+                        <div class="offer-tag">offertas</div>
+                        <div class="diamond-card-content">
+                            <h4>1060 💎</h4>
+                            <p>+ Bonus</p>
+                        </div>
+                        <div class="diamond-price-badge">$8.38</div>
+                    </div>
+
+                    <div class="diamond-card" onclick="selectPackage(this, '2180 + Bonus', 15.85)">
+                        <div class="offer-tag">offertas</div>
+                        <div class="diamond-card-content">
+                            <h4>2180 💎</h4>
+                            <p>+ Bonus</p>
+                        </div>
+                        <div class="diamond-price-badge">$15.85</div>
+                    </div>
+
+                    <div class="diamond-card" onclick="selectPackage(this, '5600 + Bonus', 38.40)" style="grid-column: span 2;">
+                        <div class="offer-tag">offertas VIP</div>
+                        <div class="diamond-card-content">
+                            <h4>5600 💎</h4>
+                            <p>Máximo Bonus Free Fire</p>
+                        </div>
+                        <div class="diamond-price-badge">$38.40</div>
+                    </div>
+                </div>
+
+                <button onclick="submitOrder()" class="btn-main">COMPLETAR RECARGA</button>
+            </div>
+
+            <!-- VISTA PEDIDOS Y PANEL ADMIN -->
+            <div id="sec-orders" class="vista-sec hidden">
+                <div class="section-title">MIS DEPÓSITOS Y PEDIDOS</div>
+                <div id="orders-list-container"></div>
+                
+                <div id="admin-panel-container" class="admin-panel-box hidden">
+                    <div class="section-title" style="margin-top:0; color:var(--primary-neon);">PANEL DE ADMINISTRADOR (SOLO PARA TI)</div>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom: 10px;">Aprobación manual de depósitos y compras:</p>
+                    <div id="admin-orders-list"></div>
+
+                    <div class="section-title" style="margin-top:1.5rem; color:var(--primary-neon);">DATOS PERSONALES DE USUARIOS REGISTRADOS</div>
+                    <div id="admin-users-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="app-bottom-nav">
+            <button class="nav-item-btn active" onclick="switchMainTab('home')"><i class="fa-solid fa-house"></i> Inicio</button>
+            <button class="nav-item-btn" onclick="switchMainTab('recargas')"><i class="fa-solid fa-bolt"></i> Recargar</button>
+            <button class="nav-item-btn" onclick="switchMainTab('wallet')"><i class="fa-solid fa-wallet"></i> Wallet</button>
+            <button class="nav-item-btn" onclick="switchMainTab('orders')"><i class="fa-solid fa-receipt"></i> Pedidos</button>
+        </nav>
+    </div>
+
+    <script>
+        let selectedPkg = null;
+        let selectedPrice = 0;
+        let currentUser = null;
+
+        window.onload = function() {
+            const savedUser = localStorage.getItem('dl_logged_user');
+            if(savedUser) {
+                currentUser = savedUser;
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                checkAdminRights();
+                updateUIBalance();
+                renderOrders();
+            }
+        };
+
+        function showNotification(msg) {
+            const toast = document.getElementById('notification-toast');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        function switchAuthTab(tab) {
+            document.getElementById('form-login').classList.toggle('hidden', tab !== 'login');
+            document.getElementById('form-register').classList.toggle('hidden', tab !== 'register');
+            document.getElementById('tab-btn-login').classList.toggle('active', tab === 'login');
+            document.getElementById('tab-btn-register').classList.toggle('active', tab === 'register');
+        }
+
+        function checkAdminRights() {
+            if(currentUser && currentUser.toLowerCase() === 'admin') {
+                document.getElementById('admin-panel-container').classList.remove('hidden');
+            } else {
+                document.getElementById('admin-panel-container').classList.add('hidden');
+            }
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('dl_logged_user');
+            currentUser = null;
+            document.getElementById('main-app').classList.add('hidden');
+            document.getElementById('auth-screen').classList.remove('hidden');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const userInput = document.getElementById('login-user').value.trim();
+            const passInput = document.getElementById('login-pass').value.trim();
+
+            if(!userInput || !passInput) return;
+
+            if(userInput.toLowerCase() === 'admin') {
+                if(passInput === 'admin123') {
+                    currentUser = 'admin';
+                    localStorage.setItem('dl_logged_user', 'admin');
+                    document.getElementById('auth-screen').classList.add('hidden');
+                    document.getElementById('main-app').classList.remove('hidden');
+                    checkAdminRights();
+                    updateUIBalance();
+                    renderOrders();
+                    return;
+                } else {
+                    showNotification("Contraseña de administrador incorrecta.");
+                    return;
+                }
+            }
+
+            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
+            let user = users.find(u => (u.username === userInput || u.email === userInput) && u.password === passInput);
+
+            if(user) {
+                currentUser = user.username;
+                localStorage.setItem('dl_logged_user', currentUser);
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                checkAdminRights();
+                updateUIBalance();
+                renderOrders();
+            } else {
+                showNotification("Usuario o contraseña incorrectos.");
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const u = document.getElementById('reg-user').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const pass = document.getElementById('reg-pass').value.trim();
+
+            if(!u || !email || !pass) return;
+
+            if(pass.length <= 6) {
+                showNotification("La contraseña debe tener más de 6 dígitos.");
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
+            if(users.some(existing => existing.username === u)) {
+                showNotification("El nombre de usuario ya está registrado.");
+                return;
+            }
+
+            const newUser = { username: u, email: email, password: pass, balance: 0.00 };
+            users.push(newUser);
+            localStorage.setItem('dl_users', JSON.stringify(users));
+
+            currentUser = u;
+            localStorage.setItem('dl_logged_user', currentUser);
+            showNotification("¡Registro exitoso! Bienvenido a Diamons Legion.");
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+            checkAdminRights();
+            updateUIBalance();
+            renderOrders();
+        }
+
+        function getUserBalance(username) {
+            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
+            let user = users.find(u => u.username === username);
+            return user ? user.balance : 0.00;
+        }
+
+        function modifyUserBalance(username, amount) {
+            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
+            users = users.map(u => {
+                if(u.username === username) {
+                    u.balance += amount;
+                }
+                return u;
+            });
+            localStorage.setItem('dl_users', JSON.stringify(users));
+            updateUIBalance();
+        }
+
+        function updateUIBalance() {
+            if(!currentUser) return;
+            let bal = getUserBalance(currentUser);
+            document.getElementById('usdt-balance-display').innerText = bal.toFixed(2);
+        }
+
+        function switchMainTab(sec) {
+            document.querySelectorAll('.vista-sec').forEach(el => el.classList.add('hidden'));
+            document.getElementById('sec-' + sec).classList.remove('hidden');
+            if(sec === 'orders') renderOrders();
+            if(sec === 'wallet') updateUIBalance();
+        }
+
+        function openUsdtDeposit() {
+            document.querySelectorAll('.vista-sec').forEach(el => el.classList.add('hidden'));
+            document.getElementById('sec-usdt-detail').classList.remove('hidden');
+        }
+
+        function copyWalletAddress() {
+            const addr = document.getElementById('wallet-addr-text').innerText;
+            navigator.clipboard.writeText(addr).then(() => {
+                showNotification("¡Dirección de Wallet copiada!");
+            });
+        }
+
+        function selectPackage(el, pkg, price) {
+            document.querySelectorAll('.diamond-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedPkg = pkg;
+            selectedPrice = price;
+        }
+
+        function submitDeposit() {
+            const montoStr = document.getElementById('usdt-monto-input').value;
+            const hash = document.getElementById('usdt-hash-input').value;
+            const monto = parseFloat(montoStr);
+
+            if(!monto || isNaN(monto) || !hash) {
+                showNotification("Por favor ingresa un monto válido y el Hash.");
+                return;
+            }
+
+            const now = new Date();
+            const fechaStr = now.toLocaleDateString() + ", " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
+            const newDeposit = {
+                id: Date.now(),
+                user: currentUser || 'Usuario',
+                type: 'Depósito USDT',
+                playerId: 'N/A',
+                amount: monto,
+                action: 'CREDIT',
+                detail: `Hash: ${hash.substring(0,8)}...`,
+                date: fechaStr,
+                status: 'Proceso'
+            };
+
+            orders.unshift(newDeposit);
+            localStorage.setItem('dl_orders', JSON.stringify(orders));
+            
+            showNotification("DEPÓSITO EN PROCESO\nespera confirmación");
+            switchMainTab('orders');
+        }
+
+        function submitOrder() {
+            const playerId = document.getElementById('player-id-input').value;
+
+            if(!playerId || !selectedPkg) {
+                showNotification("Ingresa tu ID de jugador y selecciona un paquete.");
+                return;
+            }
+
+            let currentBal = getUserBalance(currentUser);
+            if(currentBal < selectedPrice) {
+                showNotification(`Saldo insuficiente. Tienes $${currentBal.toFixed(2)} y necesitas $${selectedPrice.toFixed(2)} USDT.`);
+                return;
+            }
+
+            const now = new Date();
+            const fechaStr = now.toLocaleDateString() + ", " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
+            const newOrder = {
+                id: Date.now(),
+                user: currentUser || 'Usuario',
+                type: selectedPkg,
+                playerId: playerId,
+                amount: selectedPrice,
+                action: 'DEBIT',
+                detail: `Recarga Free Fire Vía ID`,
+                date: fechaStr,
+                status: 'Proceso'
+            };
+
+            orders.unshift(newOrder);
+            localStorage.setItem('dl_orders', JSON.stringify(orders));
+            
+            showNotification("PEDIDO EN PROCESO\nespera confirmación del admin");
+            switchMainTab('orders');
+        }
+
+        function renderOrders() {
+            const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
+            const userContainer = document.getElementById('orders-list-container');
+            const adminContainer = document.getElementById('admin-orders-list');
+            const usersAdminContainer = document.getElementById('admin-users-list');
+
+            userContainer.innerHTML = '';
+            adminContainer.innerHTML = '';
+            usersAdminContainer.innerHTML = '';
+
+            const myOrders = orders.filter(o => o.user === currentUser);
+
+            if(myOrders.length === 0) {
+                userContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">No tienes depósitos ni pedidos registrados.</p>';
+            } else {
+                myOrders.forEach(o => {
+                    let statusClass = 'status-proceso';
+                    let statusText = 'En proceso';
+                    let step1Active = 'active';
+                    let step2Active = '';
+                    let step3Active = '';
+
+                    if(o.status === 'Aprobado') {
+                        statusClass = 'status-aprobado';
+                        statusText = 'Entregado';
+                        step1Active = 'active';
+                        step2Active = 'active';
+                        step3Active = 'active';
+                    } else if(o.status === 'Rechazado') {
+                        statusClass = 'status-rechazado';
+                        statusText = 'Rechazado';
+                        step1Active = '';
+                        step2Active = '';
+                        step3Active = '';
+                    }
+
+                    userContainer.innerHTML += `
+                        <div class="ticket-receipt-card">
+                            <div class="ticket-header-flex">
+                                <div class="ticket-title-group">
+                                    <h4>${o.type}</h4>
+                                    <p>${o.detail}</p>
+                                </div>
+                                <div class="ticket-status-badge ${statusClass}">
+                                    <i class="fa-solid fa-circle-check"></i> ${statusText}
+                                </div>
+                            </div>
+
+                            <div class="ticket-steps-bar">
+                                <div class="ticket-step-item ${step1Active}">
+                                    <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
+                                    Pagado
+                                </div>
+                                <div class="ticket-step-item ${step2Active}">
+                                    <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
+                                    Enviando
+                                </div>
+                                <div class="ticket-step-item ${step3Active}">
+                                    <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
+                                    Entregado
+                                </div>
+                            </div>
+
+                            <div class="ticket-details-body">
+                                <div class="ticket-row-line"><span>ID de jugador</span> <strong>${o.playerId}</strong></div>
+                                <div class="ticket-row-line"><span>Cuenta</span> <strong>${o.user}</strong></div>
+                                <div class="ticket-row-line"><span>Solicitud</span> <strong>#${String(o.id).slice(-4)}</strong></div>
+                                <div class="ticket-row-line"><span>Fecha</span> <strong>${o.date}</strong></div>
+                                <div class="ticket-row-line" style="border-top:1px solid #1b3a6b; margin-top:4px; padding-top:6px;"><span>Total</span> <strong style="color:var(--primary-neon); font-size:0.95rem;">$${o.amount.toFixed(2)}</strong></div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            if(currentUser && currentUser.toLowerCase() === 'admin') {
+                const pendingOrders = orders.filter(o => o.status === 'Proceso');
+                if(pendingOrders.length === 0) {
+                    adminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay solicitudes pendientes en este momento.</p>';
+                } else {
+                    pendingOrders.forEach(o => {
+                        adminContainer.innerHTML += `
+                            <div class="admin-req-card">
+                                <div>
+                                    <div><strong>Usuario:</strong> ${o.user}</div>
+                                    <div><strong>Paquete/Tipo:</strong> ${o.type}</div>
+                                    <div><strong>ID Jugador:</strong> ${o.playerId}</div>
+                                    <div style="color:var(--primary-neon); font-weight:bold;">Monto: $${o.amount.toFixed(2)} USDT</div>
+                                </div>
+                                <div style="display:flex; gap:6px; flex-direction:column;">
+                                    <button onclick="updateOrderStatus(${o.id}, 'Aprobado')" style="background:#10b981; border:none; color:#fff; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Aprobar</button>
+                                    <button onclick="updateOrderStatus(${o.id}, 'Rechazado')" style="background:#ef4444; border:none; color:#fff; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Rechazar</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+
+                let allUsers = JSON.parse(localStorage.getItem('dl_users') || '[]');
+                if(allUsers.length === 0) {
+                    usersAdminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay otros usuarios registrados aún.</p>';
+                } else {
+                    allUsers.forEach(u => {
+                        usersAdminContainer.innerHTML += `
+                            <div class="user-data-card">
+                                <div><strong>Usuario:</strong> ${u.username}</div>
+                                <div style="color:var(--primary-neon)"><strong>Correo:</strong> ${u.email}</div>
+                                <div><strong>Saldo actual:</strong> $${u.balance.toFixed(2)} USDT</div>
+                            </div>
+                        `;
+                    });
+                }
+            }
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            let orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
+            let targetOrder = orders.find(o => o.id === orderId);
+
+            if(targetOrder && targetOrder.status === 'Proceso') {
+                targetOrder.status = newStatus;
+                
+                if(newStatus === 'Aprobado') {
+                    if(targetOrder.action === 'CREDIT') {
+                        modifyUserBalance(targetOrder.user, targetOrder.amount);
+                    } else if(targetOrder.action === 'DEBIT') {
+                        modifyUserBalance(targetOrder.user, -targetOrder.amount);
+                    }
+                }
+
+                localStorage.setItem('dl_orders', JSON.stringify(orders));
+                showNotification(`Solicitud marcada como: ${newStatus}`);
+                renderOrders();
+                updateUIBalance();
+            }
+        }
+    </script>
+</body>
+</html>
+
