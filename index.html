@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DIAMONS LEGION</title>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-main: #060913;
-            --bg-card: #0d1527;
+            --bg-main: #030614;
+            --bg-card: #091026;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --primary-neon: #00f0ff;
+            --primary-neon: #00f7ff;
+            --accent-neon: #7209b7;
             --border-color: #1b3a6b;
-            --neon-glow: 0 0 15px rgba(0, 240, 255, 0.25);
-            --neon-glow-strong: 0 0 25px rgba(0, 240, 255, 0.5);
+            --neon-glow: 0 0 20px rgba(0, 247, 255, 0.4);
+            --neon-glow-strong: 0 0 35px rgba(0, 247, 255, 0.7);
         }
 
         * {
@@ -32,13 +34,14 @@
             color: var(--text-main);
             display: flex;
             flex-direction: column;
-            background-image: radial-gradient(circle at 50% 20%, rgba(0, 240, 255, 0.08) 0%, transparent 60%);
+            background-image: radial-gradient(circle at 50% 15%, rgba(0, 247, 255, 0.12) 0%, transparent 60%),
+                              radial-gradient(circle at 85% 85%, rgba(114, 9, 183, 0.15) 0%, transparent 50%);
         }
 
         #notification-toast {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-200px);
-            background: #0d1527; color: var(--primary-neon); border: 1.5px solid var(--primary-neon);
-            padding: 0.9rem 1.5rem; border-radius: 14px; font-weight: 800; font-size: 0.85rem;
+            background: #091026; color: var(--primary-neon); border: 2px solid var(--primary-neon);
+            padding: 0.9rem 1.5rem; border-radius: 14px; font-weight: 900; font-size: 0.85rem;
             box-shadow: var(--neon-glow-strong); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 999999; width: 90%; max-width: 380px; text-align: center;
         }
@@ -49,37 +52,37 @@
         }
         .auth-container {
             max-width: 390px; width: 100%; background: var(--bg-card);
-            border: 1.5px solid var(--primary-neon); border-radius: 24px; padding: 2.2rem 1.8rem;
+            border: 2px solid var(--primary-neon); border-radius: 24px; padding: 2.2rem 1.8rem;
             box-shadow: var(--neon-glow-strong);
         }
         .brand-header { text-align: center; margin-bottom: 24px; }
         .brand-header h1 {
-            font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 900; color: var(--text-main); letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0,240,255,0.5);
+            font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 900; color: var(--text-main); letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(0,247,255,0.7);
         }
         .brand-header h1 span { color: var(--primary-neon); }
 
         .auth-tabs {
-            display: flex; gap: 6px; margin-bottom: 20px; background: #060913;
-            border-radius: 12px; padding: 4px; border: 1px solid var(--border-color);
+            display: flex; gap: 6px; margin-bottom: 20px; background: #030614;
+            border-radius: 12px; padding: 4px; border: 1.5px solid var(--border-color);
         }
         .auth-tab {
             flex: 1; text-align: center; padding: 0.7rem; font-weight: bold;
             font-size: 0.82rem; cursor: pointer; border-radius: 10px; color: var(--text-muted); background: transparent; border: none; transition: all 0.3s;
         }
-        .auth-tab.active { background: var(--primary-neon); color: #060913; box-shadow: var(--neon-glow); font-weight: 900; }
+        .auth-tab.active { background: var(--primary-neon); color: #030614; box-shadow: var(--neon-glow); font-weight: 900; }
 
         .form-group { margin-bottom: 1.2rem; position: relative; }
-        .form-group label { display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 700; letter-spacing: 0.5px; }
+        .form-group label { display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 800; letter-spacing: 0.5px; }
         .form-control {
-            width: 100%; background: #060913; border: 1.5px solid var(--border-color);
+            width: 100%; background: #030614; border: 1.5px solid var(--border-color);
             padding: 0.8rem 1rem; border-radius: 12px; color: var(--text-main);
             font-size: 0.9rem; outline: none; transition: all 0.3s;
         }
         .form-control:focus { border-color: var(--primary-neon); box-shadow: var(--neon-glow); }
 
         .btn-main {
-            width: 100%; background: linear-gradient(135deg, #0ea5e9, #00f0ff); color: #060913; border: none;
+            width: 100%; background: linear-gradient(135deg, #00f7ff, #7209b7); color: #ffffff; border: none;
             padding: 0.95rem; border-radius: 14px; font-weight: 900; font-size: 0.95rem;
             cursor: pointer; transition: all 0.3s; margin-top: 0.8rem; box-shadow: var(--neon-glow);
             letter-spacing: 0.5px; text-transform: uppercase;
@@ -88,181 +91,173 @@
 
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0.85rem 1.2rem; background-color: var(--bg-card);
-            border-bottom: 1.5px solid var(--border-color); position: sticky; top: 0; z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            padding: 0.85rem 1rem; background-color: var(--bg-card);
+            border-bottom: 2px solid var(--border-color); position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.8);
         }
-        .nav-brand-title { font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 900; color: var(--text-main); display: flex; align-items: center; gap: 8px; text-shadow: 0 0 8px rgba(0,240,255,0.4); }
+        .nav-brand-title { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; font-weight: 900; color: var(--text-main); display: flex; align-items: center; gap: 6px; text-shadow: 0 0 10px rgba(0,247,255,0.5); }
         .nav-brand-title span { color: var(--primary-neon); }
 
-        .nav-wallet-pills { display: flex; gap: 6px; align-items: center; }
+        .nav-wallet-pills { display: flex; gap: 4px; align-items: center; }
         .wallet-pill-top {
-            background: #060913; border: 1.5px solid var(--border-color); padding: 5px 10px;
-            border-radius: 20px; font-size: 0.72rem; color: var(--primary-neon); font-weight: 800; display: flex; align-items: center; gap: 6px; cursor: pointer;
-            box-shadow: 0 0 8px rgba(0,240,255,0.2);
+            background: #030614; border: 1.5px solid var(--border-color); padding: 5px 7px;
+            border-radius: 14px; font-size: 0.65rem; color: var(--primary-neon); font-weight: 900; display: flex; align-items: center; gap: 4px; cursor: pointer;
+            box-shadow: 0 0 10px rgba(0,247,255,0.25);
         }
 
         .container { max-width: 500px; width: 100%; margin: 0 auto; padding: 1.2rem; flex: 1; display: flex; flex-direction: column; padding-bottom: 100px; }
 
-        .section-title { font-size: 0.82rem; color: var(--text-muted); margin: 0.8rem 0 0.6rem 0; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+        .section-title { font-size: 0.85rem; color: var(--primary-neon); margin: 1rem 0 0.6rem 0; font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase; text-align: center; text-shadow: 0 0 10px rgba(0,247,255,0.5); }
 
         .payment-methods-tabs {
             display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.2rem;
         }
         .pay-tab-btn {
-            background: #0d1527; border: 1.5px solid var(--border-color); border-radius: 14px;
+            background: #091026; border: 1.5px solid var(--border-color); border-radius: 14px;
             padding: 0.8rem; text-align: center; color: var(--text-muted); font-weight: 800; font-size: 0.82rem;
             cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s;
         }
         .pay-tab-btn.active {
-            background: linear-gradient(135deg, #0ea5e9, #00f0ff); color: #060913; border-color: var(--primary-neon);
+            background: linear-gradient(135deg, #00f7ff, #7209b7); color: #ffffff; border-color: var(--primary-neon);
             box-shadow: var(--neon-glow);
         }
 
         .store-banner-img {
-            width: 100%; height: 180px; border-radius: 20px; margin-bottom: 1.2rem;
-            background-image: url('watermarked_img_17790170251480550970.jpg');
+            width: 100%; height: 210px; border-radius: 20px; margin-bottom: 1.2rem;
+            background-image: linear-gradient(180deg, rgba(3,6,20,0.15) 0%, rgba(3,6,20,0.92) 100%), url('watermarked_img_17790170251480550970.jpg');
             background-size: cover; background-position: center;
             border: 2px solid var(--primary-neon); box-shadow: var(--neon-glow-strong);
             position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 15px;
-        }
-        .store-banner-img::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(180deg, rgba(6,9,19,0) 0%, rgba(6,9,19,0.7) 100%);
         }
         .store-banner-text {
             position: relative; z-index: 2; text-align: center;
         }
         .store-banner-text p {
-            font-size: 0.75rem; color: #fff; font-weight: 800; text-shadow: 0 0 10px rgba(0,240,255,0.9);
-            letter-spacing: 1px; text-transform: uppercase;
+            font-size: 0.85rem; color: #fff; font-weight: 900; text-shadow: 0 0 15px rgba(0,247,255,0.9);
+            letter-spacing: 2px; text-transform: uppercase;
         }
 
         .game-banner-card {
             width: 100%; height: 180px; border-radius: 18px; margin-bottom: 1.2rem;
-            background-image: url('1005121973.jpg');
+            background-image: linear-gradient(180deg, rgba(3,6,20,0.2) 0%, rgba(3,6,20,0.95) 100%), url('1005121973.jpg');
             background-size: cover; background-position: center;
-            border: 2px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 2px solid var(--border-color); box-shadow: 0 6px 20px rgba(0,0,0,0.7);
             position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; padding: 14px;
             transition: all 0.3s;
         }
         .game-banner-card:hover { border-color: var(--primary-neon); box-shadow: var(--neon-glow); transform: translateY(-2px); }
-        .game-banner-card::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(180deg, rgba(6,9,19,0.1) 30%, rgba(6,9,19,0.85) 100%);
-        }
         .game-banner-content { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; }
-        .game-banner-content h4 { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 900; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,0.9); }
-        .game-banner-btn { background: var(--primary-neon); color: #060913; font-size: 0.75rem; font-weight: 900; padding: 6px 14px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,240,255,0.5); }
+        .game-banner-content h4 { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 900; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
+        .game-banner-btn { background: var(--primary-neon); color: #030614; font-size: 0.75rem; font-weight: 900; padding: 6px 14px; border-radius: 10px; box-shadow: 0 0 12px rgba(0,247,255,0.7); }
 
         .diamonds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1.2rem; }
         .diamond-card {
-            background: linear-gradient(145deg, #0d1527, #090e1a); border: 1.5px solid var(--border-color); border-radius: 18px;
+            background: linear-gradient(145deg, #091026, #030614); border: 2px solid var(--border-color); border-radius: 18px;
             padding: 0.9rem 0.6rem; text-align: center; cursor: pointer; transition: all 0.3s;
             display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); min-height: 150px; position: relative; overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5); min-height: 165px; position: relative; overflow: hidden;
         }
-        .diamond-card:hover, .diamond-card.selected { border-color: var(--primary-neon); background: #112240; box-shadow: var(--neon-glow); transform: translateY(-2px); }
+        .diamond-card:hover, .diamond-card.selected { border-color: var(--primary-neon); background: #132247; box-shadow: var(--neon-glow); transform: translateY(-3px); }
         
         .offer-tag {
-            background: linear-gradient(90deg, #f59e0b, #eab308); color: #000; font-size: 0.6rem; font-weight: 900;
-            padding: 2px 14px; border-radius: 0 0 10px 10px; text-transform: uppercase; letter-spacing: 0.5px;
-            margin-bottom: 4px; box-shadow: 0 2px 6px rgba(245,158,11,0.4);
+            background: linear-gradient(90deg, #ff007f, #ffb703); color: #000; font-size: 0.65rem; font-weight: 900;
+            padding: 3px 14px; border-radius: 0 0 10px 10px; text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 4px; box-shadow: 0 2px 8px rgba(255,183,3,0.6);
         }
 
         .diamond-card-content {
             display: flex; flex-direction: column; align-items: center; gap: 2px; width: 100%;
         }
-        .diamond-card-content h4 { font-size: 0.95rem; font-weight: 900; color: var(--text-main); font-family: 'Orbitron', sans-serif; text-shadow: 0 0 8px rgba(0,240,255,0.4); }
-        .diamond-card-content p { font-size: 0.72rem; color: var(--text-muted); }
+        .diamond-card-content h4 { font-size: 0.95rem; font-weight: 900; color: var(--text-main); font-family: 'Orbitron', sans-serif; text-shadow: 0 0 10px rgba(0,247,255,0.6); }
+        .diamond-card-content p { font-size: 0.72rem; color: var(--text-muted); font-weight: 700; }
         
         .diamond-price-badge {
-            background: #060913; border: 1px solid var(--primary-neon); color: var(--primary-neon);
-            font-weight: 900; font-size: 0.85rem; padding: 5px 12px; border-radius: 20px; margin-top: 6px;
-            width: 90%; text-align: center; box-shadow: 0 0 8px rgba(0,240,255,0.2);
+            background: #030614; border: 1.5px solid var(--primary-neon); color: var(--primary-neon);
+            font-weight: 900; font-size: 0.85rem; padding: 6px 12px; border-radius: 20px; margin-top: 6px;
+            width: 90%; text-align: center; box-shadow: 0 0 10px rgba(0,247,255,0.4);
         }
 
         .wallet-card-option {
-            background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 18px;
+            background: var(--bg-card); border: 2px solid var(--border-color); border-radius: 18px;
             padding: 1.2rem; margin-bottom: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
         }
         .wallet-card-option:hover { border-color: var(--primary-neon); box-shadow: var(--neon-glow); transform: translateY(-2px); }
         .wallet-card-left { display: flex; align-items: center; gap: 14px; }
         
         .usdt-real-icon {
             width: 45px; height: 45px; background: #26A17B; border-radius: 14px;
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(38,161,123,0.5);
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(38,161,123,0.8);
         }
         .saldo-icon-box {
-            width: 45px; height: 45px; background: #0ea5e9; border-radius: 14px;
-            display: flex; align-items: center; justify-content: center; color: #060913; font-size: 1.2rem;
-            box-shadow: 0 0 10px rgba(14,165,233,0.5);
+            width: 45px; height: 45px; background: var(--primary-neon); border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; color: #030614; font-size: 1.2rem;
+            box-shadow: 0 0 12px rgba(0,247,255,0.8);
         }
         .wallet-info h4 { font-size: 0.95rem; font-weight: 900; color: var(--text-main); margin-bottom: 3px; }
-        .wallet-info p { font-size: 0.72rem; color: var(--text-muted); }
+        .wallet-info p { font-size: 0.72rem; color: var(--text-muted); font-weight: 700; }
         
         .wallet-box-detail {
-            background: var(--bg-card); border: 1.5px solid var(--primary-neon); border-radius: 20px; padding: 1.4rem; margin-bottom: 1rem;
-            box-shadow: var(--neon-glow);
+            background: var(--bg-card); border: 2px solid var(--primary-neon); border-radius: 20px; padding: 1.4rem; margin-bottom: 1rem;
+            box-shadow: var(--neon-glow-strong);
         }
         .wallet-address-box {
-            background: #060913; border: 1px solid var(--border-color); padding: 0.9rem; border-radius: 12px;
+            background: #030614; border: 1.5px solid var(--border-color); padding: 0.9rem; border-radius: 12px;
             font-size: 0.85rem; word-break: break-all; color: var(--primary-neon); font-weight: bold; margin: 0.6rem 0 1rem 0;
             text-align: center; letter-spacing: 1px;
         }
 
         .ticket-receipt-card {
-            background: linear-gradient(145deg, #10192d, #090e1a);
-            border: 1.5px solid var(--border-color); border-radius: 20px; padding: 1.2rem; margin-bottom: 1.2rem;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.5); position: relative; overflow: hidden;
+            background: linear-gradient(145deg, #091026, #030614);
+            border: 2px solid var(--border-color); border-radius: 20px; padding: 1.2rem; margin-bottom: 1.2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.7); position: relative; overflow: hidden;
         }
-        .ticket-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #1b3a6b; padding-bottom: 10px; }
-        .ticket-title-group h4 { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 900; color: #fff; text-shadow: 0 0 8px rgba(0,240,255,0.4); }
-        .ticket-title-group p { font-size: 0.68rem; color: var(--text-muted); }
+        .ticket-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1.5px solid var(--border-color); padding-bottom: 10px; }
+        .ticket-title-group h4 { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 900; color: #fff; text-shadow: 0 0 10px rgba(0,247,255,0.6); }
+        .ticket-title-group p { font-size: 0.68rem; color: var(--text-muted); font-weight: 700; }
         
-        .ticket-status-badge { font-size: 0.7rem; font-weight: 800; padding: 3px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
-        .status-proceso { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
-        .status-aprobado { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
-        .status-rechazado { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
+        .ticket-status-badge { font-size: 0.7rem; font-weight: 900; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
+        .status-proceso { background: rgba(255, 183, 3, 0.2); color: #ffb703; border: 1.5px solid rgba(255, 183, 3, 0.6); }
+        .status-aprobado { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1.5px solid rgba(16, 185, 129, 0.6); }
+        .status-rechazado { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1.5px solid rgba(239, 68, 68, 0.6); }
 
-        .ticket-steps-bar { display: flex; justify-content: space-between; align-items: center; background: #060913; border-radius: 14px; padding: 10px 15px; margin: 12px 0; border: 1px solid #1b3a6b; }
-        .ticket-step-item { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; }
-        .ticket-step-circle { width: 24px; height: 24px; border-radius: 50%; background: #131c2e; border: 1.5px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--text-muted); }
-        .ticket-step-item.active .ticket-step-circle { background: #10b981; border-color: #10b981; color: #fff; box-shadow: 0 0 10px rgba(16,185,129,0.5); }
+        .ticket-steps-bar { display: flex; justify-content: space-between; align-items: center; background: #030614; border-radius: 14px; padding: 10px 15px; margin: 12px 0; border: 1.5px solid var(--border-color); }
+        .ticket-step-item { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 9px; font-weight: 900; color: var(--text-muted); text-transform: uppercase; }
+        .ticket-step-circle { width: 24px; height: 24px; border-radius: 50%; background: #091026; border: 1.5px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--text-muted); }
+        .ticket-step-item.active .ticket-step-circle { background: #10b981; border-color: #10b981; color: #fff; box-shadow: 0 0 10px rgba(16,185,129,0.7); }
         .ticket-step-item.active { color: #10b981; }
 
         .ticket-details-body { font-size: 0.78rem; display: flex; flex-direction: column; gap: 6px; padding-top: 6px; }
         .ticket-row-line { display: flex; justify-content: space-between; align-items: center; }
-        .ticket-row-line span:first-child { color: var(--text-muted); font-weight: 600; }
-        .ticket-row-line span:last-child { color: #fff; font-weight: 800; }
+        .ticket-row-line span:first-child { color: var(--text-muted); font-weight: 700; }
+        .ticket-row-line span:last-child { color: #fff; font-weight: 900; }
 
         .admin-panel-box {
             background: var(--bg-card); color: #fff; border-radius: 20px; padding: 1.4rem; margin-top: 1.5rem;
             border: 2px dashed var(--primary-neon); box-shadow: var(--neon-glow);
         }
         .admin-req-card {
-            background: #060913; border-radius: 12px; padding: 1rem; margin-top: 10px;
+            background: #030614; border-radius: 12px; padding: 1rem; margin-top: 10px;
             display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem;
-            border: 1px solid var(--border-color);
+            border: 1.5px solid var(--border-color);
         }
         .user-data-card {
-            background: #060913; border-radius: 10px; padding: 0.75rem; margin-top: 6px;
-            border: 1px solid var(--border-color); font-size: 0.75rem; color: #fff;
+            background: #030614; border-radius: 10px; padding: 0.75rem; margin-top: 6px;
+            border: 1.5px solid var(--border-color); font-size: 0.75rem; color: #fff;
         }
 
         .app-bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card);
-            border-top: 1.5px solid var(--border-color); display: flex; justify-content: space-around;
-            padding: 12px 0; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.6);
+            border-top: 2px solid var(--border-color); display: flex; justify-content: space-around;
+            padding: 12px 0; z-index: 1000; box-shadow: 0 -6px 25px rgba(0,0,0,0.9);
         }
         .nav-item-btn {
             background: transparent; border: none; color: var(--text-muted);
             display: flex; flex-direction: column; align-items: center; gap: 4px;
-            font-size: 10px; text-transform: uppercase; font-weight: 800; cursor: pointer; flex: 1; transition: all 0.3s;
+            font-size: 10px; text-transform: uppercase; font-weight: 900; cursor: pointer; flex: 1; transition: all 0.3s;
         }
         .nav-item-btn i { font-size: 18px; }
-        .nav-item-btn.active, .nav-item-btn:hover { color: var(--primary-neon); text-shadow: 0 0 10px rgba(0,240,255,0.6); }
+        .nav-item-btn.active, .nav-item-btn:hover { color: var(--primary-neon); text-shadow: 0 0 12px rgba(0,247,255,0.8); }
 
         .hidden { display: none !important; }
     </style>
@@ -274,8 +269,8 @@
     <div class="auth-wrapper" id="auth-screen">
         <div class="auth-container">
             <div class="brand-header">
-                <svg width="40" height="40" viewBox="0 0 500 500" style="margin-bottom:8px;"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#00f0ff"/></svg>
-                <h1>LESTER <span>TIENDA</span></h1>
+                <svg width="48" height="48" viewBox="0 0 500 500" style="margin-bottom:8px; filter: drop-shadow(0 0 12px rgba(0,247,255,0.8));"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#00f7ff"/></svg>
+                <h1>DIAMONS <span>LEGION</span></h1>
             </div>
 
             <div class="auth-tabs">
@@ -316,15 +311,19 @@
     <div id="main-app" class="hidden" style="flex:1; display:flex; flex-direction:column;">
         <nav class="navbar">
             <div class="nav-brand-title">
-                <svg width="22" height="22" viewBox="0 0 500 500"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#00f0ff"/></svg>
-                LESTER <span>TIENDA</span>
+                <svg width="22" height="22" viewBox="0 0 500 500"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#00f7ff"/></svg>
+                DIAMONS <span>LEGION</span>
             </div>
             <div class="nav-wallet-pills">
-                <div class="wallet-pill-top" onclick="switchMainTab('wallet')">
-                    <i class="fa-solid fa-wallet" style="color:var(--primary-neon);"></i>
-                    <span id="usdt-balance-display">0.00</span> saldo
+                <div class="wallet-pill-top" onclick="switchMainTab('wallet')" title="USDT">
+                    <i class="fa-solid fa-coins" style="color:#26A17B;"></i>
+                    $<span id="usdt-balance-display">0.00</span>
                 </div>
-                <div class="wallet-pill-top" onclick="logoutUser()"><i class="fa-solid fa-right-from-bracket"></i> Salir</div>
+                <div class="wallet-pill-top" onclick="switchMainTab('wallet')" title="Saldo Móvil">
+                    <i class="fa-solid fa-mobile-screen" style="color:var(--primary-neon);"></i>
+                    <span id="saldo-balance-display">0</span>
+                </div>
+                <div class="wallet-pill-top" onclick="logoutUser()" title="Salir"><i class="fa-solid fa-right-from-bracket"></i></div>
             </div>
         </nav>
 
@@ -333,7 +332,7 @@
             <div id="sec-home" class="vista-sec">
                 <div class="store-banner-img">
                     <div class="store-banner-text">
-                        <p>Recargas oficiales al instante</p>
+                        <p>💎 DIAMONS LEGION — STORE 💎</p>
                     </div>
                 </div>
 
@@ -343,7 +342,7 @@
                     <div class="game-banner-content">
                         <div>
                             <h4>FREE FIRE MAX</h4>
-                            <p style="font-size:0.7rem; color:var(--primary-neon); font-weight:800; margin-top:2px;">RECARGAS VÍA ID</p>
+                            <p style="font-size:0.7rem; color:var(--primary-neon); font-weight:900; margin-top:2px;">RECARGAS VÍA ID</p>
                         </div>
                         <div class="game-banner-btn">Seleccionar <i class="fa-solid fa-chevron-right"></i></div>
                     </div>
@@ -353,7 +352,7 @@
             <!-- VISTA WALLET / MÉTODOS DE PAGO -->
             <div id="sec-wallet" class="vista-sec hidden">
                 <div class="section-title">MÉTODOS DE BILLETERA</div>
-                <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem; text-align: center;">Selecciona tu método para recargar saldo.</p>
+                <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem; text-align: center;">Selecciona tu método para depositar fondos.</p>
 
                 <div class="wallet-card-option" onclick="openSaldoDeposit()">
                     <div class="wallet-card-left">
@@ -424,7 +423,7 @@
                 </div>
             </div>
 
-            <!-- VISTA DEPÓSITO USDT (ORIGINAL) -->
+            <!-- VISTA DEPÓSITO USDT -->
             <div id="sec-usdt-detail" class="vista-sec hidden">
                 <button onclick="switchMainTab('wallet')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-arrow-left"></i> Volver a Billeteras
@@ -466,7 +465,7 @@
                 </div>
             </div>
 
-            <!-- VISTA RECARGAS FREE FIRE CON OFERTAS DE SALDO (Y PESTAÑA PARA USDT ORIGINAL) -->
+            <!-- VISTA RECARGAS FREE FIRE -->
             <div id="sec-recargas" class="vista-sec hidden">
                 <button onclick="switchMainTab('home')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-arrow-left"></i> Volver a Inicio
@@ -474,22 +473,22 @@
 
                 <div class="section-title">SELECCIONA EL MÉTODO DE PAGO</div>
                 <div class="payment-methods-tabs">
-                    <div id="btn-method-saldo" class="pay-tab-btn active" onclick="switchPaymentMethod('saldo')"><i class="fa-solid fa-mobile-screen"></i> Saldo (Wallet)</div>
+                    <div id="btn-method-saldo" class="pay-tab-btn active" onclick="switchPaymentMethod('saldo')"><i class="fa-solid fa-mobile-screen"></i> Saldo Móvil</div>
                     <div id="btn-method-usdt" class="pay-tab-btn" onclick="switchPaymentMethod('usdt')"><i class="fa-solid fa-coins"></i> USDT</div>
                 </div>
 
-                <div class="top-recharge-showcase" style="background: #0d1527; border: 1.5px solid var(--border-color); border-radius: 18px; padding: 1rem; margin-bottom: 1rem;">
+                <div class="top-recharge-showcase" style="background: #091026; border: 2px solid var(--border-color); border-radius: 18px; padding: 1rem; margin-bottom: 1rem;">
                     <div class="form-group" style="margin-bottom: 0;">
                         <label>PLAYER ID (Solo números de Free Fire)</label>
                         <input type="number" id="player-id-input" class="form-control" placeholder="Ej. 123456789" style="text-align:center; font-weight:bold;">
                     </div>
                 </div>
 
-                <!-- CONTENEDOR PAQUETES SALDO -->
+                <!-- PAQUETES SALDO MÓVIL -->
                 <div id="packages-saldo-container">
-                    <div class="section-title">SELECCIONA EL PAQUETE (SALDO)</div>
+                    <div class="section-title">PAQUETES CON SALDO MÓVIL</div>
                     <div class="diamonds-grid">
-                        <div class="diamond-card" onclick="selectPackage(this, '100+10 Diamantes', 300)">
+                        <div class="diamond-card" onclick="selectPackage(this, '100+10 Diamantes (Saldo)', 300, 'saldo')">
                             <div class="offer-tag">oferta</div>
                             <div class="diamond-card-content">
                                 <h4>100+10 💎</h4>
@@ -498,7 +497,7 @@
                             <div class="diamond-price-badge">300 saldo</div>
                         </div>
 
-                        <div class="diamond-card" onclick="selectPackage(this, '310+51 Diamantes', 900)">
+                        <div class="diamond-card" onclick="selectPackage(this, '310+51 Diamantes (Saldo)', 900, 'saldo')">
                             <div class="offer-tag">oferta</div>
                             <div class="diamond-card-content">
                                 <h4>310+51 💎</h4>
@@ -507,7 +506,7 @@
                             <div class="diamond-price-badge">900 saldo</div>
                         </div>
 
-                        <div class="diamond-card" onclick="selectPackage(this, '520+52 Diamantes', 1650)">
+                        <div class="diamond-card" onclick="selectPackage(this, '520+52 Diamantes (Saldo)', 1650, 'saldo')">
                             <div class="offer-tag">oferta</div>
                             <div class="diamond-card-content">
                                 <h4>520+52 💎</h4>
@@ -516,7 +515,7 @@
                             <div class="diamond-price-badge">1650 saldo</div>
                         </div>
 
-                        <div class="diamond-card" onclick="selectPackage(this, '1050+105 Diamantes', 2700)">
+                        <div class="diamond-card" onclick="selectPackage(this, '1050+105 Diamantes (Saldo)', 2700, 'saldo')">
                             <div class="offer-tag">oferta</div>
                             <div class="diamond-card-content">
                                 <h4>1050+105 💎</h4>
@@ -525,7 +524,7 @@
                             <div class="diamond-price-badge">2700 saldo</div>
                         </div>
 
-                        <div class="diamond-card" onclick="selectPackage(this, '2160+216 Diamantes', 5000)">
+                        <div class="diamond-card" onclick="selectPackage(this, '2160+216 Diamantes (Saldo)', 5000, 'saldo')">
                             <div class="offer-tag">oferta</div>
                             <div class="diamond-card-content">
                                 <h4>2160+216 💎</h4>
@@ -534,7 +533,7 @@
                             <div class="diamond-price-badge">5000 saldo</div>
                         </div>
 
-                        <div class="diamond-card" onclick="selectPackage(this, '5580+558 Diamantes', 13000)">
+                        <div class="diamond-card" onclick="selectPackage(this, '5580+558 Diamantes (Saldo)', 13000, 'saldo')">
                             <div class="offer-tag">oferta VIP</div>
                             <div class="diamond-card-content">
                                 <h4>5580+558 💎</h4>
@@ -545,62 +544,62 @@
                     </div>
                 </div>
 
-                <!-- CONTENEDOR PAQUETES USDT (ORIGINALES) -->
+                <!-- PAQUETES USDT CON TUS NUEVOS PRECIOS EXACTOS -->
                 <div id="packages-usdt-container" class="hidden">
-                    <div class="section-title">SELECCIONA EL PAQUETE (USDT)</div>
+                    <div class="section-title">PAQUETES CON USDT</div>
                     <div class="diamonds-grid">
-                        <div class="diamond-card" onclick="selectPackage(this, '100+10 Diamantes (USDT)', 1.00)">
+                        <div class="diamond-card" onclick="selectPackage(this, '1 Oferta Diamantes (USDT)', 0.99, 'usdt')">
                             <div class="offer-tag">oferta</div>
                             <div class="diamond-card-content">
-                                <h4>100+10 💎</h4>
-                                <p>Diamantes</p>
+                                <h4>Paquete 1 💎</h4>
+                                <p>Diamantes FF</p>
                             </div>
-                            <div class="diamond-price-badge">$1.00 USDT</div>
+                            <div class="diamond-price-badge">$0.99 USDT</div>
                         </div>
 
-                        <div class="diamond-card" onclick="selectPackage(this, '310+31 Diamantes (USDT)', 3.00)">
+                        <div class="diamond-card" onclick="selectPackage(this, '2 Oferta Diamantes (USDT)', 2.99, 'usdt')">
                             <div class="offer-tag">oferta</div>
                             <div class="diamond-card-content">
-                                <h4>310+31 💎</h4>
-                                <p>Diamantes</p>
+                                <h4>Paquete 2 💎</h4>
+                                <p>Diamantes FF</p>
                             </div>
-                            <div class="diamond-price-badge">$3.00 USDT</div>
+                            <div class="diamond-price-badge">$2.99 USDT</div>
                         </div>
 
-                        <div class="diamond-card" onclick="selectPackage(this, '520+52 Diamantes (USDT)', 5.00)">
+                        <div class="diamond-card" onclick="selectPackage(this, '3 Oferta Diamantes (USDT)', 4.60, 'usdt')">
                             <div class="offer-tag">oferta</div>
                             <div class="diamond-card-content">
-                                <h4>520+52 💎</h4>
-                                <p>Diamantes</p>
+                                <h4>Paquete 3 💎</h4>
+                                <p>Diamantes FF</p>
                             </div>
-                            <div class="diamond-price-badge">$5.00 USDT</div>
+                            <div class="diamond-price-badge">$4.60 USDT</div>
                         </div>
 
-                        <div class="diamond-card" onclick="selectPackage(this, '1060+106 Diamantes (USDT)', 10.00)">
+                        <div class="diamond-card" onclick="selectPackage(this, '4 Oferta Diamantes (USDT)', 8.40, 'usdt')">
                             <div class="offer-tag">oferta</div>
                             <div class="diamond-card-content">
-                                <h4>1060+106 💎</h4>
-                                <p>Diamantes</p>
+                                <h4>Paquete 4 💎</h4>
+                                <p>Diamantes FF</p>
                             </div>
-                            <div class="diamond-price-badge">$10.00 USDT</div>
+                            <div class="diamond-price-badge">$8.40 USDT</div>
                         </div>
 
-                        <div class="diamond-card" onclick="selectPackage(this, '2180+218 Diamantes (USDT)', 20.00)">
+                        <div class="diamond-card" onclick="selectPackage(this, '5 Oferta Diamantes (USDT)', 15.99, 'usdt')">
                             <div class="offer-tag">oferta</div>
                             <div class="diamond-card-content">
-                                <h4>2180+218 💎</h4>
-                                <p>Diamantes</p>
+                                <h4>Paquete 5 💎</h4>
+                                <p>Diamantes FF</p>
                             </div>
-                            <div class="diamond-price-badge">$20.00 USDT</div>
+                            <div class="diamond-price-badge">$15.99 USDT</div>
                         </div>
 
-                        <div class="diamond-card" onclick="selectPackage(this, '5600+560 Diamantes (USDT)', 50.00)">
+                        <div class="diamond-card" onclick="selectPackage(this, '6 Oferta Diamantes (USDT)', 38.99, 'usdt')">
                             <div class="offer-tag">oferta VIP</div>
                             <div class="diamond-card-content">
-                                <h4>5600+560 💎</h4>
-                                <p>Diamantes</p>
+                                <h4>Paquete 6 💎</h4>
+                                <p>Diamantes FF</p>
                             </div>
-                            <div class="diamond-price-badge">$50.00 USDT</div>
+                            <div class="diamond-price-badge">$38.99 USDT</div>
                         </div>
                     </div>
                 </div>
@@ -635,6 +634,7 @@
     <script>
         let selectedPkg = null;
         let selectedPrice = 0;
+        let selectedCurrency = 'saldo';
         let currentPaymentType = 'saldo';
         let currentUser = null;
 
@@ -645,7 +645,7 @@
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('main-app').classList.remove('hidden');
                 checkAdminRights();
-                updateUIBalance();
+                updateUIBalances();
                 renderOrders();
             }
         };
@@ -693,7 +693,7 @@
                     document.getElementById('auth-screen').classList.add('hidden');
                     document.getElementById('main-app').classList.remove('hidden');
                     checkAdminRights();
-                    updateUIBalance();
+                    updateUIBalances();
                     renderOrders();
                     return;
                 } else {
@@ -711,7 +711,7 @@
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('main-app').classList.remove('hidden');
                 checkAdminRights();
-                updateUIBalance();
+                updateUIBalances();
                 renderOrders();
             } else {
                 showNotification("Usuario o contraseña incorrectos.");
@@ -737,50 +737,55 @@
                 return;
             }
 
-            const newUser = { username: u, email: email, password: pass, balance: 0.00 };
+            const newUser = { username: u, email: email, password: pass, balance: 0.00, usdtBalance: 0.00 };
             users.push(newUser);
             localStorage.setItem('dl_users', JSON.stringify(users));
 
             currentUser = u;
             localStorage.setItem('dl_logged_user', currentUser);
-            showNotification("¡Registro exitoso! Bienvenido a Lester Tienda.");
+            showNotification("¡Registro exitoso! Bienvenido a Diamons Legion.");
             document.getElementById('auth-screen').classList.add('hidden');
             document.getElementById('main-app').classList.remove('hidden');
             checkAdminRights();
-            updateUIBalance();
+            updateUIBalances();
             renderOrders();
         }
 
-        function getUserBalance(username) {
-            if(username.toLowerCase() === 'admin') return 99999.00;
+        function getUserData(username) {
+            if(username.toLowerCase() === 'admin') return { balance: 99999, usdtBalance: 99999 };
             let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
             let user = users.find(u => u.username === username);
-            return user ? user.balance : 0.00;
+            return user ? { balance: user.balance || 0, usdtBalance: user.usdtBalance || 0 } : { balance: 0, usdtBalance: 0 };
         }
 
-        function modifyUserBalance(username, amount) {
+        function modifyUserBalance(username, amount, currency) {
             let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
             users = users.map(u => {
                 if(u.username === username) {
-                    u.balance += amount;
+                    if(currency === 'usdt') {
+                        u.usdtBalance = (u.usdtBalance || 0) + amount;
+                    } else {
+                        u.balance = (u.balance || 0) + amount;
+                    }
                 }
                 return u;
             });
             localStorage.setItem('dl_users', JSON.stringify(users));
-            updateUIBalance();
+            updateUIBalances();
         }
 
-        function updateUIBalance() {
+        function updateUIBalances() {
             if(!currentUser) return;
-            let bal = getUserBalance(currentUser);
-            document.getElementById('usdt-balance-display').innerText = bal.toFixed(2);
+            let data = getUserData(currentUser);
+            document.getElementById('usdt-balance-display').innerText = data.usdtBalance.toFixed(2);
+            document.getElementById('saldo-balance-display').innerText = data.balance.toFixed(0);
         }
 
         function switchMainTab(sec) {
             document.querySelectorAll('.vista-sec').forEach(el => el.classList.add('hidden'));
             document.getElementById('sec-' + sec).classList.remove('hidden');
             if(sec === 'orders') renderOrders();
-            if(sec === 'wallet') updateUIBalance();
+            if(sec === 'wallet') updateUIBalances();
         }
 
         function openSaldoDeposit() {
@@ -824,11 +829,12 @@
             });
         }
 
-        function selectPackage(el, pkg, price) {
+        function selectPackage(el, pkg, price, currency) {
             document.querySelectorAll('.diamond-card').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
             selectedPkg = pkg;
             selectedPrice = price;
+            selectedCurrency = currency;
         }
 
         function submitSaldoDeposit() {
@@ -851,6 +857,7 @@
                 type: 'Depósito Saldo Móvil (58151457)',
                 playerId: 'N/A',
                 amount: monto,
+                currency: 'saldo',
                 action: 'CREDIT',
                 detail: `Conf: ${hash}`,
                 date: fechaStr,
@@ -884,6 +891,7 @@
                 type: 'Depósito USDT',
                 playerId: 'N/A',
                 amount: monto,
+                currency: 'usdt',
                 action: 'CREDIT',
                 detail: `Hash: ${hash.substring(0,8)}...`,
                 date: fechaStr,
@@ -893,7 +901,7 @@
             orders.unshift(newDeposit);
             localStorage.setItem('dl_orders', JSON.stringify(orders));
             
-            showNotification(`DEPÓSITO DE $${monto.toFixed(2)} ENVIADO AL ADMIN`);
+            showNotification(`DEPÓSITO DE $${monto.toFixed(2)} USDT ENVIADO AL ADMIN`);
             switchMainTab('orders');
         }
 
@@ -905,12 +913,14 @@
                 return;
             }
 
-            if(currentPaymentType === 'saldo') {
-                let currentBal = getUserBalance(currentUser);
-                if(currentBal < selectedPrice) {
-                    showNotification(`Saldo insuficiente. Tienes ${currentBal.toFixed(2)} y necesitas ${selectedPrice} saldo.`);
-                    return;
-                }
+            let userData = getUserData(currentUser);
+            if(selectedCurrency === 'saldo' && userData.balance < selectedPrice) {
+                showNotification(`Saldo insuficiente. Tienes ${userData.balance.toFixed(0)} y necesitas ${selectedPrice} saldo.`);
+                return;
+            }
+            if(selectedCurrency === 'usdt' && userData.usdtBalance < selectedPrice) {
+                showNotification(`USDT insuficiente. Tienes $${userData.usdtBalance.toFixed(2)} y necesitas $${selectedPrice} USDT.`);
+                return;
             }
 
             const now = new Date();
@@ -923,8 +933,9 @@
                 type: selectedPkg,
                 playerId: playerId,
                 amount: selectedPrice,
-                action: currentPaymentType === 'saldo' ? 'DEBIT' : 'USDT_PURCHASE',
-                detail: currentPaymentType === 'saldo' ? 'Compra con Saldo' : `Compra directa USDT ($${selectedPrice})`,
+                currency: selectedCurrency,
+                action: 'DEBIT',
+                detail: `Compra de Paquete Free Fire`,
                 date: fechaStr,
                 status: 'Proceso'
             };
@@ -972,6 +983,8 @@
                         step3Active = '';
                     }
 
+                    let amountText = o.currency === 'usdt' ? `$${o.amount.toFixed(2)} USDT` : `${o.amount} saldo`;
+
                     userContainer.innerHTML += `
                         <div class="ticket-receipt-card">
                             <div class="ticket-header-flex">
@@ -1004,7 +1017,7 @@
                                 <div class="ticket-row-line"><span>Cuenta</span> <strong>${o.user}</strong></div>
                                 <div class="ticket-row-line"><span>Solicitud</span> <strong>#${String(o.id).slice(-4)}</strong></div>
                                 <div class="ticket-row-line"><span>Fecha</span> <strong>${o.date}</strong></div>
-                                <div class="ticket-row-line" style="border-top:1px solid #1b3a6b; margin-top:4px; padding-top:6px;"><span>Total</span> <strong style="color:var(--primary-neon); font-size:0.95rem;">${o.amount} ${o.action === 'USDT_PURCHASE' ? 'USDT' : 'saldo'}</strong></div>
+                                <div class="ticket-row-line" style="border-top:1.5px solid var(--border-color); margin-top:4px; padding-top:6px;"><span>Total</span> <strong style="color:var(--primary-neon); font-size:0.95rem;">${amountText}</strong></div>
                             </div>
                         </div>
                     `;
@@ -1018,10 +1031,11 @@
                 } else {
                     pendingOrders.forEach(o => {
                         let isDeposit = o.type.includes('Depósito');
+                        let amountText = o.currency === 'usdt' ? `$${o.amount.toFixed(2)} USDT` : `${o.amount} saldo`;
                         adminContainer.innerHTML += `
                             <div class="admin-req-card" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-                                <div style="width: 100%; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; display: flex; justify-content: space-between;">
-                                    <span style="color: var(--primary-neon); font-weight: 900;">${isDeposit ? '💰 DEPÓSITO DE SALDO' : '🛒 COMPRA DE PAQUETE'}</span>
+                                <div style="width: 100%; border-bottom: 1.5px solid var(--border-color); padding-bottom: 6px; display: flex; justify-content: space-between;">
+                                    <span style="color: var(--primary-neon); font-weight: 900;">${isDeposit ? '💰 DEPÓSITO DE FONDOS' : '🛒 COMPRA DE PAQUETE'}</span>
                                     <span style="color: var(--text-muted); font-size: 0.7rem;">${o.date}</span>
                                 </div>
                                 <div style="width: 100%; display: flex; flex-direction: column; gap: 4px;">
@@ -1029,12 +1043,12 @@
                                     <div><strong>Tipo / Paquete:</strong> <span style="color: var(--primary-neon); font-weight: 900;">${o.type}</span></div>
                                     <div><strong>Detalle / Comprobante:</strong> ${o.detail}</div>
                                     ${!isDeposit ? `
-                                    <div style="display: flex; align-items: center; justify-content: space-between; background: #060913; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--primary-neon); margin-top: 4px;">
+                                    <div style="display: flex; align-items: center; justify-content: space-between; background: #030614; padding: 6px 10px; border-radius: 8px; border: 1.5px solid var(--primary-neon); margin-top: 4px;">
                                         <span><strong>ID Jugador:</strong> ${o.playerId}</span>
-                                        <button onclick="copyPlayerIdText('${o.playerId}')" style="background: var(--primary-neon); border: none; color: #060913; padding: 4px 10px; border-radius: 6px; font-weight: 900; font-size: 0.7rem; cursor: pointer;"><i class="fa-regular fa-copy"></i> Copiar ID</button>
+                                        <button onclick="copyPlayerIdText('${o.playerId}')" style="background: var(--primary-neon); border: none; color: #030614; padding: 4px 10px; border-radius: 6px; font-weight: 900; font-size: 0.7rem; cursor: pointer;"><i class="fa-regular fa-copy"></i> Copiar ID</button>
                                     </div>
                                     ` : ''}
-                                    <div style="font-weight: bold; margin-top: 2px; color: #f59e0b;">Monto: ${o.amount} ${o.action === 'USDT_PURCHASE' ? 'USDT' : 'saldo'}</div>
+                                    <div style="font-weight: bold; margin-top: 2px; color: #ffb703;">Monto: ${amountText}</div>
                                 </div>
                                 <div style="display: flex; gap: 10px; width: 100%; margin-top: 6px;">
                                     <button onclick="updateOrderStatus(${o.id}, 'Aprobado')" style="flex: 1; background:#10b981; border:none; color:#fff; padding:8px; border-radius:8px; font-weight:900; cursor:pointer;"><i class="fa-solid fa-check"></i> Aceptar</button>
@@ -1054,7 +1068,7 @@
                             <div class="user-data-card">
                                 <div><strong>Usuario:</strong> ${u.username}</div>
                                 <div style="color:var(--primary-neon)"><strong>Correo:</strong> ${u.email}</div>
-                                <div><strong>Saldo actual:</strong> ${u.balance.toFixed(2)} saldo</div>
+                                <div><strong>USDT:</strong> $${(u.usdtBalance || 0).toFixed(2)} | <strong>Saldo:</strong> ${(u.balance || 0).toFixed(0)}</div>
                             </div>
                         `;
                     });
@@ -1071,16 +1085,16 @@
                 
                 if(newStatus === 'Aprobado') {
                     if(targetOrder.action === 'CREDIT') {
-                        modifyUserBalance(targetOrder.user, targetOrder.amount);
+                        modifyUserBalance(targetOrder.user, targetOrder.amount, targetOrder.currency);
                     } else if(targetOrder.action === 'DEBIT') {
-                        modifyUserBalance(targetOrder.user, -targetOrder.amount);
+                        modifyUserBalance(targetOrder.user, -targetOrder.amount, targetOrder.currency);
                     }
                 }
 
                 localStorage.setItem('dl_orders', JSON.stringify(orders));
                 showNotification(`¡Solicitud ${newStatus.toLowerCase()} correctamente!`);
                 renderOrders();
-                updateUIBalance();
+                updateUIBalances();
             }
         }
     </script>
