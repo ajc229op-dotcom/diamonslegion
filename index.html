@@ -21,19 +21,11 @@
             --neon-glow-strong: 0 0 35px rgba(0, 247, 255, 0.7);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         html, body {
-            min-height: 100vh;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
+            min-height: 100vh; background-color: var(--bg-main); color: var(--text-main);
+            display: flex; flex-direction: column;
             background-image: radial-gradient(circle at 50% 15%, rgba(0, 247, 255, 0.12) 0%, transparent 60%),
                               radial-gradient(circle at 85% 85%, rgba(114, 9, 183, 0.15) 0%, transparent 50%);
         }
@@ -47,9 +39,7 @@
         }
         #notification-toast.show { transform: translateX(-50%) translateY(0); }
 
-        .auth-wrapper {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; width: 100%;
-        }
+        .auth-wrapper { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; width: 100%; }
         .auth-container {
             max-width: 390px; width: 100%; background: var(--bg-card);
             border: 2px solid var(--primary-neon); border-radius: 24px; padding: 2.2rem 1.8rem;
@@ -76,8 +66,7 @@
         .form-group label { display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 800; letter-spacing: 0.5px; }
         .form-control {
             width: 100%; background: #030614; border: 1.5px solid var(--border-color);
-            padding: 0.8rem 1rem; border-radius: 12px; color: var(--text-main);
-            font-size: 0.9rem; outline: none; transition: all 0.3s;
+            padding: 0.8rem 1rem; border-radius: 12px; color: var(--text-main); font-size: 0.9rem; outline: none; transition: all 0.3s;
         }
         .form-control:focus { border-color: var(--primary-neon); box-shadow: var(--neon-glow); }
 
@@ -106,44 +95,30 @@
         }
 
         .container { max-width: 500px; width: 100%; margin: 0 auto; padding: 1.2rem; flex: 1; display: flex; flex-direction: column; padding-bottom: 100px; }
-
         .section-title { font-size: 0.85rem; color: var(--primary-neon); margin: 1rem 0 0.6rem 0; font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase; text-align: center; text-shadow: 0 0 10px rgba(0,247,255,0.5); }
 
-        .payment-methods-tabs {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.2rem;
-        }
+        .payment-methods-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.2rem; }
         .pay-tab-btn {
             background: #091026; border: 1.5px solid var(--border-color); border-radius: 14px;
             padding: 0.8rem; text-align: center; color: var(--text-muted); font-weight: 800; font-size: 0.82rem;
             cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s;
         }
-        .pay-tab-btn.active {
-            background: linear-gradient(135deg, #00f7ff, #7209b7); color: #ffffff; border-color: var(--primary-neon);
-            box-shadow: var(--neon-glow);
-        }
+        .pay-tab-btn.active { background: linear-gradient(135deg, #00f7ff, #7209b7); color: #ffffff; border-color: var(--primary-neon); box-shadow: var(--neon-glow); }
 
         .store-banner-img {
             width: 100%; height: 320px; border-radius: 20px; margin-bottom: 1.2rem;
             background-image: linear-gradient(180deg, rgba(3,6,20,0.1) 40%, rgba(3,6,20,0.9) 100%), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1000&auto=format&fit=crop');
-            background-size: cover; background-position: center;
-            border: 2px solid var(--primary-neon); box-shadow: var(--neon-glow-strong);
+            background-size: cover; background-position: center; border: 2px solid var(--primary-neon); box-shadow: var(--neon-glow-strong);
             position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 15px;
         }
-        .store-banner-text {
-            position: relative; z-index: 2; text-align: center; background: rgba(3, 6, 20, 0.8); padding: 6px 16px; border-radius: 12px; border: 1px solid var(--primary-neon);
-        }
-        .store-banner-text p {
-            font-size: 0.85rem; color: #fff; font-weight: 900; text-shadow: 0 0 15px rgba(0,247,255,0.9);
-            letter-spacing: 2px; text-transform: uppercase;
-        }
+        .store-banner-text { position: relative; z-index: 2; text-align: center; background: rgba(3, 6, 20, 0.8); padding: 6px 16px; border-radius: 12px; border: 1px solid var(--primary-neon); }
+        .store-banner-text p { font-size: 0.85rem; color: #fff; font-weight: 900; text-shadow: 0 0 15px rgba(0,247,255,0.9); letter-spacing: 2px; text-transform: uppercase; }
 
         .game-banner-card {
             width: 100%; height: 180px; border-radius: 18px; margin-bottom: 1.2rem;
             background-image: linear-gradient(180deg, rgba(3,6,20,0.2) 0%, rgba(3,6,20,0.95) 100%), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1000&auto=format&fit=crop');
-            background-size: cover; background-position: center;
-            border: 2px solid var(--border-color); box-shadow: 0 6px 20px rgba(0,0,0,0.7);
-            position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; padding: 14px;
-            transition: all 0.3s;
+            background-size: cover; background-position: center; border: 2px solid var(--border-color); box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+            position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; padding: 14px; transition: all 0.3s;
         }
         .game-banner-card:hover { border-color: var(--primary-neon); box-shadow: var(--neon-glow); transform: translateY(-2px); }
         .game-banner-content { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; }
@@ -165,9 +140,7 @@
             margin-bottom: 4px; box-shadow: 0 2px 8px rgba(255,183,3,0.6);
         }
 
-        .diamond-card-content {
-            display: flex; flex-direction: column; align-items: center; gap: 2px; width: 100%;
-        }
+        .diamond-card-content { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 100%; }
         .diamond-card-content h4 { font-size: 0.95rem; font-weight: 900; color: var(--text-main); font-family: 'Orbitron', sans-serif; text-shadow: 0 0 10px rgba(0,247,255,0.6); }
         .diamond-card-content p { font-size: 0.72rem; color: var(--text-muted); font-weight: 700; }
         
@@ -185,22 +158,12 @@
         .wallet-card-option:hover { border-color: var(--primary-neon); box-shadow: var(--neon-glow); transform: translateY(-2px); }
         .wallet-card-left { display: flex; align-items: center; gap: 14px; }
         
-        .usdt-real-icon {
-            width: 45px; height: 45px; background: #26A17B; border-radius: 14px;
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(38,161,123,0.8);
-        }
-        .saldo-icon-box {
-            width: 45px; height: 45px; background: var(--primary-neon); border-radius: 14px;
-            display: flex; align-items: center; justify-content: center; color: #030614; font-size: 1.2rem;
-            box-shadow: 0 0 12px rgba(0,247,255,0.8);
-        }
+        .usdt-real-icon { width: 45px; height: 45px; background: #26A17B; border-radius: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(38,161,123,0.8); }
+        .saldo-icon-box { width: 45px; height: 45px; background: var(--primary-neon); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: #030614; font-size: 1.2rem; box-shadow: 0 0 12px rgba(0,247,255,0.8); }
         .wallet-info h4 { font-size: 0.95rem; font-weight: 900; color: var(--text-main); margin-bottom: 3px; }
         .wallet-info p { font-size: 0.72rem; color: var(--text-muted); font-weight: 700; }
         
-        .wallet-box-detail {
-            background: var(--bg-card); border: 2px solid var(--primary-neon); border-radius: 20px; padding: 1.4rem; margin-bottom: 1rem;
-            box-shadow: var(--neon-glow-strong);
-        }
+        .wallet-box-detail { background: var(--bg-card); border: 2px solid var(--primary-neon); border-radius: 20px; padding: 1.4rem; margin-bottom: 1rem; box-shadow: var(--neon-glow-strong); }
         .wallet-address-box {
             background: #030614; border: 1.5px solid var(--border-color); padding: 0.9rem; border-radius: 12px;
             font-size: 0.85rem; word-break: break-all; color: var(--primary-neon); font-weight: bold; margin: 0.6rem 0 1rem 0;
@@ -208,9 +171,8 @@
         }
 
         .ticket-receipt-card {
-            background: linear-gradient(145deg, #091026, #030614);
-            border: 2px solid var(--border-color); border-radius: 20px; padding: 1.2rem; margin-bottom: 1.2rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.7); position: relative; overflow: hidden;
+            background: linear-gradient(145deg, #091026, #030614); border: 2px solid var(--border-color); border-radius: 20px;
+            padding: 1.2rem; margin-bottom: 1.2rem; box-shadow: 0 8px 25px rgba(0,0,0,0.7); position: relative; overflow: hidden;
         }
         .ticket-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1.5px solid var(--border-color); padding-bottom: 10px; }
         .ticket-title-group h4 { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 900; color: #fff; text-shadow: 0 0 10px rgba(0,247,255,0.6); }
@@ -232,19 +194,9 @@
         .ticket-row-line span:first-child { color: var(--text-muted); font-weight: 700; }
         .ticket-row-line span:last-child { color: #fff; font-weight: 900; }
 
-        .admin-panel-box {
-            background: var(--bg-card); color: #fff; border-radius: 20px; padding: 1.4rem; margin-top: 1.5rem;
-            border: 2px dashed var(--primary-neon); box-shadow: var(--neon-glow);
-        }
-        .admin-req-card {
-            background: #030614; border-radius: 12px; padding: 1rem; margin-top: 10px;
-            display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem;
-            border: 1.5px solid var(--border-color);
-        }
-        .user-data-card {
-            background: #030614; border-radius: 10px; padding: 0.75rem; margin-top: 6px;
-            border: 1.5px solid var(--border-color); font-size: 0.75rem; color: #fff;
-        }
+        .admin-panel-box { background: var(--bg-card); color: #fff; border-radius: 20px; padding: 1.4rem; margin-top: 1.5rem; border: 2px dashed var(--primary-neon); box-shadow: var(--neon-glow); }
+        .admin-req-card { background: #030614; border-radius: 12px; padding: 1rem; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; border: 1.5px solid var(--border-color); }
+        .user-data-card { background: #030614; border-radius: 10px; padding: 0.75rem; margin-top: 6px; border: 1.5px solid var(--border-color); font-size: 0.75rem; color: #fff; }
 
         .app-bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card);
@@ -258,7 +210,6 @@
         }
         .nav-item-btn i { font-size: 18px; }
         .nav-item-btn.active, .nav-item-btn:hover { color: var(--primary-neon); text-shadow: 0 0 12px rgba(0,247,255,0.8); }
-
         .hidden { display: none !important; }
     </style>
 </head>
@@ -328,16 +279,11 @@
         </nav>
 
         <div class="container">
-            <!-- VISTA INICIO -->
             <div id="sec-home" class="vista-sec">
                 <div class="store-banner-img">
-                    <div class="store-banner-text">
-                        <p>💎 DIAMONS LEGION — STORE 💎</p>
-                    </div>
+                    <div class="store-banner-text"><p>💎 DIAMONS LEGION — STORE 💎</p></div>
                 </div>
-
                 <div class="section-title">JUEGOS DISPONIBLES</div>
-                
                 <div class="game-banner-card" onclick="switchMainTab('recargas')">
                     <div class="game-banner-content">
                         <div>
@@ -349,134 +295,80 @@
                 </div>
             </div>
 
-            <!-- VISTA WALLET / MÉTODOS DE PAGO -->
             <div id="sec-wallet" class="vista-sec hidden">
                 <div class="section-title">MÉTODOS DE BILLETERA</div>
                 <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem; text-align: center;">Selecciona tu método para depositar fondos.</p>
-
                 <div class="wallet-card-option" onclick="openSaldoDeposit()">
                     <div class="wallet-card-left">
-                        <div class="saldo-icon-box">
-                            <i class="fa-solid fa-mobile-screen"></i>
-                        </div>
-                        <div class="wallet-info">
-                            <h4>Saldo Móvil</h4>
-                            <p>Depósito directo al # 58151457</p>
-                        </div>
+                        <div class="saldo-icon-box"><i class="fa-solid fa-mobile-screen"></i></div>
+                        <div class="wallet-info"><h4>Saldo Móvil</h4><p>Depósito directo al # 58151457</p></div>
                     </div>
                     <i class="fa-solid fa-chevron-right" style="color: var(--primary-neon);"></i>
                 </div>
-
                 <div class="wallet-card-option" onclick="openUsdtDeposit()">
                     <div class="wallet-card-left">
-                        <div class="usdt-real-icon">
-                            <svg width="24" height="24" viewBox="0 0 32 32"><path d="M17.5 14.5v-3.2h4.5V8.5h-4.5V5.8h-3v2.7H10v2.8h4.5v3.2c-3.1.2-5.7 1-5.7 2 0 1.1 2.8 1.9 6.2 2v4.7h3v-4.7c3.4-.1 6.2-.9 6.2-2 0-1-2.6-1.8-5.7-2zm-1.5 3.8c-2.8 0-5.1-.6-5.1-1.4 0-.8 2.3-1.4 5.1-1.4s5.1.6 5.1 1.4c0 .8-2.3 1.4-5.1 1.4z" fill="#ffffff"/></svg>
-                        </div>
-                        <div class="wallet-info">
-                            <h4>USDT BEP 20</h4>
-                            <p>Red Binance Smart Chain (BSC)</p>
-                        </div>
+                        <div class="usdt-real-icon"><svg width="24" height="24" viewBox="0 0 32 32"><path d="M17.5 14.5v-3.2h4.5V8.5h-4.5V5.8h-3v2.7H10v2.8h4.5v3.2c-3.1.2-5.7 1-5.7 2 0 1.1 2.8 1.9 6.2 2v4.7h3v-4.7c3.4-.1 6.2-.9 6.2-2 0-1-2.6-1.8-5.7-2zm-1.5 3.8c-2.8 0-5.1-.6-5.1-1.4 0-.8 2.3-1.4 5.1-1.4s5.1.6 5.1 1.4c0 .8-2.3 1.4-5.1 1.4z" fill="#ffffff"/></svg></div>
+                        <div class="wallet-info"><h4>USDT BEP 20</h4><p>Red Binance Smart Chain (BSC)</p></div>
                     </div>
                     <i class="fa-solid fa-chevron-right" style="color: var(--primary-neon);"></i>
                 </div>
             </div>
 
-            <!-- VISTA DEPÓSITO SALDO MÓVIL (# 58151457) -->
             <div id="sec-saldo-detail" class="vista-sec hidden">
-                <button onclick="switchMainTab('wallet')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
-                    <i class="fa-solid fa-arrow-left"></i> Volver a Billeteras
-                </button>
-
+                <button onclick="switchMainTab('wallet')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-arrow-left"></i> Volver a Billeteras</button>
                 <div class="wallet-box-detail">
                     <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
-                        <div class="saldo-icon-box" style="width:38px; height:38px; font-size:1rem;">
-                            <i class="fa-solid fa-mobile-screen"></i>
-                        </div>
-                        <div>
-                            <h4 style="font-size:0.95rem; font-weight:900;">Recarga de Saldo Móvil</h4>
-                            <p style="font-size:0.7rem; color:var(--text-muted)">Transferir al número indicado</p>
-                        </div>
+                        <div class="saldo-icon-box" style="width:38px; height:38px; font-size:1rem;"><i class="fa-solid fa-mobile-screen"></i></div>
+                        <div><h4 style="font-size:0.95rem; font-weight:900;">Recarga de Saldo Móvil</h4><p style="font-size:0.7rem; color:var(--text-muted)">Transferir al número indicado</p></div>
                     </div>
-
                     <div class="form-group">
                         <label>NÚMERO PARA DEPOSITAR SALDO:</label>
                         <div class="wallet-address-box" id="saldo-num-text">58151457</div>
                         <button onclick="copySaldoNumber()" class="btn-main" style="padding: 0.7rem; font-size: 0.82rem;"><i class="fa-regular fa-copy"></i> Copiar Número</button>
                     </div>
-
                     <div class="form-group" style="margin-top: 1rem;">
                         <label>MONTO DE SALDO A DEPOSITAR</label>
                         <input type="number" id="saldo-monto-input" class="form-control" placeholder="Ej. 300" step="1">
                     </div>
-
                     <div class="form-group">
                         <label>NÚMERO DE TRANSFERENCIA / CONFIRMACIÓN</label>
                         <input type="text" id="saldo-hash-input" class="form-control" placeholder="Ej. 12345678">
                     </div>
-
-                    <div class="form-group">
-                        <label>SUBIR COMPROBANTE DE PAGO (IMAGEN)</label>
-                        <input type="file" id="saldo-receipt-file" class="form-control" accept="image/*" style="padding: 0.5rem;">
-                    </div>
-
                     <button onclick="submitSaldoDeposit()" class="btn-main">CONFIRMAR DEPÓSITO DE SALDO</button>
                 </div>
             </div>
 
-            <!-- VISTA DEPÓSITO USDT -->
             <div id="sec-usdt-detail" class="vista-sec hidden">
-                <button onclick="switchMainTab('wallet')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
-                    <i class="fa-solid fa-arrow-left"></i> Volver a Billeteras
-                </button>
-
+                <button onclick="switchMainTab('wallet')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-arrow-left"></i> Volver a Billeteras</button>
                 <div class="wallet-box-detail">
                     <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
-                        <div class="usdt-real-icon" style="width:38px; height:38px;">
-                            <svg width="20" height="20" viewBox="0 0 32 32"><path d="M17.5 14.5v-3.2h4.5V8.5h-4.5V5.8h-3v2.7H10v2.8h4.5v3.2c-3.1.2-5.7 1-5.7 2 0 1.1 2.8 1.9 6.2 2v4.7h3v-4.7c3.4-.1 6.2-.9 6.2-2 0-1-2.6-1.8-5.7-2zm-1.5 3.8c-2.8 0-5.1-.6-5.1-1.4 0-.8 2.3-1.4 5.1-1.4s5.1.6 5.1 1.4c0 .8-2.3 1.4-5.1 1.4z" fill="#ffffff"/></svg>
-                        </div>
-                        <div>
-                            <h4 style="font-size:0.95rem; font-weight:900;">Recarga USDT BEP 20</h4>
-                            <p style="font-size:0.7rem; color:var(--text-muted)">Red Binance Smart Chain (BSC)</p>
-                        </div>
+                        <div class="usdt-real-icon" style="width:38px; height:38px;"><svg width="20" height="20" viewBox="0 0 32 32"><path d="M17.5 14.5v-3.2h4.5V8.5h-4.5V5.8h-3v2.7H10v2.8h4.5v3.2c-3.1.2-5.7 1-5.7 2 0 1.1 2.8 1.9 6.2 2v4.7h3v-4.7c3.4-.1 6.2-.9 6.2-2 0-1-2.6-1.8-5.7-2zm-1.5 3.8c-2.8 0-5.1-.6-5.1-1.4 0-.8 2.3-1.4 5.1-1.4s5.1.6 5.1 1.4c0 .8-2.3 1.4-5.1 1.4z" fill="#ffffff"/></svg></div>
+                        <div><h4 style="font-size:0.95rem; font-weight:900;">Recarga USDT BEP 20</h4><p style="font-size:0.7rem; color:var(--text-muted)">Red Binance Smart Chain (BSC)</p></div>
                     </div>
-
                     <div class="form-group">
                         <label>DIRECCIÓN OFICIAL BEP 20:</label>
                         <div class="wallet-address-box" id="wallet-addr-text">0x01fFC04c400d0811DEc106E56Bfb5a95576AF18f</div>
                         <button onclick="copyWalletAddress()" class="btn-main" style="padding: 0.7rem; font-size: 0.82rem;"><i class="fa-regular fa-copy"></i> Copiar Dirección</button>
                     </div>
-
                     <div class="form-group" style="margin-top: 1rem;">
                         <label>MONTO (USDT)</label>
                         <input type="number" id="usdt-monto-input" class="form-control" placeholder="Ej. 10.00" step="0.01">
                     </div>
-
                     <div class="form-group">
                         <label>ID DE LA TRANSFERENCIA (HASH / ID)</label>
                         <input type="text" id="usdt-hash-input" class="form-control" placeholder="Ej. 0x1234abcd...">
                     </div>
-
-                    <div class="form-group">
-                        <label>SUBIR COMPROBANTE DE PAGO (IMAGEN)</label>
-                        <input type="file" id="usdt-receipt-file" class="form-control" accept="image/*" style="padding: 0.5rem;">
-                    </div>
-
                     <button onclick="submitDeposit()" class="btn-main">CONFIRMAR DEPÓSITO</button>
                 </div>
             </div>
 
-            <!-- VISTA RECARGAS FREE FIRE -->
             <div id="sec-recargas" class="vista-sec hidden">
-                <button onclick="switchMainTab('home')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
-                    <i class="fa-solid fa-arrow-left"></i> Volver a Inicio
-                </button>
-
+                <button onclick="switchMainTab('home')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-arrow-left"></i> Volver a Inicio</button>
                 <div class="section-title">SELECCIONA EL MÉTODO DE PAGO</div>
                 <div class="payment-methods-tabs">
                     <div id="btn-method-saldo" class="pay-tab-btn active" onclick="switchPaymentMethod('saldo')"><i class="fa-solid fa-mobile-screen"></i> Saldo Móvil</div>
                     <div id="btn-method-usdt" class="pay-tab-btn" onclick="switchPaymentMethod('usdt')"><i class="fa-solid fa-coins"></i> USDT</div>
                 </div>
-
                 <div class="top-recharge-showcase" style="background: #091026; border: 2px solid var(--border-color); border-radius: 18px; padding: 1rem; margin-bottom: 1rem;">
                     <div class="form-group" style="margin-bottom: 0;">
                         <label>PLAYER ID (Solo números de Free Fire)</label>
@@ -484,140 +376,52 @@
                     </div>
                 </div>
 
-                <!-- PAQUETES SALDO MÓVIL CON PRECIOS EXACTOS -->
                 <div id="packages-saldo-container">
                     <div class="section-title">PAQUETES CON SALDO MÓVIL</div>
                     <div class="diamonds-grid">
                         <div class="diamond-card" onclick="selectPackage(this, '100+10 Diamantes (Saldo)', 300, 'saldo')">
                             <div class="offer-tag">oferta</div>
-                            <div class="diamond-card-content">
-                                <h4>100+10 💎</h4>
-                                <p>Diamantes</p>
-                            </div>
+                            <div class="diamond-card-content"><h4>100+10 💎</h4><p>Diamantes</p></div>
                             <div class="diamond-price-badge">300 saldo</div>
                         </div>
-
                         <div class="diamond-card" onclick="selectPackage(this, '310+51 Diamantes (Saldo)', 810, 'saldo')">
                             <div class="offer-tag">oferta</div>
-                            <div class="diamond-card-content">
-                                <h4>310+51 💎</h4>
-                                <p>Diamantes</p>
-                            </div>
+                            <div class="diamond-card-content"><h4>310+51 💎</h4><p>Diamantes</p></div>
                             <div class="diamond-price-badge">810 saldo</div>
                         </div>
-
                         <div class="diamond-card" onclick="selectPackage(this, '520+52 Diamantes (Saldo)', 1360, 'saldo')">
                             <div class="offer-tag">oferta</div>
-                            <div class="diamond-card-content">
-                                <h4>520+52 💎</h4>
-                                <p>Diamantes</p>
-                            </div>
+                            <div class="diamond-card-content"><h4>520+52 💎</h4><p>Diamantes</p></div>
                             <div class="diamond-price-badge">1360 saldo</div>
-                        </div>
-
-                        <div class="diamond-card" onclick="selectPackage(this, '1050+105 Diamantes (Saldo)', 2412, 'saldo')">
-                            <div class="offer-tag">oferta</div>
-                            <div class="diamond-card-content">
-                                <h4>1050+105 💎</h4>
-                                <p>Diamantes</p>
-                            </div>
-                            <div class="diamond-price-badge">2412 saldo</div>
-                        </div>
-
-                        <div class="diamond-card" onclick="selectPackage(this, '2160+216 Diamantes (Saldo)', 4890, 'saldo')">
-                            <div class="offer-tag">oferta</div>
-                            <div class="diamond-card-content">
-                                <h4>2160+216 💎</h4>
-                                <p>Diamantes</p>
-                            </div>
-                            <div class="diamond-price-badge">4890 saldo</div>
-                        </div>
-
-                        <div class="diamond-card" onclick="selectPackage(this, '5580+558 Diamantes (Saldo)', 12489, 'saldo')">
-                            <div class="offer-tag">oferta VIP</div>
-                            <div class="diamond-card-content">
-                                <h4>5580+558 💎</h4>
-                                <p>Diamantes</p>
-                            </div>
-                            <div class="diamond-price-badge">12489 saldo</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- PAQUETES USDT -->
                 <div id="packages-usdt-container" class="hidden">
                     <div class="section-title">PAQUETES CON USDT</div>
                     <div class="diamonds-grid">
                         <div class="diamond-card" onclick="selectPackage(this, '100+10 Diamantes (USDT)', 0.99, 'usdt')">
                             <div class="offer-tag">oferta</div>
-                            <div class="diamond-card-content">
-                                <h4>100+10 💎</h4>
-                                <p>Diamantes</p>
-                            </div>
+                            <div class="diamond-card-content"><h4>100+10 💎</h4><p>Diamantes</p></div>
                             <div class="diamond-price-badge">$0.99 USDT</div>
                         </div>
-
                         <div class="diamond-card" onclick="selectPackage(this, '310+31 Diamantes (USDT)', 2.99, 'usdt')">
                             <div class="offer-tag">oferta</div>
-                            <div class="diamond-card-content">
-                                <h4>310+31 💎</h4>
-                                <p>Diamantes</p>
-                            </div>
+                            <div class="diamond-card-content"><h4>310+31 💎</h4><p>Diamantes</p></div>
                             <div class="diamond-price-badge">$2.99 USDT</div>
-                        </div>
-
-                        <div class="diamond-card" onclick="selectPackage(this, '520+52 Diamantes (USDT)', 4.60, 'usdt')">
-                            <div class="offer-tag">oferta</div>
-                            <div class="diamond-card-content">
-                                <h4>520+52 💎</h4>
-                                <p>Diamantes</p>
-                            </div>
-                            <div class="diamond-price-badge">$4.60 USDT</div>
-                        </div>
-
-                        <div class="diamond-card" onclick="selectPackage(this, '1060+106 Diamantes (USDT)', 8.40, 'usdt')">
-                            <div class="offer-tag">oferta</div>
-                            <div class="diamond-card-content">
-                                <h4>1060+106 💎</h4>
-                                <p>Diamantes</p>
-                            </div>
-                            <div class="diamond-price-badge">$8.40 USDT</div>
-                        </div>
-
-                        <div class="diamond-card" onclick="selectPackage(this, '2180+218 Diamantes (USDT)', 15.99, 'usdt')">
-                            <div class="offer-tag">oferta</div>
-                            <div class="diamond-card-content">
-                                <h4>2180+218 💎</h4>
-                                <p>Diamantes</p>
-                            </div>
-                            <div class="diamond-price-badge">$15.99 USDT</div>
-                        </div>
-
-                        <div class="diamond-card" onclick="selectPackage(this, '5600+560 Diamantes (USDT)', 38.99, 'usdt')">
-                            <div class="offer-tag">oferta VIP</div>
-                            <div class="diamond-card-content">
-                                <h4>5600+560 💎</h4>
-                                <p>Diamantes</p>
-                            </div>
-                            <div class="diamond-price-badge">$38.99 USDT</div>
                         </div>
                     </div>
                 </div>
-
                 <button onclick="submitOrder()" class="btn-main">COMPLETAR RECARGA</button>
             </div>
 
-            <!-- VISTA PEDIDOS Y PANEL ADMIN -->
             <div id="sec-orders" class="vista-sec hidden">
                 <div class="section-title">MIS DEPÓSITOS Y PEDIDOS</div>
                 <div id="orders-list-container"></div>
-                
                 <div id="admin-panel-container" class="admin-panel-box hidden">
-                    <div class="section-title" style="margin-top:0; color:var(--primary-neon);">PANEL DE ADMINISTRADOR (SOLO PARA TI)</div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom: 10px;">Comprobantes de compras y recargas pendientes:</p>
+                    <div class="section-title" style="margin-top:0; color:var(--primary-neon);">PANEL DE ADMINISTRADOR</div>
                     <div id="admin-orders-list"></div>
-
-                    <div class="section-title" style="margin-top:1.5rem; color:var(--primary-neon);">DATOS PERSONALES DE USUARIOS REGISTRADOS</div>
+                    <div class="section-title" style="margin-top:1.5rem; color:var(--primary-neon);">USUARIOS REGISTRADOS</div>
                     <div id="admin-users-list"></div>
                 </div>
             </div>
@@ -632,19 +436,13 @@
     </div>
 
     <script>
-        // ==========================================
+        // ==========================================================
         // CONFIGURACIÓN DE TU WORKER DE CLOUDFLARE
-        // ==========================================
-        const API_BASE = 'https://diamons-api.tu-usuario.workers.dev'; // <--- CAMBIA ESTA URL POR LA REAL DE TU CLOUDFLARE WORKER
+        // ==========================================================
+        const API_BASE = 'https://diamons-api.tu-usuario.workers.dev'; // <-- Cambia esto por tu URL real de Cloudflare Worker
 
-        let selectedPkg = null;
-        let selectedPrice = 0;
-        let selectedCurrency = 'saldo';
-        let currentPaymentType = 'saldo';
-        let currentUser = null;
-        let cachedUserData = { balance: 0, usdtBalance: 0 };
-        let cachedOrders = [];
-        let cachedAllUsers = [];
+        let selectedPkg = null, selectedPrice = 0, selectedCurrency = 'saldo', currentPaymentType = 'saldo', currentUser = null;
+        let cachedUserData = { balance: 0, usdtBalance: 0 }, cachedOrders = [], cachedAllUsers = [];
 
         window.onload = function() {
             const savedUser = localStorage.getItem('dl_logged_user');
@@ -660,8 +458,7 @@
 
         function showNotification(msg) {
             const toast = document.getElementById('notification-toast');
-            toast.innerText = msg;
-            toast.classList.add('show');
+            toast.innerText = msg; toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3500);
         }
 
@@ -687,33 +484,27 @@
             document.getElementById('auth-screen').classList.remove('hidden');
         }
 
-        // --- CONEXIÓN CON CLOUDFLARE D1 (API WORKERS) ---
         async function handleLogin(e) {
             e.preventDefault();
             const userInput = document.getElementById('login-user').value.trim();
             const passInput = document.getElementById('login-pass').value.trim();
-
             if(!userInput || !passInput) return;
 
             try {
                 let response = await fetch(`${API_BASE}/api/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username: userInput, password: passInput })
                 });
                 let data = await response.json();
-
                 if(data.success) {
                     currentUser = data.username;
                     localStorage.setItem('dl_logged_user', currentUser);
                     document.getElementById('auth-screen').classList.add('hidden');
                     document.getElementById('main-app').classList.remove('hidden');
-                    checkAdminRights();
-                    loadUserDataFromCloud();
-                    loadOrdersFromCloud();
-                    showNotification("¡Bienvenido de nuevo, " + currentUser + "!");
+                    checkAdminRights(); loadUserDataFromCloud(); loadOrdersFromCloud();
+                    showNotification("¡Bienvenido, " + currentUser + "!");
                 } else {
-                    showNotification(data.message || "Usuario o contraseña incorrectos.");
+                    showNotification(data.message || "Credenciales incorrectas.");
                 }
             } catch (err) {
                 showNotification("Error de conexión con la nube.");
@@ -725,7 +516,6 @@
             const u = document.getElementById('reg-user').value.trim();
             const email = document.getElementById('reg-email').value.trim();
             const pass = document.getElementById('reg-pass').value.trim();
-
             if(!u || !email || !pass) return;
 
             if(pass.length < 6) {
@@ -735,23 +525,19 @@
 
             try {
                 let response = await fetch(`${API_BASE}/api/register`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username: u, email: email, password: pass })
                 });
                 let data = await response.json();
-
                 if(data.success) {
                     currentUser = u;
                     localStorage.setItem('dl_logged_user', currentUser);
-                    showNotification("¡Registro exitoso en Cloudflare D1!");
+                    showNotification("¡Registro exitoso!");
                     document.getElementById('auth-screen').classList.add('hidden');
                     document.getElementById('main-app').classList.remove('hidden');
-                    checkAdminRights();
-                    loadUserDataFromCloud();
-                    loadOrdersFromCloud();
+                    checkAdminRights(); loadUserDataFromCloud(); loadOrdersFromCloud();
                 } else {
-                    showNotification(data.message || "No se pudo completar el registro.");
+                    showNotification(data.message || "No se pudo registrar.");
                 }
             } catch (err) {
                 showNotification("Error de conexión con la nube.");
@@ -764,15 +550,10 @@
                 let response = await fetch(`${API_BASE}/api/user?username=${encodeURIComponent(currentUser)}`);
                 let data = await response.json();
                 if(data.success) {
-                    cachedUserData = {
-                        balance: data.balance || 0,
-                        usdtBalance: data.usdtBalance || 0
-                    };
+                    cachedUserData = { balance: data.balance || 0, usdtBalance: data.usdtBalance || 0 };
                     updateUIBalances();
                 }
-            } catch(e) {
-                console.error("Error cargando usuario");
-            }
+            } catch(e) { console.error("Error cargando usuario"); }
         }
 
         async function loadOrdersFromCloud() {
@@ -788,9 +569,7 @@
                     cachedAllUsers = data.allUsers;
                     renderOrders();
                 }
-            } catch(e) {
-                console.error("Error cargando pedidos");
-            }
+            } catch(e) { console.error("Error cargando pedidos"); }
         }
 
         function updateUIBalances() {
@@ -821,154 +600,80 @@
             document.getElementById('btn-method-usdt').classList.toggle('active', method === 'usdt');
             document.getElementById('packages-saldo-container').classList.toggle('hidden', method !== 'saldo');
             document.getElementById('packages-usdt-container').classList.toggle('hidden', method !== 'usdt');
-            selectedPkg = null;
-            selectedPrice = 0;
+            selectedPkg = null; selectedPrice = 0;
             document.querySelectorAll('.diamond-card').forEach(c => c.classList.remove('selected'));
         }
 
         function copySaldoNumber() {
-            const num = document.getElementById('saldo-num-text').innerText;
-            navigator.clipboard.writeText(num).then(() => {
-                showNotification("¡Número 58151457 copiado!");
-            });
+            navigator.clipboard.writeText("58151457").then(() => showNotification("¡Número copiado!"));
         }
-
         function copyWalletAddress() {
-            const addr = document.getElementById('wallet-addr-text').innerText;
-            navigator.clipboard.writeText(addr).then(() => {
-                showNotification("¡Dirección de Wallet copiada!");
-            });
+            navigator.clipboard.writeText("0x01fFC04c400d0811DEc106E56Bfb5a95576AF18f").then(() => showNotification("¡Dirección copiada!"));
         }
-
         function copyPlayerIdText(idText) {
-            navigator.clipboard.writeText(idText).then(() => {
-                showNotification(`¡ID copiado: ${idText}!`);
-            });
+            navigator.clipboard.writeText(idText).then(() => showNotification(`¡ID copiado: ${idText}!`));
         }
 
         function selectPackage(el, pkg, price, currency) {
             document.querySelectorAll('.diamond-card').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
-            selectedPkg = pkg;
-            selectedPrice = price;
-            selectedCurrency = currency;
+            selectedPkg = pkg; selectedPrice = price; selectedCurrency = currency;
         }
 
         async function submitSaldoDeposit() {
-            const montoStr = document.getElementById('saldo-monto-input').value;
-            const hash = document.getElementById('saldo-hash-input').value;
-            const monto = parseFloat(montoStr);
-
-            if(!monto || isNaN(monto) || !hash) {
-                showNotification("Por favor ingresa un monto válido y el número de confirmación.");
-                return;
-            }
+            const monto = parseFloat(document.getElementById('saldo-monto-input').value);
+            const hash = document.getElementById('saldo-hash-input').value.trim();
+            if(!monto || isNaN(monto) || !hash) { showNotification("Completa todos los campos."); return; }
 
             try {
                 let res = await fetch(`${API_BASE}/api/deposit`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        username: currentUser,
-                        type: 'Depósito Saldo Móvil (58151457)',
-                        amount: monto,
-                        currency: 'saldo',
-                        action: 'CREDIT',
-                        detail: `Conf: ${hash}`
-                    })
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: currentUser, type: 'Depósito Saldo Móvil (58151457)', amount: monto, currency: 'saldo', action: 'CREDIT', detail: `Conf: ${hash}` })
                 });
                 let data = await res.json();
-                if(data.success) {
-                    showNotification(`DEPÓSITO DE ${monto} SALDO ENVIADO AL ADMIN`);
-                    switchMainTab('orders');
-                    loadOrdersFromCloud();
-                } else {
-                    showNotification(data.message || "Error al registrar depósito.");
-                }
-            } catch(e) {
-                showNotification("Error de red con el servidor.");
-            }
+                if(data.success) { showNotification("Depósito enviado al admin."); switchMainTab('orders'); loadOrdersFromCloud(); }
+                else { showNotification(data.message || "Error al registrar."); }
+            } catch(e) { showNotification("Error de red."); }
         }
 
         async function submitDeposit() {
-            const montoStr = document.getElementById('usdt-monto-input').value;
-            const hash = document.getElementById('usdt-hash-input').value;
-            const monto = parseFloat(montoStr);
-
-            if(!monto || isNaN(monto) || !hash) {
-                showNotification("Por favor ingresa un monto válido y el Hash.");
-                return;
-            }
+            const monto = parseFloat(document.getElementById('usdt-monto-input').value);
+            const hash = document.getElementById('usdt-hash-input').value.trim();
+            if(!monto || isNaN(monto) || !hash) { showNotification("Completa todos los campos."); return; }
 
             try {
                 let res = await fetch(`${API_BASE}/api/deposit`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        username: currentUser,
-                        type: 'Depósito USDT',
-                        amount: monto,
-                        currency: 'usdt',
-                        action: 'CREDIT',
-                        detail: `Hash: ${hash.substring(0,8)}...`
-                    })
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: currentUser, type: 'Depósito USDT', amount: monto, currency: 'usdt', action: 'CREDIT', detail: `Hash: ${hash.substring(0,8)}...` })
                 });
                 let data = await res.json();
-                if(data.success) {
-                    showNotification(`DEPÓSITO DE $${monto.toFixed(2)} USDT ENVIADO AL ADMIN`);
-                    switchMainTab('orders');
-                    loadOrdersFromCloud();
-                } else {
-                    showNotification(data.message || "Error al registrar depósito.");
-                }
-            } catch(e) {
-                showNotification("Error de red con el servidor.");
-            }
+                if(data.success) { showNotification("Depósito USDT enviado."); switchMainTab('orders'); loadOrdersFromCloud(); }
+                else { showNotification(data.message || "Error al registrar."); }
+            } catch(e) { showNotification("Error de red."); }
         }
 
         async function submitOrder() {
-            const playerId = document.getElementById('player-id-input').value;
-
-            if(!playerId || !selectedPkg) {
-                showNotification("Ingresa tu ID de jugador y selecciona un paquete.");
-                return;
-            }
+            const playerId = document.getElementById('player-id-input').value.trim();
+            if(!playerId || !selectedPkg) { showNotification("Ingresa tu ID y selecciona paquete."); return; }
 
             if(selectedCurrency === 'saldo' && cachedUserData.balance < selectedPrice) {
-                showNotification(`Saldo insuficiente. Tienes ${cachedUserData.balance.toFixed(0)} y necesitas ${selectedPrice} saldo.`);
-                return;
+                showNotification("Saldo insuficiente."); return;
             }
             if(selectedCurrency === 'usdt' && cachedUserData.usdtBalance < selectedPrice) {
-                showNotification(`USDT insuficiente. Tienes $${cachedUserData.usdtBalance.toFixed(2)} y necesitas $${selectedPrice} USDT.`);
-                return;
+                showNotification("USDT insuficiente."); return;
             }
 
             try {
                 let res = await fetch(`${API_BASE}/api/order`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        username: currentUser,
-                        type: selectedPkg,
-                        playerId: playerId,
-                        amount: selectedPrice,
-                        currency: selectedCurrency,
-                        action: 'DEBIT',
-                        detail: `Compra de Paquete Free Fire`
-                    })
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: currentUser, type: selectedPkg, playerId, amount: selectedPrice, currency: selectedCurrency, action: 'DEBIT', detail: `Compra de Paquete Free Fire` })
                 });
                 let data = await res.json();
                 if(data.success) {
-                    showNotification("COMPRA ENVIADA AL ADMIN para su validación");
-                    switchMainTab('orders');
-                    loadOrdersFromCloud();
-                    loadUserDataFromCloud();
-                } else {
-                    showNotification(data.message || "Error al procesar compra.");
-                }
-            } catch(e) {
-                showNotification("Error de red con el servidor.");
-            }
+                    showNotification("Compra enviada a validación.");
+                    switchMainTab('orders'); loadOrdersFromCloud(); loadUserDataFromCloud();
+                } else { showNotification(data.message || "Error al procesar."); }
+            } catch(e) { showNotification("Error de red."); }
         }
 
         function renderOrders() {
@@ -976,146 +681,67 @@
             const adminContainer = document.getElementById('admin-orders-list');
             const usersAdminContainer = document.getElementById('admin-users-list');
 
-            userContainer.innerHTML = '';
-            adminContainer.innerHTML = '';
-            usersAdminContainer.innerHTML = '';
-
+            userContainer.innerHTML = ''; if(adminContainer) adminContainer.innerHTML = ''; if(usersAdminContainer) usersAdminContainer.innerHTML = '';
             const myOrders = cachedOrders.filter(o => o.user === currentUser);
 
             if(myOrders.length === 0) {
-                userContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">No tienes depósitos ni pedidos registrados.</p>';
+                userContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">No tienes pedidos registrados.</p>';
             } else {
                 myOrders.forEach(o => {
-                    let statusClass = 'status-proceso';
-                    let statusText = 'En proceso';
-                    let step1Active = 'active';
-                    let step2Active = '';
-                    let step3Active = '';
-
-                    if(o.status === 'Aprobado') {
-                        statusClass = 'status-aprobado';
-                        statusText = 'Aprobado / Entregado';
-                        step1Active = 'active';
-                        step2Active = 'active';
-                        step3Active = 'active';
-                    } else if(o.status === 'Rechazado') {
-                        statusClass = 'status-rechazado';
-                        statusText = 'Rechazado';
-                        step1Active = '';
-                        step2Active = '';
-                        step3Active = '';
-                    }
-
+                    let statusClass = o.status === 'Aprobado' ? 'status-aprobado' : o.status === 'Rechazado' ? 'status-rechazado' : 'status-proceso';
                     let amountText = o.currency === 'usdt' ? `$${o.amount.toFixed(2)} USDT` : `${o.amount} saldo`;
-
                     userContainer.innerHTML += `
                         <div class="ticket-receipt-card">
                             <div class="ticket-header-flex">
-                                <div class="ticket-title-group">
-                                    <h4>${o.type}</h4>
-                                    <p>${o.detail}</p>
-                                </div>
-                                <div class="ticket-status-badge ${statusClass}">
-                                    <i class="fa-solid fa-circle-check"></i> ${statusText}
-                                </div>
+                                <div class="ticket-title-group"><h4>${o.type}</h4><p>${o.detail}</p></div>
+                                <div class="ticket-status-badge ${statusClass}">${o.status}</div>
                             </div>
-
-                            <div class="ticket-steps-bar">
-                                <div class="ticket-step-item ${step1Active}">
-                                    <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
-                                    Solicitado
-                                </div>
-                                <div class="ticket-step-item ${step2Active}">
-                                    <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
-                                    Validando
-                                </div>
-                                <div class="ticket-step-item ${step3Active}">
-                                    <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
-                                    Completado
-                                </div>
-                            </div>
-
                             <div class="ticket-details-body">
-                                <div class="ticket-row-line"><span>ID de jugador</span> <strong>${o.playerId}</strong></div>
-                                <div class="ticket-row-line"><span>Cuenta</span> <strong>${o.user}</strong></div>
-                                <div class="ticket-row-line"><span>Solicitud</span> <strong>#${String(o.id).slice(-4)}</strong></div>
-                                <div class="ticket-row-line"><span>Fecha</span> <strong>${o.date}</strong></div>
-                                <div class="ticket-row-line" style="border-top:1.5px solid var(--border-color); margin-top:4px; padding-top:6px;"><span>Total</span> <strong style="color:var(--primary-neon); font-size:0.95rem;">${amountText}</strong></div>
+                                <div class="ticket-row-line"><span>ID de jugador</span><strong>${o.playerId}</strong></div>
+                                <div class="ticket-row-line"><span>Total</span><strong style="color:var(--primary-neon);">${amountText}</strong></div>
                             </div>
-                        </div>
-                    `;
+                        </div>`;
                 });
             }
 
             if(currentUser && currentUser.toLowerCase() === 'admin') {
                 const pendingOrders = cachedOrders.filter(o => o.status === 'Proceso');
                 if(pendingOrders.length === 0) {
-                    adminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay comprobantes pendientes en este momento.</p>';
+                    adminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay solicitudes pendientes.</p>';
                 } else {
                     pendingOrders.forEach(o => {
-                        let isDeposit = o.type.includes('Depósito');
-                        let amountText = o.currency === 'usdt' ? `$${o.amount.toFixed(2)} USDT` : `${o.amount} saldo`;
                         adminContainer.innerHTML += `
                             <div class="admin-req-card" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-                                <div style="width: 100%; border-bottom: 1.5px solid var(--border-color); padding-bottom: 6px; display: flex; justify-content: space-between;">
-                                    <span style="color: var(--primary-neon); font-weight: 900;">${isDeposit ? '💰 DEPÓSITO DE FONDOS' : '🛒 COMPRA DE PAQUETE'}</span>
-                                    <span style="color: var(--text-muted); font-size: 0.7rem;">${o.date}</span>
-                                </div>
-                                <div style="width: 100%; display: flex; flex-direction: column; gap: 4px;">
-                                    <div><strong>Usuario cliente:</strong> ${o.user}</div>
-                                    <div><strong>Tipo / Paquete:</strong> <span style="color: var(--primary-neon); font-weight: 900;">${o.type}</span></div>
-                                    <div><strong>Detalle / Comprobante:</strong> ${o.detail}</div>
-                                    ${!isDeposit ? `
-                                    <div style="display: flex; align-items: center; justify-content: space-between; background: #030614; padding: 6px 10px; border-radius: 8px; border: 1.5px solid var(--primary-neon); margin-top: 4px;">
-                                        <span><strong>ID Jugador:</strong> ${o.playerId}</span>
-                                        <button onclick="copyPlayerIdText('${o.playerId}')" style="background: var(--primary-neon); border: none; color: #030614; padding: 4px 10px; border-radius: 6px; font-weight: 900; font-size: 0.7rem; cursor: pointer;"><i class="fa-regular fa-copy"></i> Copiar ID</button>
-                                    </div>
-                                    ` : ''}
-                                    <div style="font-weight: bold; margin-top: 2px; color: #ffb703;">Monto: ${amountText}</div>
-                                </div>
+                                <div><strong>Usuario:</strong> ${o.user} | <strong>Tipo:</strong> ${o.type}</div>
+                                <div><strong>Detalle:</strong> ${o.detail} | <strong>ID:</strong> ${o.playerId}</div>
                                 <div style="display: flex; gap: 10px; width: 100%; margin-top: 6px;">
-                                    <button onclick="updateOrderStatus(${o.id}, 'Aprobado')" style="flex: 1; background:#10b981; border:none; color:#fff; padding:8px; border-radius:8px; font-weight:900; cursor:pointer;"><i class="fa-solid fa-check"></i> Aceptar</button>
-                                    <button onclick="updateOrderStatus(${o.id}, 'Rechazado')" style="flex: 1; background:#ef4444; border:none; color:#fff; padding:8px; border-radius:8px; font-weight:900; cursor:pointer;"><i class="fa-solid fa-xmark"></i> Rechazar</button>
+                                    <button onclick="updateOrderStatus(${o.id}, 'Aprobado')" style="flex: 1; background:#10b981; border:none; color:#fff; padding:6px; border-radius:6px; font-weight:900; cursor:pointer;">Aceptar</button>
+                                    <button onclick="updateOrderStatus(${o.id}, 'Rechazado')" style="flex: 1; background:#ef4444; border:none; color:#fff; padding:6px; border-radius:6px; font-weight:900; cursor:pointer;">Rechazar</button>
                                 </div>
-                            </div>
-                        `;
+                            </div>`;
                     });
                 }
 
-                if(cachedAllUsers.length === 0) {
-                    usersAdminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay otros usuarios registrados aún.</p>';
-                } else {
-                    cachedAllUsers.forEach(u => {
-                        usersAdminContainer.innerHTML += `
-                            <div class="user-data-card">
-                                <div><strong>Usuario:</strong> ${u.username}</div>
-                                <div style="color:var(--primary-neon)"><strong>Correo:</strong> ${u.email}</div>
-                                <div><strong>USDT:</strong> $${(u.usdtBalance || 0).toFixed(2)} | <strong>Saldo:</strong> ${(u.balance || 0).toFixed(0)}</div>
-                            </div>
-                        `;
-                    });
-                }
+                cachedAllUsers.forEach(u => {
+                    usersAdminContainer.innerHTML += `
+                        <div class="user-data-card">
+                            <div><strong>Usuario:</strong> ${u.username} (${u.email})</div>
+                            <div><strong>USDT:</strong> $${(u.usdtBalance || 0).toFixed(2)} | <strong>Saldo:</strong> ${(u.balance || 0).toFixed(0)}</div>
+                        </div>`;
+                });
             }
         }
 
         async function updateOrderStatus(orderId, newStatus) {
             try {
                 let res = await fetch(`${API_BASE}/api/admin/order-status`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ orderId, status: newStatus })
                 });
                 let data = await res.json();
-                if(data.success) {
-                    showNotification(`¡Solicitud ${newStatus.toLowerCase()} correctamente!`);
-                    loadOrdersFromCloud();
-                    loadUserDataFromCloud();
-                } else {
-                    showNotification(data.message || "Error al actualizar estado.");
-                }
-            } catch(e) {
-                showNotification("Error de conexión con el servidor.");
-            }
+                if(data.success) { showNotification(`Actualizado a ${newStatus}`); loadOrdersFromCloud(); }
+                else { showNotification(data.message || "Error al actualizar."); }
+            } catch(e) { showNotification("Error de red."); }
         }
     </script>
 </body>
