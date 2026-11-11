@@ -527,7 +527,7 @@
                 
                 <div id="admin-panel-container" class="admin-panel-box hidden">
                     <div class="section-title" style="margin-top:0; color:var(--primary-neon);">PANEL DE ADMINISTRADOR (SOLO PARA TI)</div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom: 10px;">Aprobación manual de depósitos y compras:</p>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom: 10px;">Comprobantes de compras y recargas pendientes:</p>
                     <div id="admin-orders-list"></div>
 
                     <div class="section-title" style="margin-top:1.5rem; color:var(--primary-neon);">DATOS PERSONALES DE USUARIOS REGISTRADOS</div>
@@ -706,6 +706,12 @@
             });
         }
 
+        function copyPlayerIdText(idText) {
+            navigator.clipboard.writeText(idText).then(() => {
+                showNotification(`¡ID copiado: ${idText}!`);
+            });
+        }
+
         function selectPackage(el, pkg, price) {
             document.querySelectorAll('.diamond-card').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
@@ -771,7 +777,7 @@
                 playerId: playerId,
                 amount: selectedPrice,
                 action: 'DEBIT',
-                detail: `Recarga Free Fire Vía ID`,
+                detail: `Compra de Paquete Free Fire`,
                 date: fechaStr,
                 status: 'Proceso'
             };
@@ -779,7 +785,7 @@
             orders.unshift(newOrder);
             localStorage.setItem('dl_orders', JSON.stringify(orders));
             
-            showNotification("PEDIDO EN PROCESO\nespera confirmación del admin");
+            showNotification("COMPRA ENVIADA AL ADMIN para su validación");
             switchMainTab('orders');
         }
 
@@ -807,7 +813,7 @@
 
                     if(o.status === 'Aprobado') {
                         statusClass = 'status-aprobado';
-                        statusText = 'Aprobado / Acreditado';
+                        statusText = 'Aprobado / Entregado';
                         step1Active = 'active';
                         step2Active = 'active';
                         step3Active = 'active';
@@ -838,11 +844,11 @@
                                 </div>
                                 <div class="ticket-step-item ${step2Active}">
                                     <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
-                                    Revisión
+                                    Validando
                                 </div>
                                 <div class="ticket-step-item ${step3Active}">
                                     <div class="ticket-step-circle"><i class="fa-solid fa-check"></i></div>
-                                    Acreditado
+                                    Completado
                                 </div>
                             </div>
 
@@ -861,20 +867,27 @@
             if(currentUser && currentUser.toLowerCase() === 'admin') {
                 const pendingOrders = orders.filter(o => o.status === 'Proceso');
                 if(pendingOrders.length === 0) {
-                    adminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay solicitudes pendientes en este momento.</p>';
+                    adminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay comprobantes pendientes en este momento.</p>';
                 } else {
                     pendingOrders.forEach(o => {
                         adminContainer.innerHTML += `
-                            <div class="admin-req-card">
-                                <div>
-                                    <div><strong>Usuario:</strong> ${o.user}</div>
-                                    <div><strong>Tipo:</strong> ${o.type}</div>
-                                    <div><strong>Detalle:</strong> ${o.detail}</div>
-                                    <div style="color:var(--primary-neon); font-weight:bold; font-size:0.9rem; margin-top:4px;">Monto recargado: $${o.amount.toFixed(2)} USDT</div>
+                            <div class="admin-req-card" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                                <div style="width: 100%; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; display: flex; justify-content: space-between;">
+                                    <span style="color: var(--primary-neon); font-weight: 900;">🛒 COMPROBANTE DE COMPRA</span>
+                                    <span style="color: var(--text-muted); font-size: 0.7rem;">${o.date}</span>
                                 </div>
-                                <div style="display:flex; gap:6px; flex-direction:column;">
-                                    <button onclick="updateOrderStatus(${o.id}, 'Aprobado')" style="background:#10b981; border:none; color:#fff; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Aprobar</button>
-                                    <button onclick="updateOrderStatus(${o.id}, 'Rechazado')" style="background:#ef4444; border:none; color:#fff; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Rechazar</button>
+                                <div style="width: 100%; display: flex; flex-direction: column; gap: 4px;">
+                                    <div><strong>Usuario cliente:</strong> ${o.user}</div>
+                                    <div><strong>Paquete solicitado:</strong> <span style="color: var(--primary-neon); font-weight: 900;">${o.type}</span></div>
+                                    <div style="display: flex; align-items: center; justify-content: space-between; background: #060913; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--primary-neon); margin-top: 4px;">
+                                        <span><strong>ID Jugador:</strong> ${o.playerId}</span>
+                                        <button onclick="copyPlayerIdText('${o.playerId}')" style="background: var(--primary-neon); border: none; color: #060913; padding: 4px 10px; border-radius: 6px; font-weight: 900; font-size: 0.7rem; cursor: pointer;"><i class="fa-regular fa-copy"></i> Copiar ID</button>
+                                    </div>
+                                    <div style="font-weight: bold; margin-top: 2px;">Costo total: $${o.amount.toFixed(2)} USDT</div>
+                                </div>
+                                <div style="display: flex; gap: 10px; width: 100%; margin-top: 6px;">
+                                    <button onclick="updateOrderStatus(${o.id}, 'Aprobado')" style="flex: 1; background:#10b981; border:none; color:#fff; padding:8px; border-radius:8px; font-weight:900; cursor:pointer;"><i class="fa-solid fa-check"></i> Aceptar</button>
+                                    <button onclick="updateOrderStatus(${o.id}, 'Rechazado')" style="flex: 1; background:#ef4444; border:none; color:#fff; padding:8px; border-radius:8px; font-weight:900; cursor:pointer;"><i class="fa-solid fa-xmark"></i> Rechazar</button>
                                 </div>
                             </div>
                         `;
@@ -914,7 +927,7 @@
                 }
 
                 localStorage.setItem('dl_orders', JSON.stringify(orders));
-                showNotification(`¡Solicitud de ${targetOrder.user} ${newStatus.toLowerCase()}!`);
+                showNotification(`¡Comprobante ${newStatus.toLowerCase()} correctamente!`);
                 renderOrders();
                 updateUIBalance();
             }
