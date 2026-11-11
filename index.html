@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
     <title>DIAMONS LEGION</title>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -200,11 +198,6 @@
             width: 45px; height: 45px; background: #0ea5e9; border-radius: 14px;
             display: flex; align-items: center; justify-content: center; color: #060913; font-size: 1.2rem;
             box-shadow: 0 0 10px rgba(14,165,233,0.5);
-        }
-        .wallet-icon-box {
-            width: 45px; height: 45px; background: #060913; border: 1.5px solid var(--primary-neon);
-            border-radius: 14px; display: flex; align-items: center; justify-content: center; color: var(--primary-neon); font-size: 1.2rem;
-            box-shadow: var(--neon-glow);
         }
         .wallet-info h4 { font-size: 0.95rem; font-weight: 900; color: var(--text-main); margin-bottom: 3px; }
         .wallet-info p { font-size: 0.72rem; color: var(--text-muted); }
@@ -431,7 +424,7 @@
                 </div>
             </div>
 
-            <!-- VISTA DEPÓSITO USDT -->
+            <!-- VISTA DEPÓSITO USDT (ORIGINAL) -->
             <div id="sec-usdt-detail" class="vista-sec hidden">
                 <button onclick="switchMainTab('wallet')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-arrow-left"></i> Volver a Billeteras
@@ -473,7 +466,7 @@
                 </div>
             </div>
 
-            <!-- VISTA RECARGAS FREE FIRE CON NUEVOS PAQUETES DE SALDO -->
+            <!-- VISTA RECARGAS FREE FIRE CON OFERTAS DE SALDO (Y PESTAÑA PARA USDT ORIGINAL) -->
             <div id="sec-recargas" class="vista-sec hidden">
                 <button onclick="switchMainTab('home')" style="background: none; border: none; color: var(--primary-neon); font-weight: 800; font-size: 0.82rem; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-arrow-left"></i> Volver a Inicio
@@ -481,8 +474,8 @@
 
                 <div class="section-title">SELECCIONA EL MÉTODO DE PAGO</div>
                 <div class="payment-methods-tabs">
-                    <div class="pay-tab-btn active"><i class="fa-solid fa-mobile-screen"></i> Saldo (Wallet)</div>
-                    <div class="pay-tab-btn" onclick="openUsdtDeposit()"><i class="fa-solid fa-coins"></i> USDT</div>
+                    <div id="btn-method-saldo" class="pay-tab-btn active" onclick="switchPaymentMethod('saldo')"><i class="fa-solid fa-mobile-screen"></i> Saldo (Wallet)</div>
+                    <div id="btn-method-usdt" class="pay-tab-btn" onclick="switchPaymentMethod('usdt')"><i class="fa-solid fa-coins"></i> USDT</div>
                 </div>
 
                 <div class="top-recharge-showcase" style="background: #0d1527; border: 1.5px solid var(--border-color); border-radius: 18px; padding: 1rem; margin-bottom: 1rem;">
@@ -492,60 +485,123 @@
                     </div>
                 </div>
 
-                <div class="section-title">SELECCIONA EL PAQUETE</div>
-                <div class="diamonds-grid">
-                    <div class="diamond-card" onclick="selectPackage(this, '100+10 Diamantes', 300)">
-                        <div class="offer-tag">oferta</div>
-                        <div class="diamond-card-content">
-                            <h4>100+10 💎</h4>
-                            <p>Diamantes</p>
+                <!-- CONTENEDOR PAQUETES SALDO -->
+                <div id="packages-saldo-container">
+                    <div class="section-title">SELECCIONA EL PAQUETE (SALDO)</div>
+                    <div class="diamonds-grid">
+                        <div class="diamond-card" onclick="selectPackage(this, '100+10 Diamantes', 300)">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>100+10 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">300 saldo</div>
                         </div>
-                        <div class="diamond-price-badge">300 saldo</div>
-                    </div>
 
-                    <div class="diamond-card" onclick="selectPackage(this, '310+51 Diamantes', 900)">
-                        <div class="offer-tag">oferta</div>
-                        <div class="diamond-card-content">
-                            <h4>310+51 💎</h4>
-                            <p>Diamantes</p>
+                        <div class="diamond-card" onclick="selectPackage(this, '310+51 Diamantes', 900)">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>310+51 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">900 saldo</div>
                         </div>
-                        <div class="diamond-price-badge">900 saldo</div>
-                    </div>
 
-                    <div class="diamond-card" onclick="selectPackage(this, '520+52 Diamantes', 1650)">
-                        <div class="offer-tag">oferta</div>
-                        <div class="diamond-card-content">
-                            <h4>520+52 💎</h4>
-                            <p>Diamantes</p>
+                        <div class="diamond-card" onclick="selectPackage(this, '520+52 Diamantes', 1650)">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>520+52 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">1650 saldo</div>
                         </div>
-                        <div class="diamond-price-badge">1650 saldo</div>
-                    </div>
 
-                    <div class="diamond-card" onclick="selectPackage(this, '1050+105 Diamantes', 2700)">
-                        <div class="offer-tag">oferta</div>
-                        <div class="diamond-card-content">
-                            <h4>1050+105 💎</h4>
-                            <p>Diamantes</p>
+                        <div class="diamond-card" onclick="selectPackage(this, '1050+105 Diamantes', 2700)">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>1050+105 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">2700 saldo</div>
                         </div>
-                        <div class="diamond-price-badge">2700 saldo</div>
-                    </div>
 
-                    <div class="diamond-card" onclick="selectPackage(this, '2160+216 Diamantes', 5000)">
-                        <div class="offer-tag">oferta</div>
-                        <div class="diamond-card-content">
-                            <h4>2160+216 💎</h4>
-                            <p>Diamantes</p>
+                        <div class="diamond-card" onclick="selectPackage(this, '2160+216 Diamantes', 5000)">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>2160+216 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">5000 saldo</div>
                         </div>
-                        <div class="diamond-price-badge">5000 saldo</div>
-                    </div>
 
-                    <div class="diamond-card" onclick="selectPackage(this, '5580+558 Diamantes', 13000)">
-                        <div class="offer-tag">oferta VIP</div>
-                        <div class="diamond-card-content">
-                            <h4>5580+558 💎</h4>
-                            <p>Diamantes</p>
+                        <div class="diamond-card" onclick="selectPackage(this, '5580+558 Diamantes', 13000)">
+                            <div class="offer-tag">oferta VIP</div>
+                            <div class="diamond-card-content">
+                                <h4>5580+558 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">13000 saldo</div>
                         </div>
-                        <div class="diamond-price-badge">13000 saldo</div>
+                    </div>
+                </div>
+
+                <!-- CONTENEDOR PAQUETES USDT (ORIGINALES) -->
+                <div id="packages-usdt-container" class="hidden">
+                    <div class="section-title">SELECCIONA EL PAQUETE (USDT)</div>
+                    <div class="diamonds-grid">
+                        <div class="diamond-card" onclick="selectPackage(this, '100+10 Diamantes (USDT)', 1.00)">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>100+10 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">$1.00 USDT</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '310+31 Diamantes (USDT)', 3.00)">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>310+31 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">$3.00 USDT</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '520+52 Diamantes (USDT)', 5.00)">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>520+52 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">$5.00 USDT</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '1060+106 Diamantes (USDT)', 10.00)">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>1060+106 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">$10.00 USDT</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '2180+218 Diamantes (USDT)', 20.00)">
+                            <div class="offer-tag">oferta</div>
+                            <div class="diamond-card-content">
+                                <h4>2180+218 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">$20.00 USDT</div>
+                        </div>
+
+                        <div class="diamond-card" onclick="selectPackage(this, '5600+560 Diamantes (USDT)', 50.00)">
+                            <div class="offer-tag">oferta VIP</div>
+                            <div class="diamond-card-content">
+                                <h4>5600+560 💎</h4>
+                                <p>Diamantes</p>
+                            </div>
+                            <div class="diamond-price-badge">$50.00 USDT</div>
+                        </div>
                     </div>
                 </div>
 
@@ -579,6 +635,7 @@
     <script>
         let selectedPkg = null;
         let selectedPrice = 0;
+        let currentPaymentType = 'saldo';
         let currentUser = null;
 
         window.onload = function() {
@@ -716,7 +773,7 @@
         function updateUIBalance() {
             if(!currentUser) return;
             let bal = getUserBalance(currentUser);
-            document.getElementById('usdt-balance-display').innerText = bal.toFixed(0);
+            document.getElementById('usdt-balance-display').innerText = bal.toFixed(2);
         }
 
         function switchMainTab(sec) {
@@ -734,6 +791,17 @@
         function openUsdtDeposit() {
             document.querySelectorAll('.vista-sec').forEach(el => el.classList.add('hidden'));
             document.getElementById('sec-usdt-detail').classList.remove('hidden');
+        }
+
+        function switchPaymentMethod(method) {
+            currentPaymentType = method;
+            document.getElementById('btn-method-saldo').classList.toggle('active', method === 'saldo');
+            document.getElementById('btn-method-usdt').classList.toggle('active', method === 'usdt');
+            document.getElementById('packages-saldo-container').classList.toggle('hidden', method !== 'saldo');
+            document.getElementById('packages-usdt-container').classList.toggle('hidden', method !== 'usdt');
+            selectedPkg = null;
+            selectedPrice = 0;
+            document.querySelectorAll('.diamond-card').forEach(c => c.classList.remove('selected'));
         }
 
         function copySaldoNumber() {
@@ -837,10 +905,12 @@
                 return;
             }
 
-            let currentBal = getUserBalance(currentUser);
-            if(currentBal < selectedPrice) {
-                showNotification(`Saldo insuficiente. Tienes ${currentBal.toFixed(0)} y necesitas ${selectedPrice} saldo.`);
-                return;
+            if(currentPaymentType === 'saldo') {
+                let currentBal = getUserBalance(currentUser);
+                if(currentBal < selectedPrice) {
+                    showNotification(`Saldo insuficiente. Tienes ${currentBal.toFixed(2)} y necesitas ${selectedPrice} saldo.`);
+                    return;
+                }
             }
 
             const now = new Date();
@@ -853,8 +923,8 @@
                 type: selectedPkg,
                 playerId: playerId,
                 amount: selectedPrice,
-                action: 'DEBIT',
-                detail: `Compra de Paquete Free Fire`,
+                action: currentPaymentType === 'saldo' ? 'DEBIT' : 'USDT_PURCHASE',
+                detail: currentPaymentType === 'saldo' ? 'Compra con Saldo' : `Compra directa USDT ($${selectedPrice})`,
                 date: fechaStr,
                 status: 'Proceso'
             };
@@ -934,7 +1004,7 @@
                                 <div class="ticket-row-line"><span>Cuenta</span> <strong>${o.user}</strong></div>
                                 <div class="ticket-row-line"><span>Solicitud</span> <strong>#${String(o.id).slice(-4)}</strong></div>
                                 <div class="ticket-row-line"><span>Fecha</span> <strong>${o.date}</strong></div>
-                                <div class="ticket-row-line" style="border-top:1px solid #1b3a6b; margin-top:4px; padding-top:6px;"><span>Total</span> <strong style="color:var(--primary-neon); font-size:0.95rem;">${o.amount} saldo</strong></div>
+                                <div class="ticket-row-line" style="border-top:1px solid #1b3a6b; margin-top:4px; padding-top:6px;"><span>Total</span> <strong style="color:var(--primary-neon); font-size:0.95rem;">${o.amount} ${o.action === 'USDT_PURCHASE' ? 'USDT' : 'saldo'}</strong></div>
                             </div>
                         </div>
                     `;
@@ -964,7 +1034,7 @@
                                         <button onclick="copyPlayerIdText('${o.playerId}')" style="background: var(--primary-neon); border: none; color: #060913; padding: 4px 10px; border-radius: 6px; font-weight: 900; font-size: 0.7rem; cursor: pointer;"><i class="fa-regular fa-copy"></i> Copiar ID</button>
                                     </div>
                                     ` : ''}
-                                    <div style="font-weight: bold; margin-top: 2px; color: #f59e0b;">Monto a acreditar / descontar: ${o.amount} saldo</div>
+                                    <div style="font-weight: bold; margin-top: 2px; color: #f59e0b;">Monto: ${o.amount} ${o.action === 'USDT_PURCHASE' ? 'USDT' : 'saldo'}</div>
                                 </div>
                                 <div style="display: flex; gap: 10px; width: 100%; margin-top: 6px;">
                                     <button onclick="updateOrderStatus(${o.id}, 'Aprobado')" style="flex: 1; background:#10b981; border:none; color:#fff; padding:8px; border-radius:8px; font-weight:900; cursor:pointer;"><i class="fa-solid fa-check"></i> Aceptar</button>
@@ -984,7 +1054,7 @@
                             <div class="user-data-card">
                                 <div><strong>Usuario:</strong> ${u.username}</div>
                                 <div style="color:var(--primary-neon)"><strong>Correo:</strong> ${u.email}</div>
-                                <div><strong>Saldo actual:</strong> ${u.balance.toFixed(0)} saldo</div>
+                                <div><strong>Saldo actual:</strong> ${u.balance.toFixed(2)} saldo</div>
                             </div>
                         `;
                     });
