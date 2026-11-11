@@ -2,10 +2,12 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DIAMONS LEGION</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --bg-main: #030614;
@@ -15,193 +17,966 @@
             --primary-neon: #00f7ff;
             --accent-neon: #7209b7;
             --border-color: #1b3a6b;
-            --neon-glow: 0 0 20px rgba(0, 247, 255, 0.3);
-            --neon-glow-strong: 0 0 35px rgba(0, 247, 255, 0.6);
+            --neon-glow: 0 0 20px rgba(0, 247, 255, 0.4);
+            --neon-glow-strong: 0 0 35px rgba(0, 247, 255, 0.7);
         }
-        body {
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html, body {
+            min-height: 100vh;
             background-color: var(--bg-main);
             color: var(--text-main);
-            font-family: 'Orbitron', sans-serif;
-            margin: 0;
-            padding: 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            background-image: radial-gradient(circle at 50% 15%, rgba(0, 247, 255, 0.12) 0%, transparent 60%),
+                              radial-gradient(circle at 85% 85%, rgba(114, 9, 183, 0.15) 0%, transparent 50%);
         }
-        .container {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--neon-glow);
-            padding: 20px;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 400px;
-            margin-top: 40px;
+
+        #notification-toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-200px);
+            background: #091026; color: var(--primary-neon); border: 2px solid var(--primary-neon);
+            padding: 0.9rem 1.5rem; border-radius: 14px; font-weight: 900; font-size: 0.85rem;
+            box-shadow: var(--neon-glow-strong); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 999999; width: 90%; max-width: 380px; text-align: center;
         }
-        h1, h2 {
-            text-align: center;
-            color: var(--primary-neon);
-            text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+        #notification-toast.show { transform: translateX(-50%) translateY(0); }
+
+        .auth-wrapper {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; width: 100%;
         }
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            background: #030614;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-family: 'Orbitron', sans-serif;
-        }
-        input:focus {
-            border-color: var(--primary-neon);
-            outline: none;
-            box-shadow: var(--neon-glow);
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background: var(--primary-neon);
-            color: var(--bg-main);
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: var(--neon-glow);
-            font-family: 'Orbitron', sans-serif;
-            transition: 0.3s;
-        }
-        button:hover {
-            background: #00bcd4;
+        .auth-container {
+            max-width: 390px; width: 100%; background: var(--bg-card);
+            border: 2px solid var(--primary-neon); border-radius: 24px; padding: 2.2rem 1.8rem;
             box-shadow: var(--neon-glow-strong);
         }
-        .tab {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
+        .brand-header { text-align: center; margin-bottom: 24px; }
+        .brand-header h1 {
+            font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 900; color: var(--text-main); letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(0,247,255,0.7);
         }
-        .tab span {
-            cursor: pointer;
-            color: var(--text-muted);
-            font-weight: bold;
+        .brand-header h1 span { color: var(--primary-neon); }
+
+        .auth-tabs {
+            display: flex; gap: 6px; margin-bottom: 20px; background: #030614;
+            border-radius: 12px; padding: 4px; border: 1.5px solid var(--border-color);
         }
-        .tab span.active {
-            color: var(--primary-neon);
-            border-bottom: 2px solid var(--primary-neon);
-            text-shadow: 0 0 8px rgba(0, 247, 255, 0.5);
+        .auth-tab {
+            flex: 1; text-align: center; padding: 0.7rem; font-weight: bold;
+            font-size: 0.82rem; cursor: pointer; border-radius: 10px; color: var(--text-muted); background: transparent; border: none; transition: all 0.3s;
         }
-        .form-section {
-            display: none;
+        .auth-tab.active { background: var(--primary-neon); color: #030614; box-shadow: var(--neon-glow); font-weight: 900; }
+
+        .form-group { margin-bottom: 1.2rem; position: relative; }
+        .form-group label { display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 800; letter-spacing: 0.5px; }
+        .form-control {
+            width: 100%; background: #030614; border: 1.5px solid var(--border-color);
+            padding: 0.8rem 1rem; border-radius: 12px; color: var(--text-main);
+            font-size: 0.9rem; outline: none; transition: all 0.3s;
         }
-        .form-section.active {
-            display: block;
+        .form-control:focus { border-color: var(--primary-neon); box-shadow: var(--neon-glow); }
+
+        .btn-main {
+            width: 100%; background: linear-gradient(135deg, #00f7ff, #7209b7); color: #ffffff; border: none;
+            padding: 0.95rem; border-radius: 14px; font-weight: 900; font-size: 0.95rem;
+            cursor: pointer; transition: all 0.3s; margin-top: 0.8rem; box-shadow: var(--neon-glow);
+            letter-spacing: 0.5px; text-transform: uppercase;
         }
+        .btn-main:hover { filter: brightness(1.15); transform: translateY(-2px); box-shadow: var(--neon-glow-strong); }
+
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.85rem 1rem; background-color: var(--bg-card);
+            border-bottom: 2px solid var(--border-color); position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.8);
+        }
+        .nav-brand-title { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; font-weight: 900; color: var(--text-main); display: flex; align-items: center; gap: 6px; text-shadow: 0 0 10px rgba(0,247,255,0.5); }
+        .nav-brand-title span { color: var(--primary-neon); }
+
+        .nav-wallet-pills { display: flex; gap: 4px; align-items: center; }
+        .wallet-pill-top {
+            background: #030614; border: 1.5px solid var(--border-color); padding: 5px 7px;
+            border-radius: 14px; font-size: 0.65rem; color: var(--primary-neon); font-weight: 900; display: flex; align-items: center; gap: 4px; cursor: pointer;
+            box-shadow: 0 0 10px rgba(0,247,255,0.25);
+        }
+
+        .container { max-width: 500px; width: 100%; margin: 0 auto; padding: 1.2rem; flex: 1; display: flex; flex-direction: column; padding-bottom: 100px; }
+
+        .section-title { font-size: 0.85rem; color: var(--primary-neon); margin: 1rem 0 0.6rem 0; font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase; text-align: center; text-shadow: 0 0 10px rgba(0,247,255,0.5); }
+
+        .payment-methods-tabs {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.2rem;
+        }
+        .pay-tab-btn {
+            background: #091026; border: 1.5px solid var(--border-color); border-radius: 14px;
+            padding: 0.8rem; text-align: center; color: var(--text-muted); font-weight: 800; font-size: 0.82rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s;
+        }
+        .pay-tab-btn.active {
+            background: linear-gradient(135deg, #00f7ff, #7209b7); color: #ffffff; border-color: var(--primary-neon);
+            box-shadow: var(--neon-glow);
+        }
+
+        .store-banner-img {
+            width: 100%; height: 320px; border-radius: 20px; margin-bottom: 1.2rem;
+            background-image: linear-gradient(180deg, rgba(3,6,20,0.1) 40%, rgba(3,6,20,0.9) 100%), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+            border: 2px solid var(--primary-neon); box-shadow: var(--neon-glow-strong);
+            position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 15px;
+        }
+        .store-banner-text {
+            position: relative; z-index: 2; text-align: center; background: rgba(3, 6, 20, 0.8); padding: 6px 16px; border-radius: 12px; border: 1px solid var(--primary-neon);
+        }
+        .store-banner-text p {
+            font-size: 0.85rem; color: #fff; font-weight: 900; text-shadow: 0 0 15px rgba(0,247,255,0.9);
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+
+        .game-banner-card {
+            width: 100%; height: 180px; border-radius: 18px; margin-bottom: 1.2rem;
+            background-image: linear-gradient(180deg, rgba(3,6,20,0.2) 0%, rgba(3,6,20,0.95) 100%), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+            border: 2px solid var(--border-color); box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+            position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; padding: 14px;
+            transition: all 0.3s;
+        }
+        .game-banner-card:hover { border-color: var(--primary-neon); box-shadow: var(--neon-glow); transform: translateY(-2px); }
+        .game-banner-content { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; }
+        .game-banner-content h4 { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 900; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
+        .game-banner-btn { background: var(--primary-neon); color: #030614; font-size: 0.75rem; font-weight: 900; padding: 6px 14px; border-radius: 10px; box-shadow: 0 0 12px rgba(0,247,255,0.7); }
+
+        .diamonds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1.2rem; }
+        .diamond-card {
+            background: linear-gradient(145deg, #091026, #030614); border: 2px solid var(--border-color); border-radius: 18px;
+            padding: 0.9rem 0.6rem; text-align: center; cursor: pointer; transition: all 0.3s;
+            display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5); min-height: 165px; position: relative; overflow: hidden;
+        }
+        .diamond-card:hover, .diamond-card.selected { border-color: var(--primary-neon); background: #132247; box-shadow: var(--neon-glow); transform: translateY(-3px); }
+        
+        .offer-tag {
+            background: linear-gradient(90deg, #ff007f, #ffb703); color: #000; font-size: 0.65rem; font-weight: 900;
+            padding: 3px 14px; border-radius: 0 0 10px 10px; text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 4px; box-shadow: 0 2px 8px rgba(255,183,3,0.6);
+        }
+
+        .diamond-card-content {
+            display: flex; flex-direction: column; align-items: center; gap: 2px; width: 100%;
+        }
+        .diamond-card-content h4 { font-size: 0.95rem; font-weight: 900; color: var(--text-main); font-family: 'Orbitron', sans-serif; text-shadow: 0 0 10px rgba(0,247,255,0.6); }
+        .diamond-card-content p { font-size: 0.72rem; color: var(--text-muted); font-weight: 700; }
+        
+        .diamond-price-badge {
+            background: #030614; border: 1.5px solid var(--primary-neon); color: var(--primary-neon);
+            font-weight: 900; font-size: 0.85rem; padding: 6px 12px; border-radius: 20px; margin-top: 6px;
+            width: 90%; text-align: center; box-shadow: 0 0 10px rgba(0,247,255,0.4);
+        }
+
+        .wallet-card-option {
+            background: var(--bg-card); border: 2px solid var(--border-color); border-radius: 18px;
+            padding: 1.2rem; margin-bottom: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+        }
+        .wallet-card-option:hover { border-color: var(--primary-neon); box-shadow: var(--neon-glow); transform: translateY(-2px); }
+        .wallet-card-left { display: flex; align-items: center; gap: 14px; }
+        
+        .usdt-real-icon {
+            width: 45px; height: 45px; background: #26A17B; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(38,161,123,0.8);
+        }
+        .saldo-icon-box {
+            width: 45px; height: 45px; background: var(--primary-neon); border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; color: #030614; font-size: 1.2rem;
+            box-shadow: 0 0 12px rgba(0,247,255,0.8);
+        }
+        .wallet-info h4 { font-size: 0.95rem; font-weight: 900; color: var(--text-main); margin-bottom: 3px; }
+        .wallet-info p { font-size: 0.72rem; color: var(--text-muted); font-weight: 700; }
+        
+        .wallet-box-detail {
+            background: var(--bg-card); border: 2px solid var(--primary-neon); border-radius: 20px; padding: 1.4rem; margin-bottom: 1rem;
+            box-shadow: var(--neon-glow-strong);
+        }
+        .wallet-address-box {
+            background: #030614; border: 1.5px solid var(--border-color); padding: 0.9rem; border-radius: 12px;
+            font-size: 0.85rem; word-break: break-all; color: var(--primary-neon); font-weight: bold; margin: 0.6rem 0 1rem 0;
+            text-align: center; letter-spacing: 1px;
+        }
+
+        .ticket-receipt-card {
+            background: linear-gradient(145deg, #091026, #030614);
+            border: 2px solid var(--border-color); border-radius: 20px; padding: 1.2rem; margin-bottom: 1.2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.7); position: relative; overflow: hidden;
+        }
+        .ticket-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1.5px solid var(--border-color); padding-bottom: 10px; }
+        .ticket-title-group h4 { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 900; color: #fff; text-shadow: 0 0 10px rgba(0,247,255,0.6); }
+        .ticket-title-group p { font-size: 0.68rem; color: var(--text-muted); font-weight: 700; }
+        
+        .ticket-status-badge { font-size: 0.7rem; font-weight: 900; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
+        .status-proceso { background: rgba(255, 183, 3, 0.2); color: #ffb703; border: 1.5px solid rgba(255, 183, 3, 0.6); }
+        .status-aprobado { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1.5px solid rgba(16, 185, 129, 0.6); }
+        .status-rechazado { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1.5px solid rgba(239, 68, 68, 0.6); }
+
+        .ticket-steps-bar { display: flex; justify-content: space-between; align-items: center; background: #030614; border-radius: 14px; padding: 10px 15px; margin: 12px 0; border: 1.5px solid var(--border-color); }
+        .ticket-step-item { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 9px; font-weight: 900; color: var(--text-muted); text-transform: uppercase; }
+        .ticket-step-circle { width: 24px; height: 24px; border-radius: 50%; background: #091026; border: 1.5px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--text-muted); }
+        .ticket-step-item.active .ticket-step-circle { background: #10b981; border-color: #10b981; color: #fff; box-shadow: 0 0 10px rgba(16,185,129,0.7); }
+        .ticket-step-item.active { color: #10b981; }
+
+        .ticket-details-body { font-size: 0.78rem; display: flex; flex-direction: column; gap: 6px; padding-top: 6px; }
+        .ticket-row-line { display: flex; justify-content: space-between; align-items: center; }
+        .ticket-row-line span:first-child { color: var(--text-muted); font-weight: 700; }
+        .ticket-row-line span:last-child { color: #fff; font-weight: 900; }
+
+        .admin-panel-box {
+            background: var(--bg-card); color: #fff; border-radius: 20px; padding: 1.4rem; margin-top: 1.5rem;
+            border: 2px dashed var(--primary-neon); box-shadow: var(--neon-glow);
+        }
+        .admin-req-card {
+            background: #030614; border-radius: 12px; padding: 1rem; margin-top: 10px;
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem;
+            border: 1.5px solid var(--border-color);
+        }
+        .user-data-card {
+            background: #030614; border-radius: 10px; padding: 0.75rem; margin-top: 6px;
+            border: 1.5px solid var(--border-color); font-size: 0.75rem; color: #fff;
+        }
+
+        .app-bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card);
+            border-top: 2px solid var(--border-color); display: flex; justify-content: space-around;
+            padding: 12px 0; z-index: 1000; box-shadow: 0 -6px 25px rgba(0,0,0,0.9);
+        }
+        .nav-item-btn {
+            background: transparent; border: none; color: var(--text-muted);
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            font-size: 10px; text-transform: uppercase; font-weight: 900; cursor: pointer; flex: 1; transition: all 0.3s;
+        }
+        .nav-item-btn i { font-size: 18px; }
+        .nav-item-btn.active, .nav-item-btn:hover { color: var(--primary-neon); text-shadow: 0 0 12px rgba(0,247,255,0.8); }
+
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <h1>DIAMONS LEGION</h1>
-    
-    <div class="container">
-        <div class="tab">
-            <span id="tab-login" class="active" onclick="switchTab('login')">INICIAR SESIÓN</span>
-            <span id="tab-register" onclick="switchTab('register')">REGISTRARSE</span>
+    <div id="notification-toast">Notificación</div>
+
+    <div class="auth-wrapper" id="auth-screen">
+        <div class="auth-container">
+            <div class="brand-header">
+                <svg width="48" height="48" viewBox="0 0 500 500" style="margin-bottom:8px; filter: drop-shadow(0 0 12px rgba(0,247,255,0.8));"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#00f7ff"/></svg>
+                <h1>DIAMONS <span>LEGION</span></h1>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tab-btn-login" onclick="switchAuthTab('login')">Iniciar Sesión</button>
+                <button class="auth-tab" id="tab-btn-register" onclick="switchAuthTab('register')">Registrarse</button>
+            </div>
+
+            <form id="form-login" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Usuario o Correo</label>
+                    <input type="text" id="login-user" class="form-control" placeholder="Introduce tu usuario" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="login-pass" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-main">ENTRAR</button>
+            </form>
+
+            <form id="form-register" class="hidden" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Nombre de Usuario</label>
+                    <input type="text" id="reg-user" class="form-control" placeholder="Tu usuario" required>
+                </div>
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="reg-email" class="form-control" placeholder="correo@dominio.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña (Más de 6 dígitos)</label>
+                    <input type="password" id="reg-pass" class="form-control" placeholder="Mínimo 7 caracteres" required>
+                </div>
+                <button type="submit" class="btn-main">REGISTRARSE</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="main-app" class="hidden" style="flex:1; display:flex; flex-direction:column;">
+        <nav class="navbar">
+            <div class="nav-brand-title">
+                <svg width="22" height="22" viewBox="0 0 500 500"><path d="M250,30 L470,180 L380,450 L120,450 L30,180 Z" fill="#00f7ff"/></svg>
+                DIAMONS <span>LEGION</span>
+            </div>
+            <div class="nav-wallet-pills">
+                <div class="wallet-pill-top" onclick="switchMainTab('wallet')" title="USDT">
+                    <i class="fa-solid fa-coins" style="color:#26A17B;"></i>
+                    $<span id="usdt-balance-display">0.00</span>
+                </div>
+                <div class="wallet-pill-top" onclick="switchMainTab('wallet')" title="Saldo Móvil">
+                    <i class="fa-solid fa-mobile-screen" style="color:var(--primary-neon);"></i>
+                    $<span id="saldo-balance-display">0.00</span>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- SECCIÓN TIENDA -->
+            <div id="tab-content-store" class="main-tab-pane">
+                <div class="store-banner-img">
+                    <div class="store-banner-text">
+                        <p>Recarga Rápida y Segura</p>
+                    </div>
+                </div>
+
+                <div class="section-title">SELECCIONA TU JUEGO</div>
+                
+                <div class="game-banner-card" onclick="openGameModal('Free Fire')">
+                    <div class="game-banner-content">
+                        <div>
+                            <h4 style="font-size:1.1rem; margin-bottom:4px;">FREE FIRE</h4>
+                            <p style="font-size:0.72rem; color:var(--text-muted); font-weight:700;">Diamantes Directos ID</p>
+                        </div>
+                        <div class="game-banner-btn">COMPRAR</div>
+                    </div>
+                </div>
+
+                <div class="game-banner-card" onclick="openGameModal('PUBG Mobile')" style="background-image: linear-gradient(180deg, rgba(3,6,20,0.2) 0%, rgba(3,6,20,0.95) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop');">
+                    <div class="game-banner-content">
+                        <div>
+                            <h4 style="font-size:1.1rem; margin-bottom:4px;">PUBG MOBILE</h4>
+                            <p style="font-size:0.72rem; color:var(--text-muted); font-weight:700;">UC / Pases Royale</p>
+                        </div>
+                        <div class="game-banner-btn">COMPRAR</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN MONEDERO -->
+            <div id="tab-content-wallet" class="main-tab-pane hidden">
+                <div class="section-title">RECARGAR SALDO</div>
+                
+                <div class="wallet-card-option" onclick="openRechargeModal('usdt')">
+                    <div class="wallet-card-left">
+                        <div class="usdt-real-icon">
+                            <i class="fa-solid fa-coins" style="font-size:20px; color:#fff;"></i>
+                        </div>
+                        <div class="wallet-info">
+                            <h4>USDT (BEP20)</h4>
+                            <p>Recarga instantánea con cripto</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="color:var(--text-muted);"></i>
+                </div>
+
+                <div class="wallet-card-option" onclick="openRechargeModal('saldo')">
+                    <div class="wallet-card-left">
+                        <div class="saldo-icon-box">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div class="wallet-info">
+                            <h4>Saldo Móvil / Pago Móvil</h4>
+                            <p>Moneda local y transferencias</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="color:var(--text-muted);"></i>
+                </div>
+
+                <div class="section-title" style="margin-top:2rem;">HISTORIAL DE TRANSACCIONES</div>
+                <div id="transactions-list-container">
+                    <p style="text-align:center; color:var(--text-muted); font-size:0.8rem; padding:1.5rem 0;">No tienes transacciones registradas.</p>
+                </div>
+            </div>
+
+            <!-- SECCIÓN PERFIL -->
+            <div id="tab-content-profile" class="main-tab-pane hidden">
+                <div class="section-title">MI PERFIL</div>
+                
+                <div style="background:var(--bg-card); border:2px solid var(--border-color); border-radius:20px; padding:1.5rem; text-align:center; margin-bottom:1.5rem; box-shadow:0 6px 20px rgba(0,0,0,0.5);">
+                    <div style="width:70px; height:70px; background:linear-gradient(135deg, #00f7ff, #7209b7); border-radius:50%; margin:0 auto 12px auto; display:flex; align-items:center; justify-content:center; font-size:28px; color:#030614; font-weight:900; box-shadow:var(--neon-glow);">
+                        <span id="profile-initial">U</span>
+                    </div>
+                    <h3 id="profile-username-val" style="font-family:'Orbitron',sans-serif; font-size:1.1rem; margin-bottom:4px; color:#fff;">Usuario</h3>
+                    <p id="profile-email-val" style="font-size:0.75rem; color:var(--text-muted);">correo@dominio.com</p>
+                </div>
+
+                <button onclick="handleLogout()" class="btn-main" style="background:rgba(239, 68, 68, 0.2); border:1.5px solid #ef4444; color:#ef4444; box-shadow:none;">
+                    <i class="fa-solid fa-right-from-bracket"></i> CERRAR SESIÓN
+                </button>
+
+                <!-- Panel de Administrador Oculto / Visible condicional -->
+                <div id="admin-panel-section" class="hidden">
+                    <div class="admin-panel-box">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                            <h4 style="font-family:'Orbitron',sans-serif; font-size:0.9rem; color:var(--primary-neon);">PANEL DE ADMINISTRADOR</h4>
+                            <span style="font-size:0.65rem; background:rgba(0,247,255,0.2); border:1px solid var(--primary-neon); padding:2px 8px; border-radius:10px;">ADMIN</span>
+                        </div>
+                        <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Solicitudes pendientes de revisión y usuarios registrados:</p>
+                        <div id="admin-requests-list">
+                            <p style="font-size:0.75rem; color:var(--text-muted);">No hay solicitudes pendientes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Formulario de Login -->
-        <div id="login-form" class="form-section active">
-            <h2>LOGIN</h2>
-            <input type="text" id="login-user" placeholder="Usuario o Email">
-            <input type="password" id="login-pass" placeholder="Contraseña">
-            <button onclick="handleLogin()">INGRESAR</button>
-        </div>
+        <!-- BARRA DE NAVEGACIÓN INFERIOR -->
+        <nav class="app-bottom-nav">
+            <button class="nav-item-btn active" id="nav-btn-store" onclick="switchMainTab('store')">
+                <i class="fa-solid fa-store"></i>
+                <span>Tienda</span>
+            </button>
+            <button class="nav-item-btn" id="nav-btn-wallet" onclick="switchMainTab('wallet')">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Monedero</span>
+            </button>
+            <button class="nav-item-btn" id="nav-btn-profile" onclick="switchMainTab('profile')">
+                <i class="fa-solid fa-user"></i>
+                <span>Perfil</span>
+            </button>
+        </nav>
+    </div>
 
-        <!-- Formulario de Registro -->
-        <div id="register-form" class="form-section">
-            <h2>REGISTRO</h2>
-            <input type="text" id="reg-user" placeholder="Usuario">
-            <input type="email" id="reg-email" placeholder="Correo electrónico">
-            <input type="password" id="reg-pass" placeholder="Contraseña (6+ dígitos)">
-            <button onclick="handleRegister()">CREAR CUENTA</button>
+    <!-- MODAL DE COMPRA DE JUEGO -->
+    <div id="game-modal" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(3,6,20,0.85); z-index:9999; display:flex; align-items:center; justify-content:center; padding:15px; backdrop-filter:blur(5px);">
+        <div style="background:var(--bg-card); border:2px solid var(--primary-neon); border-radius:24px; width:100%; max-width:420px; padding:1.5rem; box-shadow:var(--neon-glow-strong); max-height:90vh; overflow-y:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <h3 id="modal-game-title" style="font-family:'Orbitron',sans-serif; font-size:1rem; color:var(--primary-neon);">COMPRA</h3>
+                <i class="fa-solid fa-xmark" onclick="closeGameModal()" style="font-size:20px; cursor:pointer; color:var(--text-muted);"></i>
+            </div>
+
+            <div class="form-group">
+                <label id="modal-id-label">ID del Jugador</label>
+                <input type="text" id="game-player-id" class="form-control" placeholder="Introduce tu ID">
+            </div>
+
+            <div class="section-title" style="margin-top:0.8rem; text-align:left;">MÉTODO DE PAGO</div>
+            <div class="payment-methods-tabs">
+                <button class="pay-tab-btn active" id="pay-mode-saldo" onclick="switchPaymentMode('saldo')">
+                    <i class="fa-solid fa-wallet"></i> Saldo Web
+                </button>
+                <button class="pay-tab-btn" id="pay-mode-usdt" onclick="switchPaymentMode('usdt')">
+                    <i class="fa-solid fa-coins"></i> USDT Directo
+                </button>
+            </div>
+
+            <div class="section-title" style="text-align:left;">SELECCIONA PAQUETE</div>
+            <div class="diamonds-grid" id="packages-grid-container">
+                <!-- Se llena por JavaScript -->
+            </div>
+
+            <button onclick="submitGamePurchase()" class="btn-main">CONFIRMAR COMPRA</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE RECARGA DE SALDO / USDT -->
+    <div id="recharge-modal" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(3,6,20,0.85); z-index:9999; display:flex; align-items:center; justify-content:center; padding:15px; backdrop-filter:blur(5px);">
+        <div style="background:var(--bg-card); border:2px solid var(--primary-neon); border-radius:24px; width:100%; max-width:420px; padding:1.5rem; box-shadow:var(--neon-glow-strong); max-height:90vh; overflow-y:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <h3 id="recharge-modal-title" style="font-family:'Orbitron',sans-serif; font-size:1rem; color:var(--primary-neon);">RECARGAR</h3>
+                <i class="fa-solid fa-xmark" onclick="closeRechargeModal()" style="font-size:20px; cursor:pointer; color:var(--text-muted);"></i>
+            </div>
+
+            <div id="recharge-content-body">
+                <!-- Contenido dinámico según USDT o Saldo -->
+            </div>
         </div>
     </div>
 
     <script>
-        function switchTab(tab) {
+        // --- BASE DE DATOS Y ESTADO LOCAL ---
+        let currentUser = null;
+        let selectedPackage = null;
+        let currentPaymentMethod = 'saldo';
+        let activeGameName = 'Free Fire';
+
+        const USDT_WALLET_ADDRESS = "0x01fFC04c400d0811DEc106E56Bfb5a95576AF18f";
+
+        const gamePackages = {
+            'Free Fire': [
+                { id: 'ff_1', name: '100 + 10 Diamantes', price: 1.00, tag: 'Popular' },
+                { id: 'ff_2', name: '310 + 31 Diamantes', price: 3.00, tag: 'Mejor Valor' },
+                { id: 'ff_3', name: '520 + 52 Diamantes', price: 5.00, tag: 'Oferta' },
+                { id: 'ff_4', name: '1060 + 106 Diamantes', price: 10.00, tag: 'Pro' }
+            ],
+            'PUBG Mobile': [
+                { id: 'pubg_1', name: '60 UC', price: 0.99, tag: 'Inicio' },
+                { id: 'pubg_2', name: '325 UC + 25 Bonus', price: 4.99, tag: 'Popular' },
+                { id: 'pubg_3', name: '660 UC + 60 Bonus', price: 9.99, tag: 'Oferta' },
+                { id: 'pubg_4', name: '1800 UC + 350 Bonus', price: 24.99, tag: 'Élite' }
+            ]
+        };
+
+        function showToast(message) {
+            const toast = document.getElementById('notification-toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+
+        // --- AUTENTICACIÓN ---
+        function switchAuthTab(tab) {
             if (tab === 'login') {
-                document.getElementById('login-form').classList.add('active');
-                document.getElementById('register-form').classList.remove('active');
-                document.getElementById('tab-login').classList.add('active');
-                document.getElementById('tab-register').classList.remove('active');
+                document.getElementById('tab-btn-login').classList.add('active');
+                document.getElementById('tab-btn-register').classList.remove('active');
+                document.getElementById('form-login').classList.remove('hidden');
+                document.getElementById('form-register').classList.add('hidden');
             } else {
-                document.getElementById('register-form').classList.add('active');
-                document.getElementById('login-form').classList.remove('active');
-                document.getElementById('tab-register').classList.add('active');
-                document.getElementById('tab-login').classList.remove('active');
+                document.getElementById('tab-btn-register').classList.add('active');
+                document.getElementById('tab-btn-login').classList.remove('active');
+                document.getElementById('form-register').classList.remove('hidden');
+                document.getElementById('form-login').classList.add('hidden');
             }
         }
 
-        // Registro conectado a Cloudflare D1
-        async function handleRegister() {
+        function handleRegister(e) {
+            e.preventDefault();
             const username = document.getElementById('reg-user').value.trim();
             const email = document.getElementById('reg-email').value.trim();
-            const password = document.getElementById('reg-pass').value.trim();
+            const pass = document.getElementById('reg-pass').value.trim();
 
-            if (!username || !email || !password) {
-                alert("Por favor completa todos los campos.");
+            if (pass.length < 6) {
+                showToast("La contraseña debe tener al menos 6 dígitos.");
                 return;
             }
 
-            try {
-                let response = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, email, password })
-                });
-                let data = await response.json();
-                
-                if (data.success) {
-                    alert("¡Registro exitoso guardado en la nube!");
-                    switchTab('login');
-                } else {
-                    alert("Error: " + (data.message || "No se pudo registrar"));
-                }
-            } catch (err) {
-                alert("Error de conexión con el servidor.");
+            let users = JSON.parse(localStorage.getItem('diamons_users') || '[]');
+            if (users.some(u => u.username === username)) {
+                showToast("El usuario ya existe.");
+                return;
+            }
+
+            const newUser = {
+                username,
+                email,
+                pass,
+                usdtBalance: 0.00,
+                saldoBalance: 0.00,
+                transactions: []
+            };
+
+            users.push(newUser);
+            localStorage.setItem('diamons_users', JSON.stringify(users));
+            showToast("¡Registro exitoso! Ya puedes iniciar sesión.");
+            switchAuthTab('login');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const identifier = document.getElementById('login-user').value.trim();
+            const pass = document.getElementById('login-pass').value.trim();
+
+            let users = JSON.parse(localStorage.getItem('diamons_users') || '[]');
+            const found = users.find(u => (u.username === identifier || u.email === identifier) && u.pass === pass);
+
+            if (found) {
+                currentUser = found;
+                localStorage.setItem('diamons_current_session', currentUser.username);
+                initApp();
+                showToast("¡Bienvenido de nuevo, " + currentUser.username + "!");
+            } else {
+                showToast("Usuario o contraseña incorrectos.");
             }
         }
 
-        // Login conectado a Cloudflare D1
-        async function handleLogin() {
-            const username = document.getElementById('login-user').value.trim();
-            const password = document.getElementById('login-pass').value.trim();
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('diamons_current_session');
+            document.getElementById('auth-screen').classList.remove('hidden');
+            document.getElementById('main-app').classList.add('hidden');
+            showToast("Sesión cerrada correctamente.");
+        }
 
-            if (!username || !password) {
-                alert("Por favor ingresa usuario y contraseña.");
+        // --- INICIALIZACIÓN DE LA APLICACIÓN ---
+        window.onload = function() {
+            const savedSession = localStorage.getItem('diamons_current_session');
+            if (savedSession) {
+                let users = JSON.parse(localStorage.getItem('diamons_users') || '[]');
+                const found = users.find(u => u.username === savedSession);
+                if (found) {
+                    currentUser = found;
+                    initApp();
+                }
+            }
+        }
+
+        function initApp() {
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+            
+            updateBalancesDisplay();
+            renderProfileInfo();
+            renderTransactions();
+            checkAdminVisibility();
+            switchMainTab('store');
+        }
+
+        function updateBalancesDisplay() {
+            document.getElementById('usdt-balance-display').innerText = (currentUser.usdtBalance || 0).toFixed(2);
+            document.getElementById('saldo-balance-display').innerText = (currentUser.saldoBalance || 0).toFixed(2);
+            
+            // Sincronizar en DB general
+            let users = JSON.parse(localStorage.getItem('diamons_users') || '[]');
+            users = users.map(u => u.username === currentUser.username ? currentUser : u);
+            localStorage.setItem('diamons_users', JSON.stringify(users));
+        }
+
+        function renderProfileInfo() {
+            document.getElementById('profile-initial').innerText = currentUser.username.charAt(0).toUpperCase();
+            document.getElementById('profile-username-val').innerText = currentUser.username;
+            document.getElementById('profile-email-val').innerText = currentUser.email;
+        }
+
+        function checkAdminVisibility() {
+            const adminBox = document.getElementById('admin-panel-section');
+            if (currentUser.username.toLowerCase() === 'admin' || currentUser.isAdmin) {
+                adminBox.classList.remove('hidden');
+                renderAdminRequests();
+            } else {
+                adminBox.classList.add('hidden');
+            }
+        }
+
+        // --- NAVEGACIÓN PRINCIPAL ---
+        function switchMainTab(tabName) {
+            ['store', 'wallet', 'profile'].forEach(t => {
+                document.getElementById(`tab-content-${t}`).classList.add('hidden');
+                document.getElementById(`nav-btn-${t}`).classList.remove('active');
+            });
+            document.getElementById(`tab-content-${tabName}`).classList.remove('hidden');
+            document.getElementById(`nav-btn-${tabName}`).classList.add('active');
+            if(tabName === 'profile') checkAdminVisibility();
+            if(tabName === 'wallet') renderTransactions();
+        }
+
+        // --- MODAL DE JUEGO / COMPRAS ---
+        function openGameModal(gameName) {
+            activeGameName = gameName;
+            document.getElementById('modal-game-title').innerText = `COMPRAR - ${gameName.toUpperCase()}`;
+            document.getElementById('modal-id-label').innerText = gameName === 'Free Fire' ? 'ID de Jugador (Free Fire)' : 'ID de Jugador (PUBG Mobile)';
+            document.getElementById('game-player-id').value = '';
+            
+            renderPackages();
+            document.getElementById('game-modal').classList.remove('hidden');
+        }
+
+        function closeGameModal() {
+            document.getElementById('game-modal').classList.add('hidden');
+        }
+
+        function switchPaymentMode(mode) {
+            currentPaymentMethod = mode;
+            if (mode === 'saldo') {
+                document.getElementById('pay-mode-saldo').classList.add('active');
+                document.getElementById('pay-mode-usdt').classList.remove('active');
+            } else {
+                document.getElementById('pay-mode-usdt').classList.add('active');
+                document.getElementById('pay-mode-saldo').classList.remove('active');
+            }
+        }
+
+        function renderPackages() {
+            const container = document.getElementById('packages-grid-container');
+            container.innerHTML = '';
+            const pkgs = gamePackages[activeGameName];
+
+            pkgs.forEach((p, idx) => {
+                const isSel = selectedPackage && selectedPackage.id === p.id;
+                container.innerHTML += `
+                    <div class="diamond-card ${isSel ? 'selected' : ''}" onclick='selectPackage(${JSON.stringify(p)})'>
+                        <div class="offer-tag">${p.tag}</div>
+                        <div class="diamond-card-content">
+                            <h4>${p.name}</h4>
+                            <p>${activeGameName}</p>
+                        </div>
+                        <div class="diamond-price-badge">$${p.price.toFixed(2)} USD</div>
+                    </div>
+                `;
+            });
+            if(!selectedPackage && pkgs.length > 0) selectedPackage = pkgs[0];
+        }
+
+        function selectPackage(pkg) {
+            selectedPackage = pkg;
+            renderPackages();
+        }
+
+        function submitGamePurchase() {
+            const playerId = document.getElementById('game-player-id').value.trim();
+            if (!playerId) {
+                showToast("Por favor introduce tu ID de jugador.");
+                return;
+            }
+            if (!selectedPackage) {
+                showToast("Selecciona un paquete.");
                 return;
             }
 
-            try {
-                let response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-                let data = await response.json();
-                
-                if (data.success) {
-                    alert("¡Bienvenido, " + data.username + "!");
-                } else {
-                    alert("Usuario o contraseña incorrectos.");
+            // Validar saldo si paga con Saldo Web
+            if (currentPaymentMethod === 'saldo') {
+                if (currentUser.saldoBalance < selectedPackage.price) {
+                    showToast("Saldo insuficiente. Recarga tu monedero.");
+                    return;
                 }
-            } catch (err) {
-                alert("Error de conexión con el servidor.");
+                currentUser.saldoBalance -= selectedPackage.price;
+            } else {
+                if (currentUser.usdtBalance < selectedPackage.price) {
+                    showToast("Saldo USDT insuficiente.");
+                    return;
+                }
+                currentUser.usdtBalance -= selectedPackage.price;
             }
+
+            const tx = {
+                id: 'TX-' + Math.floor(100000 + Math.random() * 900000),
+                type: 'Compra ' + activeGameName,
+                item: selectedPackage.name,
+                amount: selectedPackage.price,
+                playerId: playerId,
+                status: 'Proceso', // Proceso, Aprobado, Rechazado
+                date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            };
+
+            if(!currentUser.transactions) currentUser.transactions = [];
+            currentUser.transactions.unshift(tx);
+            updateBalancesDisplay();
+            closeGameModal();
+            showToast("¡Compra solicitada con éxito! En revisión.");
+            renderTransactions();
+        }
+
+        // --- RECARGAS DE SALDO / USDT ---
+        function openRechargeModal(type) {
+            const title = document.getElementById('recharge-modal-title');
+            const body = document.getElementById('recharge-content-body');
+            
+            if (type === 'usdt') {
+                title.innerText = "RECARGAR USDT (BEP20)";
+                body.innerHTML = `
+                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:10px;">Transfiere la cantidad exacta de USDT a la siguiente dirección de red BNB Smart Chain (BEP20):</p>
+                    <div class="wallet-address-box" id="copy-addr" onclick="copyWalletAddress()">${USDT_WALLET_ADDRESS}</div>
+                    <button class="btn-main" style="margin-bottom:14px; background:#091026; border:1.5px solid var(--primary-neon);" onclick="copyWalletAddress()"><i class="fa-solid fa-copy"></i> COPIAR DIRECCIÓN</button>
+                    
+                    <div class="form-group">
+                        <label>Monto a Recargar (USD / USDT)</label>
+                        <input type="number" id="recharge-amount-input" class="form-control" placeholder="Ej. 10.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Hash de Transacción / TXID</label>
+                        <input type="text" id="recharge-hash-input" class="form-control" placeholder="0x...">
+                    </div>
+                    <button onclick="submitRechargeRequest('USDT')" class="btn-main">NOTIFICAR PAGO</button>
+                `;
+            } else {
+                title.innerText = "RECARGAR SALDO MÓVIL";
+                body.innerHTML = `
+                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:10px;">Realiza tu pago móvil o transferencia bancaria local y reporta los datos para acreditación manual:</p>
+                    <div style="background:#030614; padding:12px; border-radius:12px; border:1.5px solid var(--border-color); font-size:0.78rem; margin-bottom:14px;">
+                        <p style="color:var(--primary-neon); font-weight:900; margin-bottom:4px;">Datos de Pago:</p>
+                        <p>Banco: <strong>Banco Nacional</strong></p>
+                        <p>Teléfono: <strong>0412-0000000</strong></p>
+                        <p>Cédula/RIF: <strong>V-00000000</strong></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Monto Pagado ($ USD equivalente)</label>
+                        <input type="number" id="recharge-amount-input" class="form-control" placeholder="Ej. 5.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Número de Referencia Bancaria</label>
+                        <input type="text" id="recharge-hash-input" class="form-control" placeholder="Últimos 4 o 6 dígitos">
+                    </div>
+                    <button onclick="submitRechargeRequest('Saldo Móvil')" class="btn-main">NOTIFICAR PAGO</button>
+                `;
+            }
+            document.getElementById('recharge-modal').classList.remove('hidden');
+        }
+
+        function closeRechargeModal() {
+            document.getElementById('recharge-modal').classList.add('hidden');
+        }
+
+        function copyWalletAddress() {
+            navigator.clipboard.writeText(USDT_WALLET_ADDRESS);
+            showToast("¡Dirección copiada al portapapeles!");
+        }
+
+        function submitRechargeRequest(methodType) {
+            const amount = parseFloat(document.getElementById('recharge-amount-input').value);
+            const refId = document.getElementById('recharge-hash-input').value.trim();
+
+            if (!amount || amount <= 0 || !refId) {
+                showToast("Por favor introduce un monto válido y la referencia/hash.");
+                return;
+            }
+
+            const tx = {
+                id: 'REC-' + Math.floor(100000 + Math.random() * 900000),
+                type: 'Recarga ' + methodType,
+                item: 'Recarga de Saldo',
+                amount: amount,
+                refId: refId,
+                status: 'Proceso',
+                date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            };
+
+            if(!currentUser.transactions) currentUser.transactions = [];
+            currentUser.transactions.unshift(tx);
+            updateBalancesDisplay();
+            closeRechargeModal();
+            showToast("¡Recarga enviada a verificación del administrador!");
+            renderTransactions();
+        }
+
+        // --- RENDERIZADO DE HISTORIAL Y TICKETS ---
+        function renderTransactions() {
+            const container = document.getElementById('transactions-list-container');
+            if (!currentUser.transactions || currentUser.transactions.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); font-size:0.8rem; padding:1.5rem 0;">No tienes transacciones registradas.</p>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            currentUser.transactions.forEach(tx => {
+                let badgeClass = 'status-proceso';
+                let badgeText = 'En Proceso';
+                let stepActive1 = 'active';
+                let stepActive2 = '';
+                let stepActive3 = '';
+
+                if (tx.status === 'Aprobado') {
+                    badgeClass = 'status-aprobado';
+                    badgeText = 'Aprobado';
+                    stepActive2 = 'active';
+                    stepActive3 = 'active';
+                } else if (tx.status === 'Rechazado') {
+                    badgeClass = 'status-rechazado';
+                    badgeText = 'Rechazado';
+                }
+
+                container.innerHTML += `
+                    <div class="ticket-receipt-card">
+                        <div class="ticket-header-flex">
+                            <div class="ticket-title-group">
+                                <h4>${tx.type}</h4>
+                                <p>${tx.id} • ${tx.date}</p>
+                            </div>
+                            <div class="ticket-status-badge ${badgeClass}">
+                                <i class="fa-solid fa-circle" style="font-size:6px;"></i> ${badgeText}
+                            </div>
+                        </div>
+
+                        <div class="ticket-steps-bar">
+                            <div class="ticket-step-item ${stepActive1}">
+                                <div class="ticket-step-circle">1</div>
+                                <span>Solicitado</span>
+                            </div>
+                            <div class="ticket-step-item ${stepActive2}">
+                                <div class="ticket-step-circle">2</div>
+                                <span>Revisión</span>
+                            </div>
+                            <div class="ticket-step-item ${stepActive3}">
+                                <div class="ticket-step-circle">3</div>
+                                <span>Completado</span>
+                            </div>
+                        </div>
+
+                        <div class="ticket-details-body">
+                            <div class="ticket-row-line">
+                                <span>Concepto:</span>
+                                <span>${tx.item}</span>
+                            </div>
+                            ${tx.playerId ? `<div class="ticket-row-line"><span>ID de Jugador:</span><span>${tx.playerId}</span></div>` : ''}
+                            ${tx.refId ? `<div class="ticket-row-line"><span>Referencia/Hash:</span><span>${tx.refId}</span></div>` : ''}
+                            <div class="ticket-row-line">
+                                <span>Monto:</span>
+                                <span style="color:var(--primary-neon);">$${tx.amount.toFixed(2)} USD</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // --- PANEL DE ADMINISTRADOR ---
+        function renderAdminRequests() {
+            const listContainer = document.getElementById('admin-requests-list');
+            let allUsers = JSON.parse(localStorage.getItem('diamons_users') || '[]');
+            
+            let pendingItems = [];
+            allUsers.forEach(u => {
+                if (u.transactions) {
+                    u.transactions.forEach(t => {
+                        if (t.status === 'Proceso') {
+                            pendingItems.push({ username: u.username, tx: t });
+                        }
+                    });
+                }
+            });
+
+            if (pendingItems.length === 0) {
+                listContainer.innerHTML = `<p style="font-size:0.75rem; color:var(--text-muted); text-align:center; padding:10px 0;">No hay solicitudes pendientes.</p>`;
+                return;
+            }
+
+            listContainer.innerHTML = '';
+            pendingItems.forEach((item, index) => {
+                listContainer.innerHTML += `
+                    <div class="admin-req-card">
+                        <div>
+                            <p style="font-weight:900; color:var(--primary-neon); margin-bottom:2px;">User: ${item.username}</p>
+                            <p>${item.tx.type} - ${item.tx.item}</p>
+                            <p style="color:var(--text-muted);">$${item.tx.amount.toFixed(2)} | Ref: ${item.tx.refId || item.tx.playerId || 'N/A'}</p>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                            <button onclick="adminAction('${item.username}', '${item.tx.id}', 'approve')" style="background:#10b981; color:#fff; border:none; padding:5px 10px; border-radius:8px; font-weight:900; cursor:pointer; font-size:10px;">APROBAR</button>
+                            <button onclick="adminAction('${item.username}', '${item.tx.id}', 'reject')" style="background:#ef4444; color:#fff; border:none; padding:5px 10px; border-radius:8px; font-weight:900; cursor:pointer; font-size:10px;">RECHAZAR</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function adminAction(targetUsername, txId, action) {
+            let allUsers = JSON.parse(localStorage.getItem('diamons_users') || '[]');
+            
+            allUsers = allUsers.map(u => {
+                if (u.username === targetUsername && u.transactions) {
+                    u.transactions = u.transactions.map(t => {
+                        if (t.id === txId) {
+                            t.status = action === 'approve' ? 'Aprobado' : 'Rechazado';
+                            // Si es recarga aprobada, sumar al saldo del usuario
+                            if (action === 'approve' && t.type.includes('Recarga')) {
+                                if (t.type.includes('USDT')) {
+                                    u.usdtBalance = (u.usdtBalance || 0) + t.amount;
+                                } else {
+                                    u.saldoBalance = (u.saldoBalance || 0) + t.amount;
+                                }
+                            }
+                        }
+                        return t;
+                    });
+                }
+                return u;
+            });
+
+            localStorage.setItem('diamons_users', JSON.stringify(allUsers));
+            
+            // Si el usuario actual es el afectado, actualizar su sesión
+            if (currentUser && currentUser.username === targetUsername) {
+                currentUser = allUsers.find(u => u.username === targetUsername);
+                updateBalancesDisplay();
+                renderTransactions();
+            }
+
+            showToast(`Solicitud ${action === 'approve' ? 'aprobada' : 'rechazada'} con éxito.`);
+            renderAdminRequests();
         }
     </script>
 </body>
