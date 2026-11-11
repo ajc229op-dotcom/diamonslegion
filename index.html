@@ -637,6 +637,9 @@
         let selectedCurrency = 'saldo';
         let currentPaymentType = 'saldo';
         let currentUser = null;
+        let cachedUserData = { balance: 0, usdtBalance: 0 };
+        let cachedOrders = [];
+        let cachedAllUsers = [];
 
         window.onload = function() {
             const savedUser = localStorage.getItem('dl_logged_user');
@@ -645,8 +648,8 @@
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('main-app').classList.remove('hidden');
                 checkAdminRights();
-                updateUIBalances();
-                renderOrders();
+                loadUserDataFromCloud();
+                loadOrdersFromCloud();
             }
         };
 
@@ -679,46 +682,40 @@
             document.getElementById('auth-screen').classList.remove('hidden');
         }
 
-        function handleLogin(e) {
+        // --- CONEXIÓN CON CLOUDFLARE D1 (API WORKERS) ---
+        async function handleLogin(e) {
             e.preventDefault();
             const userInput = document.getElementById('login-user').value.trim();
             const passInput = document.getElementById('login-pass').value.trim();
 
             if(!userInput || !passInput) return;
 
-            if(userInput.toLowerCase() === 'admin') {
-                if(passInput === 'admin123') {
-                    currentUser = 'admin';
-                    localStorage.setItem('dl_logged_user', 'admin');
+            try {
+                let response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: userInput, password: passInput })
+                });
+                let data = await response.json();
+
+                if(data.success) {
+                    currentUser = data.username;
+                    localStorage.setItem('dl_logged_user', currentUser);
                     document.getElementById('auth-screen').classList.add('hidden');
                     document.getElementById('main-app').classList.remove('hidden');
                     checkAdminRights();
-                    updateUIBalances();
-                    renderOrders();
-                    return;
+                    loadUserDataFromCloud();
+                    loadOrdersFromCloud();
+                    showNotification("¡Bienvenido de nuevo, " + currentUser + "!");
                 } else {
-                    showNotification("Contraseña de administrador incorrecta.");
-                    return;
+                    showNotification(data.message || "Usuario o contraseña incorrectos.");
                 }
-            }
-
-            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
-            let user = users.find(u => (u.username === userInput || u.email === userInput) && u.password === passInput);
-
-            if(user) {
-                currentUser = user.username;
-                localStorage.setItem('dl_logged_user', currentUser);
-                document.getElementById('auth-screen').classList.add('hidden');
-                document.getElementById('main-app').classList.remove('hidden');
-                checkAdminRights();
-                updateUIBalances();
-                renderOrders();
-            } else {
-                showNotification("Usuario o contraseña incorrectos.");
+            } catch (err) {
+                showNotification("Error de conexión con el servidor cloud.");
             }
         }
 
-        function handleRegister(e) {
+        async function handleRegister(e) {
             e.preventDefault();
             const u = document.getElementById('reg-user').value.trim();
             const email = document.getElementById('reg-email').value.trim();
@@ -726,66 +723,81 @@
 
             if(!u || !email || !pass) return;
 
-            if(pass.length <= 6) {
-                showNotification("La contraseña debe tener más de 6 dígitos.");
+            if(pass.length < 6) {
+                showNotification("La contraseña debe tener al menos 6 dígitos.");
                 return;
             }
 
-            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
-            if(users.some(existing => existing.username === u)) {
-                showNotification("El nombre de usuario ya está registrado.");
-                return;
-            }
+            try {
+                let response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: u, email: email, password: pass })
+                });
+                let data = await response.json();
 
-            const newUser = { username: u, email: email, password: pass, balance: 0.00, usdtBalance: 0.00 };
-            users.push(newUser);
-            localStorage.setItem('dl_users', JSON.stringify(users));
-
-            currentUser = u;
-            localStorage.setItem('dl_logged_user', currentUser);
-            showNotification("¡Registro exitoso! Bienvenido a Diamons Legion.");
-            document.getElementById('auth-screen').classList.add('hidden');
-            document.getElementById('main-app').classList.remove('hidden');
-            checkAdminRights();
-            updateUIBalances();
-            renderOrders();
-        }
-
-        function getUserData(username) {
-            if(username.toLowerCase() === 'admin') return { balance: 99999, usdtBalance: 99999 };
-            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
-            let user = users.find(u => u.username === username);
-            return user ? { balance: user.balance || 0, usdtBalance: user.usdtBalance || 0 } : { balance: 0, usdtBalance: 0 };
-        }
-
-        function modifyUserBalance(username, amount, currency) {
-            let users = JSON.parse(localStorage.getItem('dl_users') || '[]');
-            users = users.map(u => {
-                if(u.username === username) {
-                    if(currency === 'usdt') {
-                        u.usdtBalance = (u.usdtBalance || 0) + amount;
-                    } else {
-                        u.balance = (u.balance || 0) + amount;
-                    }
+                if(data.success) {
+                    currentUser = u;
+                    localStorage.setItem('dl_logged_user', currentUser);
+                    showNotification("¡Registro exitoso en Cloudflare D1!");
+                    document.getElementById('auth-screen').classList.add('hidden');
+                    document.getElementById('main-app').classList.remove('hidden');
+                    checkAdminRights();
+                    loadUserDataFromCloud();
+                    loadOrdersFromCloud();
+                } else {
+                    showNotification(data.message || "No se pudo completar el registro.");
                 }
-                return u;
-            });
-            localStorage.setItem('dl_users', JSON.stringify(users));
-            updateUIBalances();
+            } catch (err) {
+                showNotification("Error de conexión con la nube.");
+            }
+        }
+
+        async function loadUserDataFromCloud() {
+            if(!currentUser) return;
+            try {
+                let response = await fetch(`/api/user?username=${encodeURIComponent(currentUser)}`);
+                let data = await response.json();
+                if(data.success) {
+                    cachedUserData = {
+                        balance: data.balance || 0,
+                        usdtBalance: data.usdtBalance || 0
+                    };
+                    updateUIBalances();
+                }
+            } catch(e) {
+                console.error("Error cargando usuario");
+            }
+        }
+
+        async function loadOrdersFromCloud() {
+            if(!currentUser) return;
+            try {
+                let response = await fetch(`/api/orders?username=${encodeURIComponent(currentUser)}`);
+                let data = await response.json();
+                if(data.success) {
+                    cachedOrders = data.orders || [];
+                    renderOrders();
+                }
+                if(currentUser.toLowerCase() === 'admin' && data.allUsers) {
+                    cachedAllUsers = data.allUsers;
+                    renderOrders();
+                }
+            } catch(e) {
+                console.error("Error cargando pedidos");
+            }
         }
 
         function updateUIBalances() {
-            if(!currentUser) return;
-            let data = getUserData(currentUser);
-            document.getElementById('usdt-balance-display').innerText = data.usdtBalance.toFixed(2);
-            document.getElementById('saldo-balance-display').innerText = data.balance.toFixed(0);
+            document.getElementById('usdt-balance-display').innerText = cachedUserData.usdtBalance.toFixed(2);
+            document.getElementById('saldo-balance-display').innerText = cachedUserData.balance.toFixed(0);
         }
 
         function switchMainTab(sec) {
             document.querySelectorAll('.vista-sec').forEach(el => el.classList.add('hidden'));
             document.getElementById('sec-' + sec).classList.remove('hidden');
-            if(sec === 'orders') renderOrders();
-            if(sec === 'wallet') updateUIBalances();
+            if(sec === 'orders') loadOrdersFromCloud();
+            if(sec === 'wallet') loadUserDataFromCloud();
         }
 
         function openSaldoDeposit() {
@@ -837,41 +849,43 @@
             selectedCurrency = currency;
         }
 
-        function submitSaldoDeposit() {
+        async function submitSaldoDeposit() {
             const montoStr = document.getElementById('saldo-monto-input').value;
             const hash = document.getElementById('saldo-hash-input').value;
             const monto = parseFloat(montoStr);
 
             if(!monto || isNaN(monto) || !hash) {
-                showNotification("Por favor ingresa un monto de saldo válido y el número de confirmación.");
+                showNotification("Por favor ingresa un monto válido y el número de confirmación.");
                 return;
             }
 
-            const now = new Date();
-            const fechaStr = now.toLocaleDateString() + ", " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-
-            const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
-            const newDeposit = {
-                id: Date.now(),
-                user: currentUser || 'Usuario',
-                type: 'Depósito Saldo Móvil (58151457)',
-                playerId: 'N/A',
-                amount: monto,
-                currency: 'saldo',
-                action: 'CREDIT',
-                detail: `Conf: ${hash}`,
-                date: fechaStr,
-                status: 'Proceso'
-            };
-
-            orders.unshift(newDeposit);
-            localStorage.setItem('dl_orders', JSON.stringify(orders));
-            
-            showNotification(`DEPÓSITO DE ${monto} SALDO ENVIADO AL ADMIN`);
-            switchMainTab('orders');
+            try {
+                let res = await fetch('/api/deposit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: currentUser,
+                        type: 'Depósito Saldo Móvil (58151457)',
+                        amount: monto,
+                        currency: 'saldo',
+                        action: 'CREDIT',
+                        detail: `Conf: ${hash}`
+                    })
+                });
+                let data = await res.json();
+                if(data.success) {
+                    showNotification(`DEPÓSITO DE ${monto} SALDO ENVIADO AL ADMIN`);
+                    switchMainTab('orders');
+                    loadOrdersFromCloud();
+                } else {
+                    showNotification(data.message || "Error al registrar depósito.");
+                }
+            } catch(e) {
+                showNotification("Error de red con el servidor.");
+            }
         }
 
-        function submitDeposit() {
+        async function submitDeposit() {
             const montoStr = document.getElementById('usdt-monto-input').value;
             const hash = document.getElementById('usdt-hash-input').value;
             const monto = parseFloat(montoStr);
@@ -881,31 +895,33 @@
                 return;
             }
 
-            const now = new Date();
-            const fechaStr = now.toLocaleDateString() + ", " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-
-            const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
-            const newDeposit = {
-                id: Date.now(),
-                user: currentUser || 'Usuario',
-                type: 'Depósito USDT',
-                playerId: 'N/A',
-                amount: monto,
-                currency: 'usdt',
-                action: 'CREDIT',
-                detail: `Hash: ${hash.substring(0,8)}...`,
-                date: fechaStr,
-                status: 'Proceso'
-            };
-
-            orders.unshift(newDeposit);
-            localStorage.setItem('dl_orders', JSON.stringify(orders));
-            
-            showNotification(`DEPÓSITO DE $${monto.toFixed(2)} USDT ENVIADO AL ADMIN`);
-            switchMainTab('orders');
+            try {
+                let res = await fetch('/api/deposit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: currentUser,
+                        type: 'Depósito USDT',
+                        amount: monto,
+                        currency: 'usdt',
+                        action: 'CREDIT',
+                        detail: `Hash: ${hash.substring(0,8)}...`
+                    })
+                });
+                let data = await res.json();
+                if(data.success) {
+                    showNotification(`DEPÓSITO DE $${monto.toFixed(2)} USDT ENVIADO AL ADMIN`);
+                    switchMainTab('orders');
+                    loadOrdersFromCloud();
+                } else {
+                    showNotification(data.message || "Error al registrar depósito.");
+                }
+            } catch(e) {
+                showNotification("Error de red con el servidor.");
+            }
         }
 
-        function submitOrder() {
+        async function submitOrder() {
             const playerId = document.getElementById('player-id-input').value;
 
             if(!playerId || !selectedPkg) {
@@ -913,42 +929,44 @@
                 return;
             }
 
-            let userData = getUserData(currentUser);
-            if(selectedCurrency === 'saldo' && userData.balance < selectedPrice) {
-                showNotification(`Saldo insuficiente. Tienes ${userData.balance.toFixed(0)} y necesitas ${selectedPrice} saldo.`);
+            if(selectedCurrency === 'saldo' && cachedUserData.balance < selectedPrice) {
+                showNotification(`Saldo insuficiente. Tienes ${cachedUserData.balance.toFixed(0)} y necesitas ${selectedPrice} saldo.`);
                 return;
             }
-            if(selectedCurrency === 'usdt' && userData.usdtBalance < selectedPrice) {
-                showNotification(`USDT insuficiente. Tienes $${userData.usdtBalance.toFixed(2)} y necesitas $${selectedPrice} USDT.`);
+            if(selectedCurrency === 'usdt' && cachedUserData.usdtBalance < selectedPrice) {
+                showNotification(`USDT insuficiente. Tienes $${cachedUserData.usdtBalance.toFixed(2)} y necesitas $${selectedPrice} USDT.`);
                 return;
             }
 
-            const now = new Date();
-            const fechaStr = now.toLocaleDateString() + ", " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-
-            const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
-            const newOrder = {
-                id: Date.now(),
-                user: currentUser || 'Usuario',
-                type: selectedPkg,
-                playerId: playerId,
-                amount: selectedPrice,
-                currency: selectedCurrency,
-                action: 'DEBIT',
-                detail: `Compra de Paquete Free Fire`,
-                date: fechaStr,
-                status: 'Proceso'
-            };
-
-            orders.unshift(newOrder);
-            localStorage.setItem('dl_orders', JSON.stringify(orders));
-            
-            showNotification("COMPRA ENVIADA AL ADMIN para su validación");
-            switchMainTab('orders');
+            try {
+                let res = await fetch('/api/order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: currentUser,
+                        type: selectedPkg,
+                        playerId: playerId,
+                        amount: selectedPrice,
+                        currency: selectedCurrency,
+                        action: 'DEBIT',
+                        detail: `Compra de Paquete Free Fire`
+                    })
+                });
+                let data = await res.json();
+                if(data.success) {
+                    showNotification("COMPRA ENVIADA AL ADMIN para su validación");
+                    switchMainTab('orders');
+                    loadOrdersFromCloud();
+                    loadUserDataFromCloud();
+                } else {
+                    showNotification(data.message || "Error al procesar compra.");
+                }
+            } catch(e) {
+                showNotification("Error de red con el servidor.");
+            }
         }
 
         function renderOrders() {
-            const orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
             const userContainer = document.getElementById('orders-list-container');
             const adminContainer = document.getElementById('admin-orders-list');
             const usersAdminContainer = document.getElementById('admin-users-list');
@@ -957,7 +975,7 @@
             adminContainer.innerHTML = '';
             usersAdminContainer.innerHTML = '';
 
-            const myOrders = orders.filter(o => o.user === currentUser);
+            const myOrders = cachedOrders.filter(o => o.user === currentUser);
 
             if(myOrders.length === 0) {
                 userContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">No tienes depósitos ni pedidos registrados.</p>';
@@ -1025,7 +1043,7 @@
             }
 
             if(currentUser && currentUser.toLowerCase() === 'admin') {
-                const pendingOrders = orders.filter(o => o.status === 'Proceso');
+                const pendingOrders = cachedOrders.filter(o => o.status === 'Proceso');
                 if(pendingOrders.length === 0) {
                     adminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay comprobantes pendientes en este momento.</p>';
                 } else {
@@ -1059,11 +1077,10 @@
                     });
                 }
 
-                let allUsers = JSON.parse(localStorage.getItem('dl_users') || '[]');
-                if(allUsers.length === 0) {
+                if(cachedAllUsers.length === 0) {
                     usersAdminContainer.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted);">No hay otros usuarios registrados aún.</p>';
                 } else {
-                    allUsers.forEach(u => {
+                    cachedAllUsers.forEach(u => {
                         usersAdminContainer.innerHTML += `
                             <div class="user-data-card">
                                 <div><strong>Usuario:</strong> ${u.username}</div>
@@ -1076,25 +1093,23 @@
             }
         }
 
-        function updateOrderStatus(orderId, newStatus) {
-            let orders = JSON.parse(localStorage.getItem('dl_orders') || '[]');
-            let targetOrder = orders.find(o => o.id === orderId);
-
-            if(targetOrder && targetOrder.status === 'Proceso') {
-                targetOrder.status = newStatus;
-                
-                if(newStatus === 'Aprobado') {
-                    if(targetOrder.action === 'CREDIT') {
-                        modifyUserBalance(targetOrder.user, targetOrder.amount, targetOrder.currency);
-                    } else if(targetOrder.action === 'DEBIT') {
-                        modifyUserBalance(targetOrder.user, -targetOrder.amount, targetOrder.currency);
-                    }
+        async function updateOrderStatus(orderId, newStatus) {
+            try {
+                let res = await fetch('/api/admin/order-status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ orderId, status: newStatus })
+                });
+                let data = await res.json();
+                if(data.success) {
+                    showNotification(`¡Solicitud ${newStatus.toLowerCase()} correctamente!`);
+                    loadOrdersFromCloud();
+                    loadUserDataFromCloud();
+                } else {
+                    showNotification(data.message || "Error al actualizar estado.");
                 }
-
-                localStorage.setItem('dl_orders', JSON.stringify(orders));
-                showNotification(`¡Solicitud ${newStatus.toLowerCase()} correctamente!`);
-                renderOrders();
-                updateUIBalances();
+            } catch(e) {
+                showNotification("Error de conexión con el servidor.");
             }
         }
     </script>
