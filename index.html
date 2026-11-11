@@ -632,6 +632,11 @@
     </div>
 
     <script>
+        // ==========================================
+        // CONFIGURACIÓN DE TU WORKER DE CLOUDFLARE
+        // ==========================================
+        const API_BASE = 'https://diamons-api.tu-usuario.workers.dev'; // <--- CAMBIA ESTA URL POR LA REAL DE TU CLOUDFLARE WORKER
+
         let selectedPkg = null;
         let selectedPrice = 0;
         let selectedCurrency = 'saldo';
@@ -691,7 +696,7 @@
             if(!userInput || !passInput) return;
 
             try {
-                let response = await fetch('/api/login', {
+                let response = await fetch(`${API_BASE}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username: userInput, password: passInput })
@@ -711,7 +716,7 @@
                     showNotification(data.message || "Usuario o contraseña incorrectos.");
                 }
             } catch (err) {
-                showNotification("Error de conexión con el servidor cloud.");
+                showNotification("Error de conexión con la nube.");
             }
         }
 
@@ -729,7 +734,7 @@
             }
 
             try {
-                let response = await fetch('/api/register', {
+                let response = await fetch(`${API_BASE}/api/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username: u, email: email, password: pass })
@@ -756,7 +761,7 @@
         async function loadUserDataFromCloud() {
             if(!currentUser) return;
             try {
-                let response = await fetch(`/api/user?username=${encodeURIComponent(currentUser)}`);
+                let response = await fetch(`${API_BASE}/api/user?username=${encodeURIComponent(currentUser)}`);
                 let data = await response.json();
                 if(data.success) {
                     cachedUserData = {
@@ -773,7 +778,7 @@
         async function loadOrdersFromCloud() {
             if(!currentUser) return;
             try {
-                let response = await fetch(`/api/orders?username=${encodeURIComponent(currentUser)}`);
+                let response = await fetch(`${API_BASE}/api/orders?username=${encodeURIComponent(currentUser)}`);
                 let data = await response.json();
                 if(data.success) {
                     cachedOrders = data.orders || [];
@@ -860,7 +865,7 @@
             }
 
             try {
-                let res = await fetch('/api/deposit', {
+                let res = await fetch(`${API_BASE}/api/deposit`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -896,7 +901,7 @@
             }
 
             try {
-                let res = await fetch('/api/deposit', {
+                let res = await fetch(`${API_BASE}/api/deposit`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -939,7 +944,7 @@
             }
 
             try {
-                let res = await fetch('/api/order', {
+                let res = await fetch(`${API_BASE}/api/order`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1095,7 +1100,7 @@
 
         async function updateOrderStatus(orderId, newStatus) {
             try {
-                let res = await fetch('/api/admin/order-status', {
+                let res = await fetch(`${API_BASE}/api/admin/order-status`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ orderId, status: newStatus })
