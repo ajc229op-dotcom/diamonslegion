@@ -742,7 +742,8 @@
                 if(data.success) { showNotification(`Actualizado a ${newStatus}`); loadOrdersFromCloud(); }
                 else { showNotification(data.message || "Error al actualizar."); }
             } catch(e) { showNotification("Error de red."); }
-        }
+       } 
+        <script src="front-patch.js"></script>
     </script>
 </body>
 </html>
