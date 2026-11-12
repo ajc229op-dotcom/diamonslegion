@@ -1,7 +1,8 @@
+
 // Cloudflare Worker + D1. Bindings: DB (D1). Secrets: JWT_SECRET. Opcionales: WALLET, ORIGIN.
 const USDT = '0x55d398326f99059ff775485246999027b3197955';
 const TRANSFER = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
-const PKGS = const PKGS = {
+const PKGS = {
   s1: { name: '110 Diamantes (Saldo)', price: 254, cur: 'saldo' },
   s2: { name: '341 Diamantes (Saldo)', price: 761, cur: 'saldo' },
   s3: { name: '572 Diamantes (Saldo)', price: 1287, cur: 'saldo' },
@@ -15,7 +16,6 @@ const PKGS = const PKGS = {
   u5: { name: '2398 Diamantes (USDT)', price: 14.60, cur: 'usdt' },
   u6: { name: '6160 Diamantes (USDT)', price: 36.85, cur: 'usdt' },
 };
-  s1: { name: '};
 const enc = new TextEncoder();
 const b64 = b => btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 const unb64 = s => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
