@@ -1,8 +1,8 @@
-name = "diamons-api"
+name = "diamonslegion"
 main = "worker.js"
 compatibility_date = "2026-03-01"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "diamons-db"
-database_id = "6ba4ce9c3f4363f09ec8a18531d22cec"
+database_name = "diamonslegion"
+database_id = "06541dac-7399-483e-a127-27ddcc7f4db3"
