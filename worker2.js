@@ -1,13 +1,21 @@
 // Cloudflare Worker + D1. Bindings: DB (D1). Secrets: JWT_SECRET. Opcionales: WALLET, ORIGIN.
 const USDT = '0x55d398326f99059ff775485246999027b3197955';
 const TRANSFER = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
-const PKGS = {
-  s1: { name: '100+10 Diamantes (Saldo)', price: 300, cur: 'saldo' },
-  s2: { name: '310+51 Diamantes (Saldo)', price: 810, cur: 'saldo' },
-  s3: { name: '520+52 Diamantes (Saldo)', price: 1360, cur: 'saldo' },
-  u1: { name: '100+10 Diamantes (USDT)', price: 0.99, cur: 'usdt' },
-  u2: { name: '310+31 Diamantes (USDT)', price: 2.99, cur: 'usdt' },
+const PKGS = const PKGS = {
+  s1: { name: '110 Diamantes (Saldo)', price: 254, cur: 'saldo' },
+  s2: { name: '341 Diamantes (Saldo)', price: 761, cur: 'saldo' },
+  s3: { name: '572 Diamantes (Saldo)', price: 1287, cur: 'saldo' },
+  s4: { name: '1166 Diamantes (Saldo)', price: 2392, cur: 'saldo' },
+  s5: { name: '2398 Diamantes (Saldo)', price: 4745, cur: 'saldo' },
+  s6: { name: '6160 Diamantes (Saldo)', price: 11976, cur: 'saldo' },
+  u1: { name: '110 Diamantes (USDT)', price: 0.78, cur: 'usdt' },
+  u2: { name: '341 Diamantes (USDT)', price: 2.34, cur: 'usdt' },
+  u3: { name: '572 Diamantes (USDT)', price: 3.96, cur: 'usdt' },
+  u4: { name: '1166 Diamantes (USDT)', price: 7.36, cur: 'usdt' },
+  u5: { name: '2398 Diamantes (USDT)', price: 14.60, cur: 'usdt' },
+  u6: { name: '6160 Diamantes (USDT)', price: 36.85, cur: 'usdt' },
 };
+  s1: { name: '};
 const enc = new TextEncoder();
 const b64 = b => btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 const unb64 = s => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
