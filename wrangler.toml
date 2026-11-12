@@ -1,5 +1,5 @@
 name = "diamonslegion"
-main = "worker.js"
+main = "worker2.js"
 compatibility_date = "2026-03-01"
 
 [[d1_databases]]
