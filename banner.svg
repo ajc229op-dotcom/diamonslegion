@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 840"><defs>
+<radialGradient id="disc" cx="50%" cy="36%" r="70%"><stop offset="0" stop-color="#3d2b09"/><stop offset=".55" stop-color="#120c04"/><stop offset="1" stop-color="#000"/></radialGradient>
+<radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd35a" stop-opacity=".9"/><stop offset="1" stop-color="#ffd35a" stop-opacity="0"/></radialGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff7c2"/><stop offset=".35" stop-color="#ffd35a"/><stop offset=".65" stop-color="#e7a417"/><stop offset="1" stop-color="#8f5f06"/></linearGradient>
+<linearGradient id="goldH" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8f5f06"/><stop offset=".5" stop-color="#ffe9a0"/><stop offset="1" stop-color="#c98f0e"/></linearGradient>
+<linearGradient id="ringg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff7c2"/><stop offset=".25" stop-color="#ffc531"/><stop offset=".5" stop-color="#8f5f06"/><stop offset=".75" stop-color="#ffe9a0"/><stop offset="1" stop-color="#b8860b"/></linearGradient>
+<linearGradient id="silver" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#fff3c9"/><stop offset=".75" stop-color="#d9c07a"/><stop offset="1" stop-color="#a8883a"/></linearGradient>
+<filter id="bl" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="12"/></filter>
+<filter id="bs" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+<filter id="bg2" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="18"/></filter>
+<g id="g" stroke="#fff3b0" stroke-width="1.5" stroke-linejoin="round">
+<polygon points="20,0 80,0 70,30 30,30" fill="#fff8d6"/><polygon points="0,30 20,0 30,30" fill="#ffe08a"/>
+<polygon points="100,30 80,0 70,30" fill="#ffd45c"/><polygon points="0,30 30,30 50,90" fill="#e0a21a"/>
+<polygon points="30,30 70,30 50,90" fill="#ffc531"/><polygon points="70,30 100,30 50,90" fill="#a8740a"/>
+</g>
+<path id="dm" d="M0-14L14 0 0 14-14 0Z" fill="url(#gold)"/>
+<g id="fl"><path d="M0-70Q2.5-2.5 70 0Q2.5 2.5 0 70Q-2.5 2.5-70 0Q-2.5-2.5 0-70Z" fill="#fff"/><ellipse rx="100" ry="1.6" fill="#fff" opacity=".8"/><circle r="6" fill="#fff"/></g>
+</defs>
+<radialGradient id="bgb" cx="50%" cy="42%" r="75%"><stop offset="0" stop-color="#3a2808"/><stop offset=".55" stop-color="#100a04"/><stop offset="1" stop-color="#000"/></radialGradient>
+<rect width="1200" height="840" fill="url(#bgb)"/>
+<circle cx="600" cy="372" r="560" fill="none" stroke="#ffd35a" stroke-width="800" stroke-dasharray="16 70" opacity=".05"/>
+<g fill="#ffd35a" filter="url(#bs)"><circle cx="120" cy="120" r="18" opacity="0.18"/><circle cx="260" cy="640" r="12" opacity="0.2"/><circle cx="1080" cy="150" r="22" opacity="0.15"/><circle cx="1120" cy="430" r="13" opacity="0.22"/><circle cx="80" cy="420" r="14" opacity="0.2"/><circle cx="1100" cy="700" r="20" opacity="0.15"/><circle cx="200" cy="780" r="16" opacity="0.15"/><circle cx="980" cy="790" r="24" opacity="0.12"/><circle cx="330" cy="60" r="9" opacity="0.25"/><circle cx="900" cy="60" r="10" opacity="0.25"/><circle cx="1000" cy="560" r="9" opacity="0.22"/><circle cx="150" cy="560" r="10" opacity="0.22"/></g>
+<use href="#fl" transform="translate(130 300) scale(.6)"/><use href="#fl" transform="translate(1075 270) scale(.65)"/><use href="#fl" transform="translate(90 640) scale(.45)"/><use href="#fl" transform="translate(1110 600) scale(.45)"/>
+<g transform="translate(600 372) scale(.72) translate(-500 -500)"><g id="em">
+<circle cx="500" cy="500" r="470" fill="none" stroke="#ffd35a" stroke-width="26" filter="url(#bg2)" opacity=".6"/>
+<circle cx="500" cy="500" r="462" fill="url(#disc)"/>
+<circle cx="500" cy="500" r="470" fill="none" stroke="url(#ringg)" stroke-width="16"/>
+<circle cx="500" cy="500" r="446" fill="none" stroke="#ffd35a" stroke-width="3" opacity=".85"/>
+<circle cx="500" cy="500" r="432" fill="none" stroke="#8f5f06" stroke-width="6" opacity=".8"/>
+<g id="fo"><path d="M105 520C120 410 250 330 372 385C270 365 175 420 105 520Z" fill="url(#goldH)"/>
+<path d="M140 505C175 435 255 392 348 408C272 398 205 440 140 505Z" fill="#fff3b0" opacity=".85"/></g>
+<use href="#fo" transform="translate(1000 0) scale(-1 1)"/>
+<ellipse cx="500" cy="380" rx="340" ry="230" fill="url(#glow)" opacity=".55" filter="url(#bs)"/>
+<g stroke="#fff3b0" stroke-width="2.5" stroke-linejoin="round">
+<polygon points="370,215 630,215 612,255 388,255" fill="#fff8d6"/>
+<polygon points="250,300 370,215 388,255" fill="#ffe08a"/><polygon points="250,300 388,255 345,300" fill="#ffd35a"/>
+<polygon points="345,300 388,255 430,300" fill="#ffefb0"/>
+<polygon points="388,255 612,255 570,300 430,300" fill="#ffc531"/>
+<polygon points="655,300 612,255 570,300" fill="#fff0b8"/><polygon points="750,300 612,255 655,300" fill="#e0a21a"/>
+<polygon points="750,300 630,215 612,255" fill="#c9910f"/>
+<polygon points="250,300 345,300 500,520" fill="#c98f0e"/><polygon points="345,300 430,300 500,520" fill="#ffd35a"/>
+<polygon points="430,300 500,300 500,520" fill="#fff0b8"/><polygon points="500,300 570,300 500,520" fill="#e7a417"/>
+<polygon points="570,300 655,300 500,520" fill="#ffc531"/><polygon points="655,300 750,300 500,520" fill="#8f5f06"/>
+</g>
+<polygon points="430,300 500,300 485,410" fill="#fff" opacity=".4"/><polygon points="345,300 430,300 440,385" fill="#fff" opacity=".2"/>
+<polygon points="570,300 655,300 545,430" fill="#5a3d05" opacity=".25"/><polygon points="388,255 430,300 345,300" fill="#fff" opacity=".35"/>
+<use href="#fl" transform="translate(335 262) scale(.8)" filter="url(#bs)" opacity=".8"/><use href="#fl" transform="translate(335 262) scale(.8)"/>
+<use href="#fl" transform="translate(690 335) scale(.5)"/><use href="#fl" transform="translate(500 380) scale(.35)" opacity=".8"/>
+<path d="M370 210L350 125L405 165L430 100L465 165L500 75L535 165L570 100L595 165L650 125L630 210Z" fill="url(#gold)" stroke="#8f5f06" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="350" cy="125" r="11" fill="url(#gold)" stroke="#8f5f06" stroke-width="2"/><circle cx="430" cy="100" r="11" fill="url(#gold)" stroke="#8f5f06" stroke-width="2"/><circle cx="500" cy="75" r="11" fill="url(#gold)" stroke="#8f5f06" stroke-width="2"/><circle cx="570" cy="100" r="11" fill="url(#gold)" stroke="#8f5f06" stroke-width="2"/><circle cx="650" cy="125" r="11" fill="url(#gold)" stroke="#8f5f06" stroke-width="2"/>
+<rect x="368" y="186" width="264" height="28" rx="5" fill="url(#gold)" stroke="#8f5f06" stroke-width="3"/>
+<path d="M0-11L8 0 0 11-8 0Z" fill="#fff" stroke="#b8860b" stroke-width="1.5" transform="translate(410 200)"/><path d="M0-11L8 0 0 11-8 0Z" fill="#fff" stroke="#b8860b" stroke-width="1.5" transform="translate(455 200)"/><path d="M0-11L8 0 0 11-8 0Z" fill="#fff" stroke="#b8860b" stroke-width="1.5" transform="translate(500 200)"/><path d="M0-11L8 0 0 11-8 0Z" fill="#fff" stroke="#b8860b" stroke-width="1.5" transform="translate(545 200)"/><path d="M0-11L8 0 0 11-8 0Z" fill="#fff" stroke="#b8860b" stroke-width="1.5" transform="translate(590 200)"/>
+<path d="M500 108l10 14-10 14-10-14z" fill="#fff" stroke="#b8860b" stroke-width="2"/>
+<g font-family="Georgia,'Times New Roman',serif" font-weight="700" text-anchor="middle" lengthAdjust="spacingAndGlyphs">
+<text x="500" y="652" font-size="150" textLength="640" fill="#4a3004">DIAMONS</text>
+<text x="500" y="646" font-size="150" textLength="640" fill="#8a5e08">DIAMONS</text>
+<text x="500" y="640" font-size="150" textLength="640" fill="#ffd35a" filter="url(#bl)" opacity=".6">DIAMONS</text>
+<text x="500" y="640" font-size="150" textLength="640" fill="url(#gold)" stroke="#5a3d05" stroke-width="3" paint-order="stroke">DIAMONS</text>
+<text x="500" y="777" font-size="130" textLength="580" fill="#8a5e08">LEGIÓN</text>
+<text x="500" y="771" font-size="130" textLength="580" fill="#b8860b">LEGIÓN</text>
+<text x="500" y="765" font-size="130" textLength="580" fill="url(#silver)" stroke="#8a5e08" stroke-width="3" paint-order="stroke">LEGIÓN</text>
+<text x="500" y="822" font-size="32" textLength="260" fill="url(#gold)">RECARGAS</text>
+</g>
+<path d="M225 812H345M655 812H775" stroke="url(#goldH)" stroke-width="3" stroke-linecap="round"/>
+<use href="#g" transform="translate(478 836) scale(.45)"/>
+<path d="M395 858H460M540 858H605" stroke="url(#goldH)" stroke-width="3" stroke-linecap="round"/>
+<use href="#fl" transform="translate(160 200) scale(.7)" filter="url(#bs)"/><use href="#fl" transform="translate(160 200) scale(.7)"/>
+<use href="#fl" transform="translate(845 805) scale(.6)"/><use href="#fl" transform="translate(840 190) scale(.45)"/>
+<use href="#fl" transform="translate(300 585) scale(.3)"/><use href="#fl" transform="translate(705 745) scale(.3)"/>
+</g></g>
+</svg>
