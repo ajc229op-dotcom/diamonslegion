@@ -277,3 +277,232 @@ function toggleTheme() { applyTheme(document.documentElement.dataset.theme === '
   document.getElementById('auth-screen').appendChild(ab);
   const tg = localStorage.getItem('dl_theme'); applyTheme(tg === 'light' ? 'light' : 'dark');
 })();
+
+// ===== DIAMONS LEGION: PREMIUM GOLD LED =====
+const premiumLed = document.createElement('style');
+premiumLed.textContent = `
+
+:root {
+  --primary-neon: #ffd45a !important;
+  --accent-neon: #fff1b8 !important;
+  --border-color: #98701c !important;
+  --neon-glow: 0 0 12px rgba(255,205,75,.35) !important;
+  --neon-glow-strong: 0 0 24px rgba(255,205,75,.55) !important;
+}
+
+/* FONDOS LIMPIOS: SIN NEBLINA */
+html, body {
+  background-image: none !important;
+  backdrop-filter: none !important;
+}
+
+.navbar, .app-bottom-nav {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: #100d08 !important;
+  border: 1px solid #b58b32 !important;
+  box-shadow: 0 4px 18px rgba(0,0,0,.55),
+              0 0 12px rgba(255,205,75,.16) !important;
+}
+
+/* TARJETAS: RESPLANDOR DE ESQUINA A ESQUINA */
+.diamond-card,
+.pk,
+.wallet-card-option,
+.wallet-box-detail,
+.ticket-receipt-card,
+.admin-req-card,
+.user-data-card,
+.auth-container,
+.game-poster,
+.game-banner-card {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate;
+  border: 1px solid rgba(255,205,75,.65) !important;
+  box-shadow: 0 5px 18px rgba(0,0,0,.4),
+              0 0 9px rgba(255,205,75,.16) !important;
+  transition: transform .3s ease, box-shadow .3s ease !important;
+}
+
+/* LUZ ANIMADA ALREDEDOR DE CADA TARJETA */
+.diamond-card::after,
+.pk::after,
+.wallet-card-option::after,
+.wallet-box-detail::after,
+.ticket-receipt-card::after,
+.admin-req-card::after,
+.user-data-card::after,
+.auth-container::after,
+.game-poster::after,
+.game-banner-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 25%,
+    #fff8d9 38%,
+    #ffd45a 48%,
+    #fff 53%,
+    #c58a19 62%,
+    transparent 78%,
+    transparent 100%
+  );
+  background-size: 250% 250%;
+  animation: goldCornerGlow 4s linear infinite;
+  opacity: .8;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+@keyframes goldCornerGlow {
+  0% { background-position: 100% 0%; }
+  100% { background-position: -100% 100%; }
+}
+
+/* EFECTO AL SELECCIONAR TARJETAS */
+.diamond-card:hover,
+.diamond-card.selected,
+.pk:hover,
+.pk.selected,
+.game-poster:hover,
+.wallet-card-option:hover {
+  transform: translateY(-4px) scale(1.015) !important;
+  border-color: #fff0b0 !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.45),
+              0 0 18px rgba(255,205,75,.45) !important;
+}
+
+/* BOTONES LED */
+button,
+.btn-main,
+.nav-item-btn,
+.game-banner-btn,
+.pay-tab-btn {
+  transition: transform .2s ease,
+              box-shadow .25s ease,
+              filter .25s ease !important;
+}
+
+.btn-main,
+.pay-tab-btn.active,
+.auth-tab.active,
+.game-banner-btn {
+  background: linear-gradient(135deg,
+    #fff0b0 0%,
+    #ffd45a 35%,
+    #bd841d 100%) !important;
+  color: #211707 !important;
+  border: 1px solid #fff0b0 !important;
+  box-shadow: 0 0 9px rgba(255,205,75,.4),
+              inset 0 1px 2px rgba(255,255,255,.55) !important;
+}
+
+button:hover,
+.btn-main:hover,
+.nav-item-btn:hover {
+  filter: brightness(1.16) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 0 17px rgba(255,205,75,.55) !important;
+}
+
+button:active,
+.btn-main:active {
+  transform: scale(.96) !important;
+}
+
+/* DETALLES DORADOS */
+.section-title,
+.nav-brand-title span,
+.diamond-card-content h4,
+.diamond-price-badge {
+  color: #ffd45a !important;
+  text-shadow: 0 0 9px rgba(255,205,75,.35) !important;
+}
+
+.diamond-price-badge {
+  border: 1px solid #d4a83e !important;
+  background: #151008 !important;
+}
+
+/* TEMA OSCURO */
+html:not([data-theme="light"]) {
+  --bg-main: #090806;
+  --bg-card: #15120c;
+  --text-main: #fffaf0;
+  --text-muted: #c4b58d;
+}
+
+html:not([data-theme="light"]) .diamond-card,
+html:not([data-theme="light"]) .pk,
+html:not([data-theme="light"]) .ticket-receipt-card {
+  background: linear-gradient(145deg,#211a0d,#100d08) !important;
+}
+
+/* TEMA CLARO: BLANCO Y ORO */
+html[data-theme="light"] {
+  --bg-main: #fff;
+  --bg-card: #fff;
+  --text-main: #211a0d;
+  --text-muted: #716044;
+  --primary-neon: #bd841d !important;
+  --border-color: #d8b45c !important;
+}
+
+html[data-theme="light"],
+html[data-theme="light"] body {
+  background: #fff !important;
+  background-image: none !important;
+}
+
+html[data-theme="light"] .navbar,
+html[data-theme="light"] .app-bottom-nav {
+  background: #fff !important;
+  border-color: #d8b45c !important;
+  box-shadow: 0 4px 16px rgba(120,85,20,.13) !important;
+}
+
+html[data-theme="light"] .diamond-card,
+html[data-theme="light"] .pk,
+html[data-theme="light"] .wallet-card-option,
+html[data-theme="light"] .wallet-box-detail,
+html[data-theme="light"] .ticket-receipt-card,
+html[data-theme="light"] .admin-req-card,
+html[data-theme="light"] .user-data-card,
+html[data-theme="light"] .auth-container {
+  background: linear-gradient(145deg,#fff,#fffaf0) !important;
+  color: #211a0d !important;
+}
+
+html[data-theme="light"] .form-control,
+html[data-theme="light"] .wallet-address-box {
+  background: #fff !important;
+  color: #211a0d !important;
+  border-color: #d8b45c !important;
+}
+
+html[data-theme="light"] .diamond-price-badge {
+  background: #fff8e6 !important;
+  color: #91600d !important;
+}
+
+/* ANIMACIONES MÁS SUAVES EN MÓVILES */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+`;
+document.head.appendChild(premiumLed);
+// ===== FIN PREMIUM GOLD LED =====
