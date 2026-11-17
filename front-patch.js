@@ -917,4 +917,78 @@ html[data-theme="light"] .game-poster{
   }
 }
 `;
+// DIAMONS LEGIÓN — LED NEÓN DORADO SOLO EN CARTELES + FUENTE PROFESIONAL
+
+goldCss.textContent += `
+/* TIPOGRAFÍA PROFESIONAL */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+html, body, button, input, select, textarea,
+h1, h2, h3, h4, p, span, a, label {
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* MARCO NEÓN EXCLUSIVO DE LOS CARTELES */
+.game-poster {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  border-radius: 14px !important;
+}
+
+/* LUZ DORADA QUE RECORRE EL CONTORNO */
+.game-poster::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 10;
+
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 275deg,
+    #8a5700 290deg,
+    #ffbf00 310deg,
+    #fff4b0 325deg,
+    #ffffff 332deg,
+    #ffd700 340deg,
+    #ffae00 350deg,
+    transparent 360deg
+  );
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  filter:
+    drop-shadow(0 0 3px #ffd700)
+    drop-shadow(0 0 7px #ffb700);
+
+  animation: dlPosterGoldNeon 2.8s linear infinite;
+}
+
+@keyframes dlPosterGoldNeon {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* RESPETA LAS FOTOGRAFÍAS Y EL CONTENIDO */
+.game-poster img {
+  position: relative;
+  z-index: 1;
+}
+
+/* MOVIMIENTO REDUCIDO */
+@media (prefers-reduced-motion: reduce) {
+  .game-poster::before {
+    animation: none !important;
+  }
+}
+`;
 
