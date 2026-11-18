@@ -1881,3 +1881,149 @@ async function dlAnnDelete(id) {
   const _en = enter;
   enter = async function (d, s) { await _en(d, s); dlNotifLoad(); };
 })();
+// =====================================================================
+// ===== ANUNCIOS EN EL INICIO (con imagen de fondo) ===================
+// ===== PEGAR AL FINAL, despues de notificaciones.js ==================
+// =====================================================================
+
+// >>> AQUI VA LA IMAGEN DE FONDO DE LOS ANUNCIOS (cuando me la mandes la pongo) <<<
+IMG.anuncio = IMG.anuncio || '';
+
+goldCss.textContent += `
+#dl-home-ann{display:flex;flex-direction:column;gap:10px;margin:0 0 1.2rem}
+#dl-home-ann:empty{display:none}
+.dl-ha{
+  position:relative;overflow:hidden;border-radius:18px;min-height:110px;padding:16px;cursor:pointer;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:4px;
+  border:1px solid rgba(255,211,85,.85);
+  background:linear-gradient(120deg,#2a1e08,#0e0a04) center/cover no-repeat;
+  box-shadow:0 6px 18px rgba(0,0,0,.55),0 0 14px rgba(255,205,65,.2);
+  animation:dlRise .5s both;
+}
+.dl-ha::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.78) 100%);pointer-events:none}
+.dl-ha>*{position:relative}
+.dl-ha-tag{
+  position:absolute!important;top:12px;left:12px;display:inline-flex;align-items:center;gap:6px;
+  font-size:.62rem;font-weight:900;color:#1a1204;padding:3px 10px;border-radius:10px;
+  background:linear-gradient(120deg,#fff0a6,#ffd45a);box-shadow:0 2px 8px rgba(255,195,45,.4);
+}
+.dl-ha h5{margin:0;font-size:1rem;font-weight:900;color:#fff3c4;text-shadow:0 2px 8px #000}
+.dl-ha p{margin:0;font-size:.76rem;color:#f1e3b8;font-weight:600;line-height:1.35;text-shadow:0 1px 6px #000;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dl-ha-more{align-self:flex-start;margin-top:4px;font-size:.66rem;font-weight:900;color:#ffd45a}
+`;
+
+function dlHomeAnn() {
+  const home = document.getElementById('sec-home');
+  if (!home) return;
+  let box = document.getElementById('dl-home-ann');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'dl-home-ann';
+    const promo = document.getElementById('dl-promo');
+    if (promo) promo.insertAdjacentElement('afterend', box);
+    else home.insertBefore(box, home.firstChild);
+    box.addEventListener('click', e => { if (e.target.closest('.dl-ha')) dlNotifOpen(); });
+  }
+  const bg = IMG.anuncio ? `background-image:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.2)),url('${IMG.anuncio}')` : '';
+  box.innerHTML = dlNotif.items.slice(0, 3).map((i, k) => `
+    <div class="dl-ha" style="${bg};animation-delay:${k * 0.08}s">
+      <span class="dl-ha-tag"><i class="fa-solid fa-bullhorn"></i> ANUNCIO</span>
+      <h5>${esc(i.title)}</h5>
+      <p>${esc(i.body)}</p>
+      <span class="dl-ha-more">Ver todos <i class="fa-solid fa-chevron-right"></i></span>
+    </div>`).join('');
+}
+
+// se actualiza cada vez que cargan los anuncios
+(function () {
+  const _r = dlNotifRender;
+  dlNotifRender = function () { _r(); try { dlHomeAnn(); } catch (e) { console.error('Anuncios inicio:', e); } };
+  setTimeout(() => { try { dlHomeAnn(); } catch { } }, 800);
+})();
+// =====================================================================
+// ===== CARRUSEL DEL INICIO CON TUS 3 IMAGENES ========================
+// ===== PEGAR AL FINAL de tu archivo (despues de anuncios-inicio.js) ==
+// ===== Sube promo-dlc.jpg, promo-usdt.jpg y promo-regalo.jpg =========
+// ===== a la MISMA carpeta donde esta tu index.html ===================
+// =====================================================================
+
+goldCss.textContent += `
+.dl-promo.dl-img{background:#0e0a04;min-height:0}
+.dl-promo.dl-img::before{display:none}
+.dl-promo.dl-img .dl-slide{padding:0;display:block;cursor:pointer;line-height:0}
+.dl-promo.dl-img .dl-slide img{
+  width:100%;height:auto;display:block;aspect-ratio:1010/389;object-fit:cover;
+  -webkit-user-drag:none;user-select:none;
+}
+.dl-promo.dl-img .dl-dots{
+  right:auto;left:50%;transform:translateX(-50%);bottom:7px;padding:4px 8px;border-radius:10px;background:rgba(0,0,0,.45);
+}
+`;
+
+function dlPromoImgs() {
+  const home = document.getElementById('sec-home');
+  const banner = home && home.querySelector('.store-banner-img');
+  if (!home) return;
+
+  // quita el carrusel anterior (el de texto) y construye el nuevo
+  const old = document.getElementById('dl-promo');
+  if (old) old.remove();
+
+  const slides = [
+    ['promo-dlc.jpg',    '1 DLC = 1 USDT = 320 saldo', () => switchMainTab('wallet')],
+    ['promo-regalo.jpg', 'Gana 4% en DLC',             () => switchMainTab('perfil')],
+    ['promo-usdt.jpg',   'Depósito USDT automático',   () => { switchMainTab('wallet'); if (typeof openUsdtDeposit === 'function') openUsdtDeposit(); }],
+  ];
+
+  const el = document.createElement('div');
+  el.id = 'dl-promo';
+  el.className = 'dl-promo dl-img';
+  el.innerHTML = `<div class="dl-track">${slides.map((s, i) =>
+    `<div class="dl-slide" data-i="${i}"><img src="${s[0]}" alt="${s[1]}" draggable="false"></div>`).join('')}</div>
+    <div class="dl-dots">${slides.map((_, i) => `<i data-d="${i}"></i>`).join('')}</div>`;
+
+  if (banner) banner.insertAdjacentElement('afterend', el);
+  else home.insertBefore(el, home.firstChild);
+
+  // los anuncios que publicas van justo debajo del carrusel
+  const ann = document.getElementById('dl-home-ann');
+  if (ann) el.insertAdjacentElement('afterend', ann);
+
+  const track = el.querySelector('.dl-track'), dots = [...el.querySelectorAll('.dl-dots i')];
+  let cur = 0, timer, sx = 0, moved = false;
+
+  const go = n => {
+    cur = (n + slides.length) % slides.length;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('on', i === cur));
+  };
+  const start = () => {
+    clearInterval(timer);
+    timer = setInterval(() => { if (!document.hidden) go(cur + 1); }, 4500);
+  };
+
+  // toque = abre la accion; deslizar = cambia de imagen
+  el.addEventListener('touchstart', e => { sx = e.touches[0].clientX; moved = false; }, { passive: true });
+  el.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) { moved = true; go(cur + (dx < 0 ? 1 : -1)); start(); }
+  }, { passive: true });
+
+  el.addEventListener('click', e => {
+    const d = e.target.closest('i[data-d]');
+    if (d) { go(+d.dataset.d); start(); return; }
+    if (moved) { moved = false; return; }
+    const s = e.target.closest('.dl-slide');
+    if (s) slides[+s.dataset.i][2]();
+  });
+
+  go(0); start();
+}
+
+// se aplica ahora y tambien al cargar la pagina (por si el carrusel viejo aun no existia)
+(function () {
+  const run = () => { try { dlPromoImgs(); } catch (e) { console.error('Promos imagenes:', e); } };
+  if (document.readyState === 'complete') setTimeout(run, 0);
+  else window.addEventListener('load', () => setTimeout(run, 50));
+})();
