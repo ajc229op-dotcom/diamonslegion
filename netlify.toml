@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://diamonslegion.ajc229op.workers.dev/api/:splat"
+  status = 200
+  force = true
