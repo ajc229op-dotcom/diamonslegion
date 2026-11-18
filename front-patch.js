@@ -1436,3 +1436,240 @@ function dlAiSkin() {
   const mo = new MutationObserver(() => { if (apply()) mo.disconnect(); });
   mo.observe(document.body, { childList: true });
 }
+// =====================================================================
+// ===== DECORACIONES EXTRA (inspiradas en Next Level, en dorado) ======
+// ===== PEGAR AL FINAL DE TU ARCHIVO. No cambia ningún contenido. =====
+// =====================================================================
+goldCss.textContent += `
+
+/* ---------- variables por tema ---------- */
+html[data-theme="dark"]{--dl-bg:#090805;--dl-glass:rgba(255,255,255,.04)}
+html[data-theme="light"]{--dl-bg:#ffffff;--dl-glass:rgba(255,255,255,.7)}
+
+::selection{background:#ffd45a;color:#1a1204}
+*{scrollbar-width:thin;scrollbar-color:#d9ad43 transparent}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-thumb{background:linear-gradient(#fff0a6,#c98f12);border-radius:6px}
+
+/* ---------- luces de fondo (sin desenfoque, solo degradado) ---------- */
+#dl-orbs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+#dl-orbs i{position:absolute;border-radius:50%}
+#dl-orbs i:nth-child(1){width:340px;height:340px;left:-120px;top:-100px;background:radial-gradient(circle,rgba(255,200,60,.20),transparent 68%);animation:dlOrb 11s ease-in-out infinite}
+#dl-orbs i:nth-child(2){width:380px;height:380px;right:-150px;top:34%;background:radial-gradient(circle,rgba(255,225,120,.14),transparent 68%);animation:dlOrb 14s ease-in-out infinite reverse}
+#dl-orbs i:nth-child(3){width:320px;height:320px;left:-100px;bottom:-110px;background:radial-gradient(circle,rgba(214,155,25,.18),transparent 68%);animation:dlOrb 12s ease-in-out infinite}
+html[data-theme="light"] #dl-orbs i:nth-child(1){background:radial-gradient(circle,rgba(255,196,50,.22),transparent 68%)}
+html[data-theme="light"] #dl-orbs i:nth-child(2){background:radial-gradient(circle,rgba(255,215,100,.20),transparent 68%)}
+html[data-theme="light"] #dl-orbs i:nth-child(3){background:radial-gradient(circle,rgba(230,170,40,.18),transparent 68%)}
+@keyframes dlOrb{50%{transform:translate(18px,22px) scale(1.08)}}
+
+/* ---------- barras flotantes: pulso de luz dorada en el borde ---------- */
+html[data-theme="dark"] .navbar,html[data-theme="dark"] .app-bottom-nav{animation:dlBarGlow 4.5s ease-in-out infinite}
+html[data-theme="light"] .navbar,html[data-theme="light"] .app-bottom-nav{animation:dlBarGlowL 4.5s ease-in-out infinite}
+@keyframes dlBarGlow{
+  0%,100%{box-shadow:0 4px 18px rgba(0,0,0,.8),0 0 8px rgba(255,205,65,.15),inset 0 1px 0 rgba(255,240,170,.12)}
+  50%{box-shadow:0 4px 18px rgba(0,0,0,.8),0 0 20px rgba(255,205,65,.42),inset 0 1px 0 rgba(255,240,170,.3)}
+}
+@keyframes dlBarGlowL{
+  0%,100%{box-shadow:0 4px 18px rgba(0,0,0,.12),0 0 6px rgba(220,170,40,.2)}
+  50%{box-shadow:0 4px 18px rgba(0,0,0,.12),0 0 18px rgba(220,170,40,.5)}
+}
+.app-bottom-nav .nav-item-btn.active{animation:dlPillPop .35s cubic-bezier(.3,1.5,.5,1)}
+@keyframes dlPillPop{0%{transform:scale(.85)}100%{transform:scale(1)}}
+.app-bottom-nav .nav-item-btn.active i{animation:dlIconBob 2.6s ease-in-out infinite}
+@keyframes dlIconBob{50%{transform:translateY(-2px)}}
+
+/* ---------- transicion al cambiar de pantalla ---------- */
+.vista-sec:not(.hidden){animation:dlSecIn .38s cubic-bezier(.2,.8,.2,1) both}
+@keyframes dlSecIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ---------- tarjetas que entran escalonadas ---------- */
+.ticket-receipt-card,.diamond-card,.pk,.dl-stat,.wallet-card-option,.user-data-card,.admin-req-card{
+  animation:dlRise .5s cubic-bezier(.2,.8,.2,1) both;
+}
+.game-poster{animation:dlRise .55s cubic-bezier(.2,.8,.2,1) both}
+:is(.ticket-receipt-card,.diamond-card,.pk,.game-poster,.dl-stat,.wallet-card-option):nth-child(2){animation-delay:.06s}
+:is(.ticket-receipt-card,.diamond-card,.pk,.game-poster,.dl-stat,.wallet-card-option):nth-child(3){animation-delay:.12s}
+:is(.ticket-receipt-card,.diamond-card,.pk,.game-poster,.dl-stat,.wallet-card-option):nth-child(4){animation-delay:.18s}
+:is(.ticket-receipt-card,.diamond-card,.pk,.game-poster,.dl-stat,.wallet-card-option):nth-child(5){animation-delay:.24s}
+:is(.ticket-receipt-card,.diamond-card,.pk,.game-poster,.dl-stat,.wallet-card-option):nth-child(n+6){animation-delay:.3s}
+@keyframes dlRise{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+
+/* ---------- boletas: linea punteada + muescas laterales ---------- */
+.ticket-receipt-card .ticket-details-body{
+  border-top:2px dashed rgba(255,211,85,.45);margin-top:10px;padding-top:10px;
+}
+html[data-theme="light"] .ticket-receipt-card .ticket-details-body{border-top-color:#d6ad46}
+.dl-notch{
+  position:absolute;top:0;width:16px;height:16px;border-radius:50%;z-index:5;pointer-events:none;
+  background:var(--dl-bg);border:1px solid rgba(255,211,85,.65);
+}
+.dl-notch.l{left:-9px}
+.dl-notch.r{right:-9px}
+.dl-ticket-foot{
+  display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;
+  font-size:.62rem;font-weight:800;letter-spacing:.4px;color:#d9ad43;
+}
+html[data-theme="light"] .dl-ticket-foot{color:#8a620c}
+
+/* ---------- estados como pildoras con puntito ---------- */
+.ticket-status-badge{
+  display:inline-flex!important;align-items:center;gap:6px;border-radius:999px!important;
+  padding:4px 11px!important;font-size:.68rem!important;font-weight:900!important;white-space:nowrap;
+}
+.ticket-status-badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.ticket-status-badge.status-aprobado{background:rgba(16,185,129,.16)!important;color:#34d399!important;border:1px solid rgba(16,185,129,.55)!important}
+.ticket-status-badge.status-rechazado{background:rgba(239,68,68,.16)!important;color:#f87171!important;border:1px solid rgba(239,68,68,.55)!important}
+.ticket-status-badge.status-proceso{background:rgba(255,193,7,.16)!important;color:#ffd45a!important;border:1px solid rgba(255,193,7,.6)!important}
+.ticket-status-badge.status-proceso::before{animation:dlBlink 1.2s ease-in-out infinite}
+@keyframes dlBlink{50%{opacity:.25;transform:scale(.7)}}
+html[data-theme="light"] .ticket-status-badge.status-aprobado{color:#047857!important;background:#e7faf1!important}
+html[data-theme="light"] .ticket-status-badge.status-rechazado{color:#b91c1c!important;background:#fdecec!important}
+html[data-theme="light"] .ticket-status-badge.status-proceso{color:#8a620c!important;background:#fff4d0!important}
+
+/* ---------- iconos de pedidos y estadisticas con aro dorado ---------- */
+.dl-ord-ico{box-shadow:0 0 0 3px rgba(255,211,85,.18),0 4px 12px rgba(255,195,45,.4)!important}
+.dl-stat i{
+  width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 30% 25%,rgba(255,240,170,.35),rgba(255,211,85,.08));
+  border:1px solid rgba(255,211,85,.55);box-shadow:0 0 10px rgba(255,205,65,.25);
+}
+.dl-stat b{letter-spacing:.3px}
+.dl-quick button i{position:relative}
+.dl-quick button:active{transform:scale(.94)}
+.dl-quick button{transition:transform .2s,box-shadow .2s,border-color .2s}
+.dl-quick button:hover{border-color:#ffe38a;box-shadow:0 6px 16px rgba(255,195,45,.25);transform:translateY(-2px)}
+
+/* ---------- botones principales: brillo que barre ---------- */
+.btn-main,.game-banner-btn{position:relative;overflow:hidden}
+.btn-main::after{
+  content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:skewX(-20deg);animation:dlSweep 4.2s ease-in-out infinite;
+}
+@keyframes dlSweep{0%,55%{left:-60%}100%{left:130%}}
+
+/* ---------- ripple al tocar ---------- */
+.dl-rip{
+  position:absolute;border-radius:50%;pointer-events:none;z-index:9;
+  background:radial-gradient(circle,rgba(255,240,170,.7),rgba(255,211,85,0) 70%);
+  transform:scale(0);animation:dlRip .6s ease-out forwards;
+}
+@keyframes dlRip{to{transform:scale(1);opacity:0}}
+
+/* ---------- pestanas con luz ---------- */
+.dl-tabs2 button,.dl-pill,.auth-tab,.pay-tab-btn{transition:background .25s,color .25s,box-shadow .25s,transform .2s}
+.dl-tabs2 button.on{box-shadow:0 3px 12px rgba(255,195,45,.4),inset 0 1px 1px rgba(255,255,255,.7)}
+.dl-pill.on{box-shadow:0 2px 10px rgba(255,195,45,.4)}
+
+/* ---------- marca de agua de diamante en Wallet y Perfil ---------- */
+.dl-wm{
+  position:absolute;right:-18px;top:-6px;width:130px;height:130px;opacity:.1;pointer-events:none;z-index:0;
+  animation:dlFloat 6s ease-in-out infinite;
+}
+html[data-theme="light"] .dl-wm{opacity:.16}
+#sec-wallet,#sec-perfil,#sec-orders{position:relative}
+#sec-wallet>*:not(.dl-wm),#sec-perfil>*:not(.dl-wm),#sec-orders>*:not(.dl-wm){position:relative;z-index:1}
+
+/* ---------- campos de texto: brillo al enfocar ---------- */
+.form-control{transition:border-color .25s,box-shadow .25s}
+.form-control:focus{border-color:#ffd45a!important;box-shadow:0 0 0 3px rgba(255,211,85,.2),0 0 14px rgba(255,205,65,.3)!important;outline:none}
+
+/* ---------- asistente IA: anillos que laten ---------- */
+#guia-btn{animation:dlGuide 2.8s ease-out infinite}
+@keyframes dlGuide{
+  0%{box-shadow:0 6px 18px rgba(0,0,0,.6),0 0 0 0 rgba(255,205,65,.55)}
+  70%{box-shadow:0 6px 18px rgba(0,0,0,.6),0 0 0 16px rgba(255,205,65,0)}
+  100%{box-shadow:0 6px 18px rgba(0,0,0,.6),0 0 0 0 rgba(255,205,65,0)}
+}
+
+/* ---------- notificacion con entrada elastica ---------- */
+#notification-toast{border-radius:16px!important}
+#notification-toast.show,#notification-toast:not(.hidden){animation:dlToast .45s cubic-bezier(.3,1.5,.5,1)}
+@keyframes dlToast{from{transform:translate(-50%,-14px) scale(.9);opacity:0}}
+
+/* ---------- logo con respiracion ---------- */
+.nav-brand-title svg{animation:dlLogo 3.6s ease-in-out infinite}
+@keyframes dlLogo{50%{transform:scale(1.07);filter:drop-shadow(0 0 12px rgba(255,205,65,.9))}}
+
+/* ---------- promo: borde brillante ---------- */
+.dl-promo{animation:dlBarGlow 5s ease-in-out infinite}
+html[data-theme="light"] .dl-promo{animation:dlBarGlowL 5s ease-in-out infinite}
+
+/* ---------- accesibilidad ---------- */
+@media(prefers-reduced-motion:reduce){
+  #dl-orbs i,.navbar,.app-bottom-nav,.vista-sec,.ticket-receipt-card,.diamond-card,.pk,.dl-stat,
+  .wallet-card-option,.user-data-card,.admin-req-card,.game-poster,.btn-main::after,#guia-btn,
+  .dl-wm,.nav-brand-title svg,.dl-promo,.app-bottom-nav .nav-item-btn.active i,
+  .ticket-status-badge::before{animation:none!important}
+}
+`;
+
+// ---------- JS de las decoraciones extra ----------
+function dlDeco() {
+  const safe = (n, f) => { try { f(); } catch (e) { console.error('Deco extra ' + n + ':', e); } };
+  safe('orbes', () => {
+    if (document.getElementById('dl-orbs')) return;
+    const o = document.createElement('div');
+    o.id = 'dl-orbs';
+    o.innerHTML = '<i></i><i></i><i></i>';
+    document.body.appendChild(o);
+  });
+  safe('ripple', dlRipple);
+  safe('muescas', dlNotches);
+  safe('marcas', dlWatermarks);
+}
+if (document.readyState === 'complete') dlDeco(); else window.addEventListener('load', dlDeco);
+
+// onda dorada al tocar botones y tarjetas
+function dlRipple() {
+  document.addEventListener('pointerdown', e => {
+    const t = e.target.closest('.btn-main,.dl-quick button,.dl-pill,.dl-tabs2 button,.nav-item-btn,.game-poster,.diamond-card,.pk,.wallet-card-option,.dl-btn-ghost');
+    if (!t) return;
+    const cs = getComputedStyle(t);
+    if (cs.position === 'static') return;           // no tocar el layout de nadie
+    const r = t.getBoundingClientRect(), s = Math.max(r.width, r.height) * 1.6;
+    const d = document.createElement('span');
+    d.className = 'dl-rip';
+    d.style.cssText = `width:${s}px;height:${s}px;left:${e.clientX - r.left - s / 2}px;top:${e.clientY - r.top - s / 2}px`;
+    if (cs.overflow === 'visible') t.style.overflow = 'hidden';
+    t.appendChild(d);
+    setTimeout(() => d.remove(), 650);
+  }, { passive: true });
+}
+
+// muescas laterales y sello al pie de cada boleta de pedido
+function dlNotches() {
+  const box = document.getElementById('orders-list-container');
+  if (!box) return;
+  const paint = () => {
+    box.querySelectorAll('.ticket-receipt-card:not([data-dln])').forEach(c => {
+      c.dataset.dln = '1';
+      const body = c.querySelector('.ticket-details-body');
+      const y = body ? body.offsetTop - 8 : 60;
+      ['l', 'r'].forEach(k => {
+        const n = document.createElement('i');
+        n.className = 'dl-notch ' + k;
+        n.style.top = y + 'px';
+        c.appendChild(n);
+      });
+      const f = document.createElement('div');
+      f.className = 'dl-ticket-foot';
+      f.innerHTML = '<i class="fa-solid fa-shield-halved"></i> Comprobante verificado por Diamons Legión';
+      c.appendChild(f);
+    });
+  };
+  new MutationObserver(paint).observe(box, { childList: true });
+  paint();
+}
+
+// diamante dorado de fondo en Wallet, Pedidos y Perfil
+function dlWatermarks() {
+  const svg = `<svg class="dl-wm" viewBox="0 0 100 100"><g stroke="#ffd45a" stroke-width="1.5" stroke-linejoin="round">
+    <polygon points="20,10 80,10 70,38 30,38" fill="#fff0a6"/><polygon points="4,38 20,10 30,38" fill="#ffd45a"/>
+    <polygon points="96,38 80,10 70,38" fill="#e0a21a"/><polygon points="4,38 30,38 50,92" fill="#d69b19"/>
+    <polygon points="30,38 70,38 50,92" fill="#ffc531"/><polygon points="70,38 96,38 50,92" fill="#a8740a"/></g></svg>`;
+  ['sec-wallet', 'sec-perfil', 'sec-orders'].forEach(id => {
+    const s = document.getElementById(id);
+    if (s && !s.querySelector('.dl-wm')) s.insertAdjacentHTML('afterbegin', svg);
+  });
+}
