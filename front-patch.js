@@ -1673,3 +1673,211 @@ function dlWatermarks() {
     if (s && !s.querySelector('.dl-wm')) s.insertAdjacentHTML('afterbegin', svg);
   });
 }
+// =====================================================================
+// ===== QUITAR BANNER DE INICIO + CAMPANA DE ANUNCIOS =================
+// ===== PEGAR AL FINAL DE TU ARCHIVO (despues de decoraciones-extra) ==
+// =====================================================================
+goldCss.textContent += `
+
+/* ---------- se quita la foto/banner "Diamons Legión" del inicio ---------- */
+#sec-home .store-banner-img,
+#sec-home .store-banner-text{display:none!important}
+
+/* ---------- campana en la barra de arriba ---------- */
+#dl-bell{position:relative;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+#dl-bell.ring i{animation:dlRing 1.4s ease-in-out infinite;transform-origin:50% 0}
+@keyframes dlRing{0%,100%{transform:rotate(0)}10%{transform:rotate(16deg)}20%{transform:rotate(-14deg)}30%{transform:rotate(10deg)}40%{transform:rotate(-8deg)}50%{transform:rotate(0)}}
+#dl-bell-badge{
+  position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;
+  background:linear-gradient(135deg,#ff6b6b,#e11d48);color:#fff;font-size:.62rem;font-weight:900;
+  display:flex;align-items:center;justify-content:center;border:2px solid #100d07;box-shadow:0 0 10px rgba(225,29,72,.6);
+}
+html[data-theme="light"] #dl-bell-badge{border-color:#fff}
+#dl-bell-badge.hidden{display:none}
+
+/* ---------- panel de anuncios ---------- */
+#dl-notif{position:fixed;inset:0;z-index:400;display:none}
+#dl-notif.open{display:block}
+#dl-notif-bg{position:absolute;inset:0;background:rgba(0,0,0,.62);animation:dlFade .25s both}
+@keyframes dlFade{from{opacity:0}}
+#dl-notif-sheet{
+  position:absolute;left:12px;right:12px;top:12px;max-height:82vh;display:flex;flex-direction:column;
+  border-radius:22px;overflow:hidden;border:1px solid rgba(255,211,85,.8);
+  background:#100d07;color:#fff0c4;box-shadow:0 12px 36px rgba(0,0,0,.7),0 0 20px rgba(255,205,65,.25);
+  animation:dlSheet .4s cubic-bezier(.2,.9,.3,1.1) both;
+}
+@keyframes dlSheet{from{opacity:0;transform:translateY(-24px) scale(.96)}}
+.dl-n-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px dashed rgba(255,211,85,.4)}
+.dl-n-head h3{margin:0;flex:1;font-size:1.05rem;font-weight:900;color:#ffdf82}
+.dl-n-x{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,211,85,.6);background:transparent;color:#ffd45a;font-size:.9rem;cursor:pointer}
+.dl-n-list{overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
+.dl-n-item{
+  position:relative;display:flex;gap:11px;padding:12px;border-radius:16px;
+  border:1px solid rgba(255,211,85,.4);background:rgba(255,255,255,.03);animation:dlRise .4s both;
+}
+.dl-n-item.new{border-color:#ffd45a;box-shadow:0 0 14px rgba(255,205,65,.25)}
+.dl-n-ico{
+  width:38px;height:38px;border-radius:12px;flex:none;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#fff0a6,#d69b19);color:#1a1204;font-size:.95rem;box-shadow:0 3px 10px rgba(255,195,45,.4);
+}
+.dl-n-txt{min-width:0;flex:1}
+.dl-n-txt h4{margin:0;font-size:.88rem;font-weight:900;color:#fff3c4;word-break:break-word}
+.dl-n-txt p{margin:4px 0 0;font-size:.76rem;color:#e8d08a;line-height:1.4;white-space:pre-wrap;word-break:break-word}
+.dl-n-time{font-size:.62rem;color:#c9b070;margin-top:6px;font-weight:700}
+.dl-n-new{position:absolute;top:10px;right:10px;width:9px;height:9px;border-radius:50%;background:#ff5a6e;box-shadow:0 0 8px #ff5a6e}
+.dl-n-del{
+  position:absolute;bottom:8px;right:8px;width:28px;height:28px;border-radius:50%;border:1px solid rgba(239,68,68,.6);
+  background:rgba(239,68,68,.12);color:#f87171;cursor:pointer;font-size:.72rem;
+}
+.dl-n-empty{text-align:center;padding:2rem 1rem;color:#c9b070;font-weight:700;font-size:.82rem}
+.dl-n-empty i{display:block;font-size:2rem;color:#d9ad43;margin-bottom:8px}
+html[data-theme="light"] #dl-notif-sheet{background:#fff;color:#33250b;border-color:#dfbd67}
+html[data-theme="light"] .dl-n-head h3{color:#8a620c}
+html[data-theme="light"] .dl-n-item{background:#fffaf0;border-color:#dfbd67}
+html[data-theme="light"] .dl-n-txt h4{color:#33250b}
+html[data-theme="light"] .dl-n-txt p{color:#6b5527}
+html[data-theme="light"] .dl-n-time,html[data-theme="light"] .dl-n-empty{color:#8a7440}
+
+/* ---------- formulario del admin ---------- */
+#dl-ann-admin{margin-top:1rem;padding:12px;border-radius:16px;border:1px dashed rgba(255,211,85,.6)}
+#dl-ann-admin h4{margin:0 0 8px;font-size:.85rem;font-weight:900;color:#ffd45a;display:flex;align-items:center;gap:7px}
+#dl-ann-admin .form-control{width:100%;margin-bottom:8px;font-size:16px}
+#dl-ann-admin textarea.form-control{min-height:84px;resize:vertical}
+html[data-theme="light"] #dl-ann-admin h4{color:#8a620c}
+
+@media(prefers-reduced-motion:reduce){#dl-bell.ring i,#dl-notif-sheet,#dl-notif-bg,.dl-n-item{animation:none!important}}
+`;
+
+// ---------- JS ----------
+const dlNotif = { items: [], open: false };
+const dlSeenKey = () => 'dl_notif_seen_' + (currentUser || 'anon');
+const dlSeen = () => Number(localStorage.getItem(dlSeenKey()) || 0);
+const dlAgo = t => {
+  const m = Math.round((Date.now() - t) / 60000);
+  return m < 1 ? 'ahora' : m < 60 ? 'hace ' + m + ' min' : m < 1440 ? 'hace ' + Math.round(m / 60) + ' h' : 'hace ' + Math.round(m / 1440) + ' d';
+};
+
+function dlNotifInit() {
+  if (document.getElementById('dl-bell')) return;
+
+  // campana: entra junto a las pastillas de arriba
+  const pills = document.querySelector('.nav-wallet-pills');
+  if (pills) {
+    const b = document.createElement('div');
+    b.id = 'dl-bell';
+    b.className = 'wallet-pill-top';
+    b.title = 'Anuncios';
+    b.innerHTML = '<i class="fa-solid fa-bell"></i><span id="dl-bell-badge" class="hidden">0</span>';
+    b.onclick = dlNotifOpen;
+    pills.insertBefore(b, pills.firstChild);
+  }
+
+  // panel
+  const p = document.createElement('div');
+  p.id = 'dl-notif';
+  p.innerHTML = `<div id="dl-notif-bg"></div>
+    <div id="dl-notif-sheet">
+      <div class="dl-n-head"><i class="fa-solid fa-bell" style="color:#ffd45a"></i><h3>Anuncios</h3><button class="dl-n-x" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="dl-n-list" id="dl-n-list"></div>
+    </div>`;
+  document.body.appendChild(p);
+  p.addEventListener('click', e => {
+    if (e.target.id === 'dl-notif-bg' || e.target.closest('.dl-n-x')) dlNotifClose();
+    const d = e.target.closest('.dl-n-del');
+    if (d) dlAnnDelete(d.dataset.id);
+  });
+
+  // formulario del admin (el servidor valida que seas admin)
+  const adm = document.getElementById('admin-panel-container');
+  if (adm && !document.getElementById('dl-ann-admin')) {
+    const f = document.createElement('div');
+    f.id = 'dl-ann-admin';
+    f.innerHTML = `<h4><i class="fa-solid fa-bullhorn"></i> Publicar anuncio</h4>
+      <input id="dl-ann-title" class="form-control" maxlength="80" placeholder="Título del anuncio">
+      <textarea id="dl-ann-body" class="form-control" maxlength="500" placeholder="Mensaje para todos los usuarios"></textarea>
+      <button class="btn-main" onclick="dlAnnPublish()"><i class="fa-solid fa-paper-plane"></i> Publicar</button>`;
+    adm.appendChild(f);
+  }
+
+  dlNotifLoad();
+  setInterval(() => { if (currentUser && !document.hidden) dlNotifLoad(); }, 45000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && currentUser) dlNotifLoad(); });
+}
+
+async function dlNotifLoad() {
+  if (!currentUser) return;
+  try {
+    const d = await api('/api/announcements');
+    dlNotif.items = d && d.success ? (d.items || []).slice().sort((a, b) => b.created - a.created) : [];
+  } catch { return; }
+  dlNotifRender();
+}
+
+function dlNotifRender() {
+  const seen = dlSeen();
+  const unread = dlNotif.items.filter(i => i.created > seen).length;
+  const badge = document.getElementById('dl-bell-badge'), bell = document.getElementById('dl-bell');
+  if (badge) { badge.textContent = unread > 9 ? '9+' : unread; badge.classList.toggle('hidden', !unread); }
+  if (bell) bell.classList.toggle('ring', unread > 0);
+
+  const list = document.getElementById('dl-n-list');
+  if (!list) return;
+  list.innerHTML = dlNotif.items.length ? dlNotif.items.map((i, k) => `
+    <div class="dl-n-item${i.created > seen ? ' new' : ''}" style="animation-delay:${Math.min(k, 6) * 0.05}s">
+      <div class="dl-n-ico"><i class="fa-solid fa-bullhorn"></i></div>
+      <div class="dl-n-txt"><h4>${esc(i.title)}</h4><p>${esc(i.body)}</p><div class="dl-n-time">${dlAgo(i.created)}</div></div>
+      ${i.created > seen ? '<span class="dl-n-new"></span>' : ''}
+      ${isAdmin ? `<button class="dl-n-del" data-id="${esc(i.id)}" title="Borrar"><i class="fa-solid fa-trash"></i></button>` : ''}
+    </div>`).join('')
+    : '<div class="dl-n-empty"><i class="fa-regular fa-bell-slash"></i>No hay anuncios por ahora.</div>';
+}
+
+function dlNotifOpen() {
+  dlNotifRender();                       // pinta primero con los "nuevos" marcados
+  document.getElementById('dl-notif').classList.add('open');
+  dlNotif.open = true;
+  dlNotifLoad();
+  // se marcan como leidos al cerrar, para que se vea cuales eran nuevos
+}
+
+function dlNotifClose() {
+  document.getElementById('dl-notif').classList.remove('open');
+  dlNotif.open = false;
+  const newest = dlNotif.items.reduce((m, i) => Math.max(m, i.created), 0);
+  if (newest) localStorage.setItem(dlSeenKey(), String(newest));
+  dlNotifRender();
+}
+
+async function dlAnnPublish() {
+  const title = document.getElementById('dl-ann-title').value.trim();
+  const body = document.getElementById('dl-ann-body').value.trim();
+  if (!title || !body) { showNotification('Escribe título y mensaje.'); return; }
+  try {
+    const d = await api('/api/admin/announcement', { title, body });
+    if (d.success) {
+      document.getElementById('dl-ann-title').value = '';
+      document.getElementById('dl-ann-body').value = '';
+      showNotification('Anuncio publicado.');
+      dlNotifLoad();
+    } else {
+      showNotification((d.message || 'No se pudo publicar.') + (d.message === 'Ruta no encontrada.' ? ' — falta subir la versión nueva del worker' : ''));
+    }
+  } catch { showNotification('Error de red.'); }
+}
+
+async function dlAnnDelete(id) {
+  if (!confirm('¿Borrar este anuncio?')) return;
+  try {
+    const d = await api('/api/admin/announcement-delete', { id });
+    showNotification(d.success ? 'Anuncio borrado.' : (d.message || 'Error.'));
+    dlNotifLoad();
+  } catch { showNotification('Error de red.'); }
+}
+
+// arranque + recarga al iniciar sesion
+(function () {
+  const go = () => { try { dlNotifInit(); } catch (e) { console.error('Anuncios:', e); } };
+  if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+  const _en = enter;
+  enter = async function (d, s) { await _en(d, s); dlNotifLoad(); };
+})();
